@@ -1,0 +1,271 @@
+package org.proyect1.Cup;
+
+import java_cup.runtime.*;
+import java.util.ArrayList;
+import java.util.Date.*;
+import org.proyect1.Objects.*;
+
+class Parser;
+
+parser code{:
+    private ArrayList<User> users = new ArrayList<User>();
+    private ArrayList<Component> components = new ArrayList<Component>();
+    private ArrayList<Trivia> trivias = new ArrayList<Trivia>();
+    private ArrayList<Error> errors = new ArrayList<Error>();
+
+    public ArrayList<User> getUsers(){
+        return this.users;
+    }
+
+    public ArrayList<Component> getComponents(){
+        return this.components;
+    }
+
+    public ArrayList<Trivia> getTrivias(){
+        return this.trivias;
+    }
+
+    public ArrayList<Error> getErrors(){
+        return this.errors;
+    }
+
+    public void addError(int line, int column, String message){
+        errors.add(new ErrorL(errorString, line, column, "Sintactico", message));
+    }
+
+    public void syntax_error(Symbol s){
+        errorString = s.value+"";
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+        String message = "Error síntactico irrecuperable en la Línea " +
+        (s.left)+ " Columna "+s.right+". Componente " + s.value +
+        " no reconocido.";
+        messages.add(message);
+    }
+
+
+:}
+
+terminal OPENXS, XSON, VERSION, EQUALS, NUMBERVERSION, ENDXS, OPENREQ, INREQUEST, COLON;
+
+non terminal endRequest, initRequest, endKeyBracket, initParametersComponent, initParametersTrivia, initDataUser;
+non terminal String optionsresponse, classComponent, typequestion;
+non terminal Component modifyComponent, deleteComponent, addComponent;
+non terminal initDataUser;
+
+
+start with in;
+
+in::= initxson statement;
+
+statement::= initRequest onerequest endRequest
+           | requests
+           | oneresponse
+           | responses
+           ;
+
+initxson::= OPENXS XSON VERSION EQUALS NUMBERVERSION ENDXS;
+
+requests::= initMoreRequest
+            initRequest
+            recursiveRequest
+            endMoreRequest
+            ;
+
+responses::= ;
+
+recursiveRequest::= initRequest onerequest endRequest recursiveRequest
+                | initRequest onerequest endRequest
+                ;
+
+onerequest::= newtrivia
+            | deletetrivia
+            | edittrivia
+            | addcomponents
+            | deletecomponent
+            | editcomponent
+            ;
+
+newtrivia::= NEWTRIVIA GREATERT
+             initParametersTrivia
+             IDTRIVIA COLON TEXT:idTrivia COMMA
+             NAME COLON TEXT:nameTrivia COMMA
+             TIMEQUESTION COLON NUMBER:timeQuestion COMMA
+             USERCREATOR COLON TEXT:userCreator COMMA
+             THEME COLON TEXT:theme COMMA
+             DATE COLON DATECREATION:dateCreation
+             endKeyBracket
+             //flag 1
+             {:
+                Trivia trivia = new Trivia(idTrivia.toStrring(), nameTrivia.toString(), timeQuestion,
+                userCreator.toString(), theme.toString(), dateCreation.toString(), 1);
+                trivias.add(trivia);
+                RESULT = trivia;
+             :}
+             | NEWTRIVIA GREATERT
+               initParametersTrivia
+               IDTRIVIA COLON TEXT:idTrivia COMMA
+               NAME COLON TEXT:nameTrivia COMMA
+               TIMEQUESTION COLON NUMBER:timeQuestion COMMA
+               USERCREATOR COLON TEXT:userCreator COMMA
+               THEME COLON TEXT:theme
+               endKeyBracket
+               //flag 1
+               {:
+                Date date = Calendar.getInstance().getTime();
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                String strDate = dateFormat.format(date);
+                Trivia trivia = new Trivia(idTrivia.toString(), nameTrivia.toString(), timeQuestion,
+                userCreator.toString, theme.toString(), strDate, 1);
+                trivias.add(trivia);
+                RESULT = trivia;
+               :}
+             | NEWTRIVIA GREATERT
+               initParametersTrivia
+               IDTRIVIA COLON TEXT:idTrivia COMMA
+               NAME COLON TEXT:nameTrivia COMMA
+               TIMEQUESTION COLON NUMBER:timeQuestion COMMA
+               THEME COLON TEXT:theme COMMA
+               DATE COLON DATECREATION:dateCreation
+               endKeyBracket
+               //flag 1
+               {:
+               Trivia trivia = new Trivia(idTrivia.toString(), nameTrivia.toString(), timeQuestion,
+               "user default", theme.toString(), dateCreation.toString(), 1);
+               trivias.add(trivia);
+               RESULT = trivia;
+               :}
+             ;
+
+deleteTrivia::= DELETETRIVIA GREATERT
+                initParametersTrivia
+                IDTRIVIA COLON TEXT:idTrivia COMMA
+                endKeyBracket
+                //flag 2
+                {:
+                    Trivia trivia = new Trivia(idTrivia.toString(), 2);
+                    trivias.add(trivia);
+                    RESULT = trivia;
+                :}
+                ;
+
+editTrivia::= EDITTRIVIA GREATERT
+              initParametersTrivia
+              IDTRIVIA COLON TEXT:idTrivia COMMA
+              TIMEQUESTION COLON NUMBER:timeQuestion COMMA
+              NAME COLON TEXT:name COMMA
+              THEME COLON TEXT:theme
+              endKeyBracket
+              //flag 3
+              {:
+                Trivia trivia = new Trivia(idTrivia.toString(), timeQuestion, name.toString(), theme.toString(), 3);
+                trivias.add(trivia);
+                RESULT = trivia;
+              :}
+              ;
+
+addcomponent::= ADDCOMPONENT GREATERT
+                initParametersComponent
+                ID COLON TEXT:idComponent COMMA
+                TRIVIA COLON TEXT:trivia COMMA
+                CLASSTRIVIA COLON classComponent:classComponent COMMA
+                TXTVISIBLE COLON TEXT:txtVisible COMMA
+                typequestion
+                endKeyBracket
+                //flag 1
+                {:
+                    Component component = new Component(idComponent.toString(), trivia.toString(),
+                    classComponent.toString(), txtVisible.toString(), 1);
+                    components.add(component);
+                    RESULT = component;
+                :}
+                ;
+
+deleteComponent::= DELETECOMPONENT GREATERT
+                   initParametersComponent
+                   ID COLON TEXT:idTrivia COMMA
+                   TRIVIA COLON TEXT:trivia
+                   endKeyBracket
+                   //flag 2
+                   {:
+                    Component component = new Component(idTrivia.toString(), trivia.toString(), 2);
+                    components.add(component);
+                    RESULT = component;
+                   :}
+                   ;
+
+modifyComponent::= EDITCOMPONENT GREATERT
+                   initParametersComponent
+                   ID COLON TEXT:id COMMA
+                   TRIVIA COLON TEXT:trivia COMMA
+                   CLASSTRIVIA COLON classComponent:classComponent COMMA
+                   INDEX COLON NUMBERVERSION:numberVersion COMMA
+                   TXTVISIBLE COLON TEXT:txtVisible COMMA
+                   typequestion:typeQuestion
+                   endKeyBracket
+                   //Flag 3
+                   {:
+                    Component component = new Component(id.toString(), trivia.toString(), classComponent.toString(),
+                    numberVersion.toString(), txtVisible.toString(), typeQuestion.toString(), 3);
+                    components.add(component);
+                    RESULT = component;
+                   :}
+                   ;
+
+typequestion::= oneresponse:oneResponse
+                {:
+                    RESULT = oneResponse.toString();
+                :}
+                | optionsresponse:optionsResponse
+                {:
+                    RESULT = optionsResponse.toString();
+                :}
+                ;
+
+oneresponse::= RESPONSETRIVIA COLON TEXT:textResponse
+               {:
+                    RESULT = textResponse.toString();
+               :}
+               ;
+
+optionsresponse::= OPTIONS COLON OPTIONSRESPONSES:optionsResponse
+                   {:
+                        RESULT = optionsResponse.toString();
+                   :}
+                   ;
+
+classComponent::= TEXTFIELD:txtField        {:RESULT = txtField.toString();:}
+                  | TEXTAREA:txtArea        {:RESULT = txtArea.toString();:}
+                  | CHECKBOX:checkBox       {:RESULT = checkBox.toString();:}
+                  | RADIO:radio             {:RESULT = radio.toString();:}
+                  | CARDINDEX:cardIndex     {:RESULT = cardIndex.toString();:}
+                  | COMBO:combo             {:RESULT = combo.toString();:}
+                  ;
+
+initDataUser::= KEYA USERDATA COLON BRACKETA KEYA;
+           // | error
+
+initParametersTrivia::= KEYA PARAMETERSTRIVIA COLON BRACKETA KEYA;
+
+initParametersComponent::= KEYA PARAMETERSCOMPONENT COLON BRACKETA KEYA;
+
+endKeyBracket::= KEYC BRACKETC KEYC;
+             //| error
+
+initRequest::= OPENREQ INREQUEST COLON;
+           // | error
+
+endRequest::= LESST EDREQUEST ENDREQ;
+
+initMoreRequest::= OPENREQ INITREQUESTS GREATERT;
+
+endMoreRequest::= OPENREQ ENDREQUESTS GREATERT;
+
+oneResponse::= OPENREQ INRESPONSE GREATERT;
+
+endResponse::= OPENREQ EDRESPONSE ENDREQ;
+
+initMoreResponses::= OPENREQ INITRESPONSES GREATERT;
+
+endMoreResponses::= OPENREQ ENDRESPONSES ENDREQ;

@@ -1,0 +1,142 @@
+package org.proyect1.Cup;
+
+import java_cup.runtime.*;
+import java.util.ArrayList;
+import org.proyect1.Objects.*;
+import org.proyect1.Errors.ErrorL;
+
+class Login;
+
+parser code{:
+    private User userUse = new User();
+    private ArrayList<ErrorL> errors = new ArrayList<ErrorL>();
+    private ArrayList<String> messages = new ArrayList<String>();
+    private String errorString = "";
+
+    public User getUser(){
+        return this.userUse;
+    }
+
+    public ArrayList<ErrorL> getErrors(){
+        return this.errors;
+    }
+
+    public void addError(int line, int column, String message){
+        errors.add(new ErrorL(errorString, line, column, "Sintactico", message));
+    }
+
+    public ArrayList<String> getMessages(){
+        return this.messages;
+    }
+
+    public void syntax_error(Symbol s){
+        errorString = s.value+"";
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+        String message = "Error síntactico irrecuperable en la Línea " +
+        (s.left)+ " Columna "+s.right+". Componente " + s.value +
+        " no reconocido.";
+        messages.add(message);
+    }
+
+:}
+
+terminal OPENXS, XSON, VERSION, EQUALS, NUMBERVERSION, ENDXS, USER, COLON, TEXT, COMMA, PASSWORD,
+         KEYA, USERDATA, BRACKETA, BRACKETC, KEYC, OPENREQ, INREQUEST, LOGINUSER, GREATERT, LESST, EDREQUEST, ENDREQ;
+
+non terminal in, initRequestLogin, initlogin, initxson, login, initDataUser, endRequest, endKeyBracket;
+non terminal String userStructure, passwordStructure;
+
+start with in;
+
+in::= initxson initlogin;
+
+initlogin::= login endRequest;
+
+initxson::= OPENXS XSON VERSION EQUALS NUMBERVERSION ENDXS;
+
+login::= initRequestLogin
+         initDataUser
+         userStructure:user
+         passwordStructure:password
+         endKeyBracket
+         //flag 4
+         {:
+            User userResult = new User(user.toString(), password.toString(), 4);
+            userUse = userResult;
+            RESULT = userUse;
+         :}
+         ;
+
+userStructure::= USER COLON TEXT:user COMMA
+                   {:
+                        RESULT = user.toString();
+                   :}
+                 | error:e
+                   {:
+                        int line       = (eleft)+1;
+                        int column     = eright;
+                        String message = "No se cumple la estructura de usuario, se espera \"PASSWORD: \"NOMBRE DEL USUARIO\" ,";
+                        addError(line, column, message);
+                        RESULT = null;
+                   :}
+                 ;
+
+passwordStructure::= PASSWORD COLON TEXT:password
+                     {:
+                        RESULT = password.toString();
+                     :}
+                     | error:e
+                     {:
+                        int line        = (eleft)+1;
+                        int column      = eright;
+                        String message = "No se cumple la estructura de usuario, se espera: \"PASSWORD: \"PASSWORD DEL USUARIO\"";
+                        addError(line, column, message);
+                        RESULT = null;
+                     :}
+                     ;
+
+initDataUser::= KEYA USERDATA COLON BRACKETA KEYA
+                | error:e
+                {:
+                    int line    = (eleft)+1;
+                    int column  = eright;
+                    String message = "No se cumple con el orden de las llaves de apertura xson";
+                    addError(line, column, message);
+                    RESULT = null;
+                :}
+                ;
+
+endKeyBracket::= KEYC BRACKETC KEYC
+                | error:e
+                {:
+                    int line    = (eleft)+1;
+                    int column  = eright;
+                    String message = "No se cumple con el orden de cierre de llaves en xson";
+                    addError(line, column, message);
+                    RESULT = null;
+                :}
+                ;
+
+initRequestLogin::= OPENREQ INREQUEST COLON LOGINUSER GREATERT
+               | error:e
+               {:
+                    int line    = (eleft)+1;
+                    int column  = eright;
+                    String message = "No se cumple con el orden para iniciar una solicitud de login";
+                    addError(line, column, message);
+                    RESULT = null;
+               :}
+               ;
+
+endRequest::= LESST EDREQUEST ENDREQ
+              | error:e
+               {:
+                    int line    = (eleft)+1;
+                    int column  = eright;
+                    String message = "No se cumple con el orden para finalizar una solicitud de llaves en xson";
+                    addError(line, column, message);
+                    RESULT = null;
+               :}
+              ;
