@@ -25,14 +25,8 @@ public class LoginServlet extends HttpServlet {
             LoginFlex loginFlex = new LoginFlex(new StringReader(text));
             Login login = new Login(loginFlex);
             System.out.println(login.parse());
-            if(login.getUser() != null){
-                System.out.println(login.getUser().getPassword());
-            }
-            if(login.getErrors() != null){
-                for (int i = 0; i < login.getErrors().size() ; i++) {
-                    System.out.println(login.getErrors().get(i).toString());
-                }
-            }
+            System.out.println(login.getUser().getUsername());
+            System.out.println(login.getUser().getPassword());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

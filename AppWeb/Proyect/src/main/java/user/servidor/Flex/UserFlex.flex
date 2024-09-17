@@ -1,14 +1,13 @@
-package user.servidor.Flex;
+package org.proyect1.Flex;
 
 import java_cup.runtime.*;
 import java.util.ArrayList;
 import user.servidor.Errors.ErrorL;
-import user.servidor.Cup.LoginSym;
 
 %%
 
 %public
-%class LoginFlex
+%class UserFlex
 %unicode
 %caseless
 %line
@@ -24,7 +23,7 @@ KEYA                =       "{"
 KEYC                =       "}"
 BRACKETA            =       "["
 BRACKETC            =       "]"
-COLON               =       ":"
+COlON               =       ":"
 COMMA               =       ","
 
 //Simbols INIT
@@ -33,29 +32,42 @@ OPENREQ             =       "<!"
 ENDXS               =       "?>"
 ENDREQ              =       "!>"
 //---------------WORDS---------------
-XSON                =      "xson"
+XSON                =       "xson"
 VERSION             =       "version"
 //Make request
 INREQUEST           =       "realizar_solicitud"
 EDREQUEST           =       "fin_solicitud_realizada"
-
+//Make requests
+INITREQUESTS        =       "realizar_solicitudes"
+ENDREQUESTS         =       "fin_solicitudes_realizada"
 //Register user
+NEWUSER             =       "\"USUARIO_NUEVO\""
 USERDATA            =       "\"DATOS_USUARIO\""
 USER                =       "\"USUARIO\""
 PASSWORD            =       "\"PASSWORD\""
+NAME                =       "\"NOMBRE\""
+INSTITUTION         =       "\"INSTITUCION\""
+DATE                =       "\"FECHA_CREACION\""
+DATEEDIT            =       "\"FECHA_MODIFICACION\""
 //Modify user
-LOGINUSER           =       "\"LOGIN_USUARIO\""
+EDITUSER            =       "\"MODIFICAR_USUARIO\""
+OLDUSER             =       "\"USUARIO_ANTIGUO\""
+NEWPASSWORD         =       "\"NUEVO_PASSWORD\""
+//Delete user for the system
+DELETEUSER          =       "\"ELIMINAR_USUARIO\""
 //REGEX
-WHITESPCS           = ([\s\t\r\n]+)
-DIGIT               = [0-9]*
+WHITESPCS       = ([\s\t\r\n]+)
 NUMBERVERSION       = [\"”“]{DIGIT}+(\.{DIGIT}+)?[\"”“]
-LETTER              = [a-zA-Z]
-TEXT                = {NUMBERVERSION} | ([\"”“]({LETTER}|_|-|\$)+({LETTER}|{DIGIT}|_)*[\"”“])
+DIGIT           = [0-9]
+NUMBER          = ([0-9])+
+LETTER          = [a-zA-Z]
+TEXT            = {NUMBERVERSION} | ([\"”“]({LETTER}|_|-|\$)+({LETTER}|{DIGIT}|_)*[\"”“])
+DATECREATION    = \"([0-9]{4}-[0-9]{2}-[0-9]{2})\"
 
 
 %{
         StringBuffer stringBuffer = new StringBuffer();
-        ArrayList<ErrorL> errors = new ArrayList<ErrorL>();
+        ArrayList<Error> errors = new ArrayList<Error>();
 
         private Symbol symbol(int type){
             return new Symbol(type, yyline+1, yycolumn+1);
@@ -68,8 +80,6 @@ TEXT                = {NUMBERVERSION} | ([\"”“]({LETTER}|_|-|\$)+({LETTER}|{
         public ArrayList<ErrorL> getErrorsLexicos(){
             return this.errors;
         }
-
-
 %}
 
 %eofval{
@@ -78,19 +88,26 @@ TEXT                = {NUMBERVERSION} | ([\"”“]({LETTER}|_|-|\$)+({LETTER}|{
 
 %%
 
-{OPENREQ}               {return new Symbol(LoginSym.OPENREQ, yycolumn, yyline, yytext());}
 {OPENXS}                {return new Symbol(LoginSym.OPENXS, yycolumn, yyline, yytext());}
+{OPENREQ}               {return new Symbol(LoginSym.OPENREQ, yycolumn, yyline, yytext());}
 {XSON}                  {return new Symbol(LoginSym.XSON, yycolumn, yyline, yytext());}
 {VERSION}               {return new Symbol(LoginSym.VERSION, yycolumn, yyline, yytext());}
 {INREQUEST}             {return new Symbol(LoginSym.INREQUEST, yycolumn, yyline, yytext());}
 {EDREQUEST}             {return new Symbol(LoginSym.EDREQUEST, yycolumn, yyline, yytext());}
-{ENDXS}                 {return new Symbol(LoginSym.ENDXS, yycolumn, yyline, yytext());}
-{ENDREQ}                {return new Symbol(LoginSym.ENDREQ, yycolumn, yyline, yytext());}
-{COLON}                 {return new Symbol(LoginSym.COLON, yycolumn, yyline, yytext());}
+{INITREQUESTS}          {return new Symbol(LoginSym.INITREQUEST, yycolumn, yyline, yytext());}
+{ENDREQUESTS}           {return new Symbol(LoginSym.ENDREQUESTS, yycolumn, yyline, yytext());}
+{NEWUSER}               {return new Symbol(LoginSym.NEWUSER, yycolumn, yyline, yytext());}
 {USERDATA}              {return new Symbol(LoginSym.USERDATA, yycolumn, yyline, yytext());}
 {USER}                  {return new Symbol(LoginSym.USER, yycolumn, yyline, yytext());}
 {PASSWORD}              {return new Symbol(LoginSym.PASSWORD, yycolumn, yyline, yytext());}
-{LOGINUSER}             {return new Symbol(LoginSym.LOGINUSER, yycolumn, yyline, yytext());}
+{NAME}                  {return new Symbol(LoginSym.NAME, yycolumn, yyline, yytext());}
+{INSTITUTION}           {return new Symbol(LoginSym.INSTITUTION, yycolumn, yyline, yytext());}
+{DATE}                  {return new Symbol(LoginSym.DATE, yycolumn, yyline, yytext());}
+{DATEEDIT}              {return new Symbol(LoginSym.DATEEDIT, yycolumn, yyline, yytext());}
+{EDITUSER}              {return new Symbol(LoginSym.EDITUSER, yycolumn, yyline, yytext());}
+{OLDUSER}               {return new Symbol(LoginSym.OLDUSER, yycolumn, yyline, yytext());}
+{NEWPASSWORD}           {return new Symbol(LoginSym.NEWPASSWORD, yycolumn, yyline, yytext());}
+{DELETEUSER}            {return new Symbol(LoginSym.DELETEUSER, yycolumn, yyline, yytext());}
 {EQUALS}                {return new Symbol(LoginSym.EQUALS, yycolumn, yyline, yytext());}
 {GREATERT}              {return new Symbol(LoginSym.GREATERT, yycolumn, yyline, yytext());}
 {LESST}                 {return new Symbol(LoginSym.LESST, yycolumn, yyline, yytext());}
@@ -99,7 +116,10 @@ TEXT                = {NUMBERVERSION} | ([\"”“]({LETTER}|_|-|\$)+({LETTER}|{
 {BRACKETA}              {return new Symbol(LoginSym.BRACKETA, yycolumn, yyline, yytext());}
 {BRACKETC}              {return new Symbol(LoginSym.BRACKETC, yycolumn, yyline, yytext());}
 {COMMA}                 {return new Symbol(LoginSym.COMMA, yycolumn, yyline, yytext());}
+{DATECREATION}          {return new Symbol(LoginSym.DATECREATION, yycolumn, yyline, yytext());}
+{NUMBER}                {return new Symbol(LoginSym.NUMBER, yyline, yycolumn, yytext());}
+{NUMBERVERSION}         {return new Symbol(LoginSym.NUMBERVERSION, yyline, yycolumn, yytext());}
 {TEXT}                  {return new Symbol(LoginSym.TEXT, yyline, yycolumn, yytext());}
 {WHITESPCS}             {/*ignore*/}
 
-[^]                  {System.out.println(yytext());}
+[^]                  {/*ignore*/}

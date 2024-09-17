@@ -99,4 +99,5 @@ public class Trivia {
     public void setFlag(int flag) {
         this.flag = flag;
     }
+
 }

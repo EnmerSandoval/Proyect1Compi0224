@@ -51,7 +51,7 @@ public class Login extends java_cup.runtime.lr_parser {
     "\062\001\002\000\006\003\016\024\021\001\002\000\006" +
     "\003\ufffd\024\ufffd\001\002\000\004\005\010\001\002\000" +
     "\004\006\011\001\002\000\004\007\012\001\002\000\004" +
-    "\010\013\001\002\000\004\011\014\001\002\000\006\003" +
+    "\014\013\001\002\000\004\011\014\001\002\000\006\003" +
     "\ufffe\024\ufffe\001\002\000\006\003\055\030\057\001\002" +
     "\000\006\003\ufff2\017\ufff2\001\002\000\006\003\027\017" +
     "\030\001\002\000\004\002\000\001\002\000\004\025\022" +
@@ -226,7 +226,7 @@ class CUP$Login$actions {
           return CUP$Login$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // initxson ::= OPENXS XSON VERSION EQUALS NUMBERVERSION ENDXS 
+          case 3: // initxson ::= OPENXS XSON VERSION EQUALS TEXT ENDXS 
             {
               Object RESULT =null;
 

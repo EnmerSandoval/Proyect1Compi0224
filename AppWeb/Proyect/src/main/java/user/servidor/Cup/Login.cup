@@ -55,7 +55,7 @@ in::= initxson initlogin;
 
 initlogin::= login endRequest;
 
-initxson::= OPENXS XSON VERSION EQUALS NUMBERVERSION ENDXS
+initxson::= OPENXS XSON VERSION EQUALS TEXT ENDXS
             | error:e
               {:
                     int line        = (eleft)+1;

@@ -55,21 +55,33 @@ parser code{:
 
 non terminal initxson, statement, initRequest, onerequest, endRequest, requests, initMoreRequest,
              recursiveRequest, endMoreRequest, newuser, edituser, deleteuser, paramStructureUser,
-             paramsStructureUser, endKeyBracket, initDataUser;
+             paramsUserStructure, paramsEdit, paramsEditUser, endKeyBracket, initDataUser,
+             singleRequest, multipleRequest;
 
-terminal OPENXS, XSON, VERSION, EQUALS, NUMBERVERSION, ENDXS, USER, COLON, TEXT, COMMA, PASSWORD,
-         KEYA, USERDATA, BRACKETA, BRACKETC, KEYC, OPENREQ, INREQUEST, LOGINUSER, GREATERT, LESST, EDREQUEST, ENDREQ;
+non terminal String userStructure, passwordStructure, nameStructure, institutionStructure,
+                    dateStructure, oldUserStructure, newUserStructure, newPasswordStructure,
+                    dateEditStructure;
 
-non terminal in, initRequestLogin, initlogin,  initDataUser;
-non terminal String userStructure, passwordStructure;
+terminal NEWUSER, GREATERT, COMMA, USER, COLON, TEXT, PASSWORD, NAME, INSTITUTION, DATE, DATECREATION,
+         EDITUSER, OLDUSER, NEWPASSWORD, DATEEDIT, DELETEUSER, KEYA, USERDATA, BRACKETA, KEYC,
+         BRACKETC, OPENREQ, INREQUEST, LESST, EDREQUEST, ENDREQ, OPENXS, XSON, VERSION, EQUALS, ENDXS,
+         INITREQUESTS, ENDREQUESTS;
+
+non terminal in;
 
 start with in;
 
 in::= initxson statement;
 
-statement::= iniRequest onerequest endRequest
-            | requests
+statement::= singleRequest
+            | multipleRequest
             ;
+
+singleRequest::= initRequest onerequest endRequest
+               ;
+
+multipleRequest::= requests;
+
 
 requests::= initMoreRequest
             recursiveRequest
@@ -116,7 +128,7 @@ newuser::= NEWUSER GREATERT
            ;
 
 paramStructureUser::= paramsUserStructure COMMA paramStructureUser
-                    | paramsUserStrucure
+                    | paramsUserStructure
                     ;
 
 paramsUserStructure::= userStructure
@@ -225,14 +237,6 @@ edituser::= EDITUSER GREATERT
                     }
                 }
             :}
-           | error:e
-             {:
-                int line    = (eleft)+1;
-                int column  = eright;
-                String message = "No se cumple con el orden de las llaves de apertura xson";
-                addError(line, column, message);
-                RESULT = null;
-             :}
             ;
 
 paramsEdit::= paramsEditUser COMMA paramsEdit
@@ -251,14 +255,6 @@ oldUserStructure::= OLDUSER COLON TEXT:olduser
                         currentOldUser = olduser.toString();
                         RESULT = currentOldUser;
                     :}
-                    | error:e
-                      {:
-                        int line       = (eleft)+1;
-                        int column     = eright;
-                        String message = "No se cumple la estructura de antiguo usuario, se espera: \"USUARIO_ANTIGUO: \"Nombre del usuario anterior\" ,";
-                        addError(line, column, message);
-                        RESULT = null;
-                      :}
                     ;
 
 newUserStructure::= NEWUSER COLON TEXT:newuser
@@ -378,7 +374,7 @@ endRequest::= LESST EDREQUEST ENDREQ
                :}
               ;
 
-initxson::= OPENXS XSON VERSION EQUALS NUMBERVERSION ENDXS
+initxson::= OPENXS XSON VERSION EQUALS TEXT ENDXS
             | error:e
             {:
                 int line        = (eleft)+1;
@@ -388,3 +384,26 @@ initxson::= OPENXS XSON VERSION EQUALS NUMBERVERSION ENDXS
                 RESULT = null;
             :}
             ;
+
+
+initMoreRequest::= OPENREQ INITREQUESTS GREATERT
+                   | error:e
+                     {:
+                        int line        = (eleft)+1;
+                        int column      = eright;
+                        String message  = "No se cumple los parametros para iniciar las solicitudes";
+                        addError(line, column, message);
+                        RESULT = null;
+                     :}
+                   ;
+
+endMoreRequest::= OPENREQ ENDREQUESTS GREATERT
+                  | error:e
+                    {:
+                        int line        = (eleft)+1;
+                        int column      = eright;
+                        String message  = "No se cumple los parametros para finalizar las solicitudes";
+                        addError(line, column, message);
+                        RESULT = null;
+                    :}
+                  ;
