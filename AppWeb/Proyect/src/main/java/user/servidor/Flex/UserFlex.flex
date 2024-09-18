@@ -1,7 +1,8 @@
-package org.proyect1.Flex;
+package user.servidor.Flex;
 
 import java_cup.runtime.*;
 import java.util.ArrayList;
+import user.servidor.Cup.UserParserSym;
 import user.servidor.Errors.ErrorL;
 
 %%
@@ -38,7 +39,7 @@ VERSION             =       "version"
 INREQUEST           =       "realizar_solicitud"
 EDREQUEST           =       "fin_solicitud_realizada"
 //Make requests
-INITREQUESTS        =       "realizar_solicitudes"
+INREQUESTS        =       "realizar_solicitudes"
 ENDREQUESTS         =       "fin_solicitudes_realizada"
 //Register user
 NEWUSER             =       "\"USUARIO_NUEVO\""
@@ -67,7 +68,7 @@ DATECREATION    = \"([0-9]{4}-[0-9]{2}-[0-9]{2})\"
 
 %{
         StringBuffer stringBuffer = new StringBuffer();
-        ArrayList<Error> errors = new ArrayList<Error>();
+        ArrayList<ErrorL> errors = new ArrayList<ErrorL>();
 
         private Symbol symbol(int type){
             return new Symbol(type, yyline+1, yycolumn+1);
@@ -83,43 +84,44 @@ DATECREATION    = \"([0-9]{4}-[0-9]{2}-[0-9]{2})\"
 %}
 
 %eofval{
-    return new Symbol(LoginSym.EOF);
+    return new Symbol(UserParserSym.EOF);
 %eofval}
 
 %%
 
-{OPENXS}                {return new Symbol(LoginSym.OPENXS, yycolumn, yyline, yytext());}
-{OPENREQ}               {return new Symbol(LoginSym.OPENREQ, yycolumn, yyline, yytext());}
-{XSON}                  {return new Symbol(LoginSym.XSON, yycolumn, yyline, yytext());}
-{VERSION}               {return new Symbol(LoginSym.VERSION, yycolumn, yyline, yytext());}
-{INREQUEST}             {return new Symbol(LoginSym.INREQUEST, yycolumn, yyline, yytext());}
-{EDREQUEST}             {return new Symbol(LoginSym.EDREQUEST, yycolumn, yyline, yytext());}
-{INITREQUESTS}          {return new Symbol(LoginSym.INITREQUEST, yycolumn, yyline, yytext());}
-{ENDREQUESTS}           {return new Symbol(LoginSym.ENDREQUESTS, yycolumn, yyline, yytext());}
-{NEWUSER}               {return new Symbol(LoginSym.NEWUSER, yycolumn, yyline, yytext());}
-{USERDATA}              {return new Symbol(LoginSym.USERDATA, yycolumn, yyline, yytext());}
-{USER}                  {return new Symbol(LoginSym.USER, yycolumn, yyline, yytext());}
-{PASSWORD}              {return new Symbol(LoginSym.PASSWORD, yycolumn, yyline, yytext());}
-{NAME}                  {return new Symbol(LoginSym.NAME, yycolumn, yyline, yytext());}
-{INSTITUTION}           {return new Symbol(LoginSym.INSTITUTION, yycolumn, yyline, yytext());}
-{DATE}                  {return new Symbol(LoginSym.DATE, yycolumn, yyline, yytext());}
-{DATEEDIT}              {return new Symbol(LoginSym.DATEEDIT, yycolumn, yyline, yytext());}
-{EDITUSER}              {return new Symbol(LoginSym.EDITUSER, yycolumn, yyline, yytext());}
-{OLDUSER}               {return new Symbol(LoginSym.OLDUSER, yycolumn, yyline, yytext());}
-{NEWPASSWORD}           {return new Symbol(LoginSym.NEWPASSWORD, yycolumn, yyline, yytext());}
-{DELETEUSER}            {return new Symbol(LoginSym.DELETEUSER, yycolumn, yyline, yytext());}
-{EQUALS}                {return new Symbol(LoginSym.EQUALS, yycolumn, yyline, yytext());}
-{GREATERT}              {return new Symbol(LoginSym.GREATERT, yycolumn, yyline, yytext());}
-{LESST}                 {return new Symbol(LoginSym.LESST, yycolumn, yyline, yytext());}
-{KEYA}                  {return new Symbol(LoginSym.KEYA, yycolumn, yyline, yytext());}
-{KEYC}                  {return new Symbol(LoginSym.KEYC, yycolumn, yyline, yytext());}
-{BRACKETA}              {return new Symbol(LoginSym.BRACKETA, yycolumn, yyline, yytext());}
-{BRACKETC}              {return new Symbol(LoginSym.BRACKETC, yycolumn, yyline, yytext());}
-{COMMA}                 {return new Symbol(LoginSym.COMMA, yycolumn, yyline, yytext());}
-{DATECREATION}          {return new Symbol(LoginSym.DATECREATION, yycolumn, yyline, yytext());}
-{NUMBER}                {return new Symbol(LoginSym.NUMBER, yyline, yycolumn, yytext());}
-{NUMBERVERSION}         {return new Symbol(LoginSym.NUMBERVERSION, yyline, yycolumn, yytext());}
-{TEXT}                  {return new Symbol(LoginSym.TEXT, yyline, yycolumn, yytext());}
+{OPENXS}                {return new Symbol(UserParserSym.OPENXS, yycolumn, yyline, yytext());}
+{OPENREQ}               {return new Symbol(UserParserSym.OPENREQ, yycolumn, yyline, yytext());}
+{ENDXS}                 {return new Symbol(UserParserSym.ENDXS, yycolumn, yyline, yytext());}
+{ENDREQ}                {return new Symbol(UserParserSym.ENDREQ, yycolumn, yyline, yytext());}
+{XSON}                  {return new Symbol(UserParserSym.XSON, yycolumn, yyline, yytext());}
+{VERSION}               {return new Symbol(UserParserSym.VERSION, yycolumn, yyline, yytext());}
+{INREQUEST}             {return new Symbol(UserParserSym.INREQUEST, yycolumn, yyline, yytext());}
+{EDREQUEST}             {return new Symbol(UserParserSym.EDREQUEST, yycolumn, yyline, yytext());}
+{INREQUESTS}          {return new Symbol(UserParserSym.INREQUEST, yycolumn, yyline, yytext());}
+{ENDREQUESTS}           {return new Symbol(UserParserSym.ENDREQUESTS, yycolumn, yyline, yytext());}
+{NEWUSER}               {return new Symbol(UserParserSym.NEWUSER, yycolumn, yyline, yytext());}
+{USERDATA}              {return new Symbol(UserParserSym.USERDATA, yycolumn, yyline, yytext());}
+{USER}                  {return new Symbol(UserParserSym.USER, yycolumn, yyline, yytext());}
+{PASSWORD}              {return new Symbol(UserParserSym.PASSWORD, yycolumn, yyline, yytext());}
+{NAME}                  {return new Symbol(UserParserSym.NAME, yycolumn, yyline, yytext());}
+{INSTITUTION}           {return new Symbol(UserParserSym.INSTITUTION, yycolumn, yyline, yytext());}
+{DATE}                  {return new Symbol(UserParserSym.DATE, yycolumn, yyline, yytext());}
+{DATEEDIT}              {return new Symbol(UserParserSym.DATEEDIT, yycolumn, yyline, yytext());}
+{EDITUSER}              {return new Symbol(UserParserSym.EDITUSER, yycolumn, yyline, yytext());}
+{OLDUSER}               {return new Symbol(UserParserSym.OLDUSER, yycolumn, yyline, yytext());}
+{NEWPASSWORD}           {return new Symbol(UserParserSym.NEWPASSWORD, yycolumn, yyline, yytext());}
+{DELETEUSER}            {return new Symbol(UserParserSym.DELETEUSER, yycolumn, yyline, yytext());}
+{EQUALS}                {return new Symbol(UserParserSym.EQUALS, yycolumn, yyline, yytext());}
+{GREATERT}              {return new Symbol(UserParserSym.GREATERT, yycolumn, yyline, yytext());}
+{LESST}                 {return new Symbol(UserParserSym.LESST, yycolumn, yyline, yytext());}
+{KEYA}                  {return new Symbol(UserParserSym.KEYA, yycolumn, yyline, yytext());}
+{KEYC}                  {return new Symbol(UserParserSym.KEYC, yycolumn, yyline, yytext());}
+{BRACKETA}              {return new Symbol(UserParserSym.BRACKETA, yycolumn, yyline, yytext());}
+{BRACKETC}              {return new Symbol(UserParserSym.BRACKETC, yycolumn, yyline, yytext());}
+{COMMA}                 {return new Symbol(UserParserSym.COMMA, yycolumn, yyline, yytext());}
+{COlON}                 {return new Symbol(UserParserSym.COLON, yycolumn, yyline, yytext());}
+{DATECREATION}          {return new Symbol(UserParserSym.DATECREATION, yycolumn, yyline, yytext());}
+{TEXT}                  {return new Symbol(UserParserSym.TEXT, yyline, yycolumn, yytext());}
 {WHITESPCS}             {/*ignore*/}
 
 [^]                  {/*ignore*/}

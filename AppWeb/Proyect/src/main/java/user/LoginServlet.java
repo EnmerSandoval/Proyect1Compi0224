@@ -24,13 +24,11 @@ public class LoginServlet extends HttpServlet {
         try {
             LoginFlex loginFlex = new LoginFlex(new StringReader(text));
             Login login = new Login(loginFlex);
-            System.out.println(login.parse());
+            login.parse();
             System.out.println(login.getUser().getUsername());
             System.out.println(login.getUser().getPassword());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
     }
 }

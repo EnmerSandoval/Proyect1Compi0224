@@ -1,15 +1,19 @@
-package org.proyect1.Cup;
+package user.servidor.Cup;
 
 import java_cup.runtime.*;
 import java.util.ArrayList;
-import org.proyect1.Objects.*;
+import user.servidor.Objects.*;
+import user.servidor.Errors.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
-class Login;
+class UserParser;
 
 parser code{:
     private ArrayList<User> users = new ArrayList<User>();
     private ArrayList<ErrorL> errors = new ArrayList<ErrorL>();
-    private ArrayList<String> messages = new ArrayList<String>();
     private String errorString = "";
 
     private String currentUser = "";
@@ -32,6 +36,10 @@ parser code{:
         return this.users;
     }
 
+    public ArrayList<ErrorL> getErrors(){
+        return this.errors;
+    }
+
     public void addError(int line, int column, String message){
         errors.add(new ErrorL(errorString, line, column, "Sintactico", message));
     }
@@ -48,19 +56,18 @@ parser code{:
         String message = "Error síntactico irrecuperable en la Línea " +
         (s.left)+ " Columna "+s.right+". Componente " + s.value +
         " no reconocido.";
-        messages.add(message);
+        System.out.println(message);
     }
 
 :}
 
 non terminal initxson, statement, initRequest, onerequest, endRequest, requests, initMoreRequest,
-             recursiveRequest, endMoreRequest, newuser, edituser, deleteuser, paramStructureUser,
-             paramsUserStructure, paramsEdit, paramsEditUser, endKeyBracket, initDataUser,
+             recursiveRequest, endMoreRequest, newuser, edituser, deleteuser, paramsEdit, paramsEditUser, endKeyBracket, initDataUser,
              singleRequest, multipleRequest;
 
 non terminal String userStructure, passwordStructure, nameStructure, institutionStructure,
                     dateStructure, oldUserStructure, newUserStructure, newPasswordStructure,
-                    dateEditStructure;
+                    dateEditStructure,  paramStructureUser, paramsUserStructure;
 
 terminal NEWUSER, GREATERT, COMMA, USER, COLON, TEXT, PASSWORD, NAME, INSTITUTION, DATE, DATECREATION,
          EDITUSER, OLDUSER, NEWPASSWORD, DATEEDIT, DELETEUSER, KEYA, USERDATA, BRACKETA, KEYC,
@@ -88,7 +95,7 @@ requests::= initMoreRequest
             endMoreRequest
             ;
 
-recursiveRequest::= initRequest onerequest endRequest recursiveRequest
+recursiveRequest::= recursiveRequest initRequest onerequest endRequest
                   | initRequest onerequest endRequest
                   ;
 
@@ -103,9 +110,14 @@ newuser::= NEWUSER GREATERT
            endKeyBracket
            //flag 1
            {:
+                System.out.printf("currentuser " + currentUser);
+                System.out.printf("currentPassword " + currentPassword);
+                System.out.printf("currentName " + currentName);
+                System.out.printf("currentInstitution " + currentInstitution);
                 if(!currentUser.equals("") && !currentPassword.equals("") && !currentName.equals("")
                 && !currentInstitution.equals("")){
                     if(currentDateCreation.equals("")){
+                        System.out.println("Aca andamos parser");
                         User user = new User(currentUser, currentPassword, currentName,
                         currentInstitution, currentDateCreation, 1);
                         users.add(user);
@@ -131,11 +143,19 @@ paramStructureUser::= paramsUserStructure COMMA paramStructureUser
                     | paramsUserStructure
                     ;
 
-paramsUserStructure::= userStructure
-                     | passwordStructure
-                     | nameStructure
-                     | institutionStructure
-                     | dateStructure
+paramsUserStructure::= userStructure:user {:System.out.println("user+" + user.toString());:}
+                     | passwordStructure:password {:System.out.println("password+ " + password.toString());:}
+                     | nameStructure:name {:System.out.println("Name: " + name.toString());:}
+                     | institutionStructure:ins {:System.out.println("ins " + ins.toString());:}
+                     | dateStructure:date {:System.out.println("date" + date.toString());:}
+                     | error:e
+                        {:
+                            int line       = (eleft)+1;
+                            int column     = eright;
+                            String message = "No se cumple la estructura de usuario, se espera \"PASSWORD: \"PASSWORD DEL USUARIO\" ,";
+                            addError(line, column, message);
+                            RESULT = null;
+                        :}
                      ;
 
 userStructure::= USER COLON TEXT:user
@@ -143,14 +163,14 @@ userStructure::= USER COLON TEXT:user
                         currentUser = user.toString();
                         RESULT = currentUser;
                    :}
-                 | error:e
-                   {:
-                        int line       = (eleft)+1;
-                        int column     = eright;
-                        String message = "No se cumple la estructura de usuario, se espera: \"USUARIO: \"NOMBRE DEL USUARIO\"";
-                        addError(line, column, message);
-                        RESULT = null;
-                   :}
+//                 | error:e
+//                   {:
+//                        int line       = (eleft)+1;
+//                        int column     = eright;
+//                        String message = "No se cumple la estructura de usuario, se espera: \"USUARIO: \"NOMBRE DEL USUARIO\"";
+//                        addError(line, column, message);
+//                        RESULT = null;
+//                   :}
                  ;
 
 passwordStructure::= PASSWORD COLON TEXT:password
@@ -158,29 +178,30 @@ passwordStructure::= PASSWORD COLON TEXT:password
                         currentPassword = password.toString();
                         RESULT = currentPassword;
                     :}
-                    | error:e
-                      {:
-                            int line       = (eleft)+1;
-                            int column     = eright;
-                            String message = "No se cumple la estructura de password, se espera: \"PASSWORD: \"PASSWORD DEL USUARIO\"";
-                            addError(line, column, message);
-                            RESULT = null;
-                      :}
+//                    | error:e
+//                      {:
+//                            int line       = (eleft)+1;
+//                            int column     = eright;
+//                            String message = "No se cumple la estructura de password, se espera: \"PASSWORD: \"PASSWORD DEL USUARIO\"";
+//                            addError(line, column, message);
+//                            RESULT = null;
+//                      :}
                     ;
 
 nameStructure::= NAME COLON TEXT:name
                 {:
+                    System.out.println("ANdo en nombre");
                     currentName = name.toString();
                     RESULT = currentName;
                 :}
-                | error:e
-                  {:
-                    int line       = (eleft)+1;
-                    int column     = eright;
-                    String message = "No se cumple la estructura de Nombre de usuario, se espera: \"NOMBRE: \"NOMBRE DEL USUARIO\"";
-                    addError(line, column, message);
-                    RESULT = null;
-                  :}
+//                | error:e
+//                  {:
+//                    int line       = (eleft)+1;
+//                    int column     = eright;
+//                    String message = "No se cumple la estructura de Nombre de usuario, se espera: \"NOMBRE: \"NOMBRE DEL USUARIO\"";
+//                    addError(line, column, message);
+//                    RESULT = null;
+//                  :}
                 ;
 
 institutionStructure::= INSTITUTION COLON TEXT:institution
@@ -188,14 +209,14 @@ institutionStructure::= INSTITUTION COLON TEXT:institution
                             currentInstitution = institution.toString();
                             RESULT = currentInstitution;
                         :}
-                        | error:e
-                          {:
-                            int line       = (eleft)+1;
-                            int column     = eright;
-                            String message = "No se cumple la estructura de usuario, se espera \"PASSWORD: \"PASSWORD DEL USUARIO\" ,";
-                            addError(line, column, message);
-                            RESULT = null;
-                          :}
+//                        | error:e
+//                          {:
+//                            int line       = (eleft)+1;
+//                            int column     = eright;
+//                            String message = "No se cumple la estructura de usuario, se espera \"PASSWORD: \"PASSWORD DEL USUARIO\" ,";
+//                            addError(line, column, message);
+//                            RESULT = null;
+//                          :}
                         ;
 
 dateStructure::= DATE COLON DATECREATION:dateCreation
@@ -203,14 +224,14 @@ dateStructure::= DATE COLON DATECREATION:dateCreation
                     currentDateCreation = dateCreation.toString();
                     RESULT = dateCreation.toString();
                 :}
-                | error:e
-                  {:
-                        int line       = (eleft)+1;
-                        int column     = eright;
-                        String message = "No se cumple la estructura de usuario, se espera \"PASSWORD: \"PASSWORD DEL USUARIO\" ,";
-                        addError(line, column, message);
-                        RESULT = null;
-                  :}
+//                | error:e
+//                  {:
+//                        int line       = (eleft)+1;
+//                        int column     = eright;
+//                        String message = "No se cumple la estructura de usuario, se espera \"PASSWORD: \"PASSWORD DEL USUARIO\" ,";
+//                        addError(line, column, message);
+//                        RESULT = null;
+//                  :}
                 ;
 
 edituser::= EDITUSER GREATERT
@@ -262,14 +283,14 @@ newUserStructure::= NEWUSER COLON TEXT:newuser
                         currentUser = newuser.toString();
                         RESULT = currentUser;
                     :}
-                    | error:e
-                      {:
-                        int line        = (eleft)+1;
-                        int column      = eright;
-                        String message  = "No se cumple la estructura de nuevo usuario, se espera: \"USUARIO_NUEVO\": \"Nuevo username\"";
-                        addError(line, column, message);
-                        RESULT = null;
-                      :}
+//                    | error:e
+//                      {:
+//                        int line        = (eleft)+1;
+//                        int column      = eright;
+//                        String message  = "No se cumple la estructura de nuevo usuario, se espera: \"USUARIO_NUEVO\": \"Nuevo username\"";
+//                        addError(line, column, message);
+//                        RESULT = null;
+//                      :}
                     ;
 
 newPasswordStructure::= NEWPASSWORD COLON TEXT:newpassword
@@ -277,14 +298,14 @@ newPasswordStructure::= NEWPASSWORD COLON TEXT:newpassword
                             currentPassword = newpassword.toString();
                             RESULT = currentPassword;
                         :}
-                        | error:e
-                          {:
-                            int line        = (eleft)+1;
-                            int column      = eright;
-                            String message  = "No se cumple la estructura de nuevo password, se espera: \"NUEVO_PASSWORD\": \"Nuevo password del usuario\"";
-                            addError(line, column, message);
-                            RESULT = null;
-                          :}
+//                        | error:e
+//                          {:
+//                            int line        = (eleft)+1;
+//                            int column      = eright;
+//                            String message  = "No se cumple la estructura de nuevo password, se espera: \"NUEVO_PASSWORD\": \"Nuevo password del usuario\"";
+//                            addError(line, column, message);
+//                            RESULT = null;
+//                          :}
                         ;
 
 dateEditStructure::= DATEEDIT COLON DATECREATION:dateCreation
@@ -292,14 +313,14 @@ dateEditStructure::= DATEEDIT COLON DATECREATION:dateCreation
                         currentDateCreation = dateCreation.toString();
                         RESULT = currentDateCreation;
                      :}
-                    | error:e
-                      {:
-                        int line        = (eleft)+1;
-                        int column      = eright;
-                        String message  = "No se cumple la estructura de nuevo password, se espera: \"NUEVO_PASSWORD\": \"Nuevo password del usuario\"";
-                        addError(line, column, message);
-                        RESULT = null;
-                      :}
+//                    | error:e
+//                      {:
+//                        int line        = (eleft)+1;
+//                        int column      = eright;
+//                        String message  = "No se cumple la estructura de nuevo password, se espera: \"NUEVO_PASSWORD\": \"Nuevo password del usuario\"";
+//                        addError(line, column, message);
+//                        RESULT = null;
+//                      :}
                     ;
 
 deleteuser::= DELETEUSER GREATERT
@@ -309,8 +330,8 @@ deleteuser::= DELETEUSER GREATERT
               //flag 3
               {:
                 if(!user.toString().equals("") | user != null){
-                    User user = new User(user.toString(), 3);
-                    users.add(user);
+                    User userResult = new User(user.toString(), 3);
+                    users.add(userResult);
                     RESULT = user;
                 } else {
                     int line   = (userleft)+1;
@@ -320,18 +341,18 @@ deleteuser::= DELETEUSER GREATERT
                     RESULT = null;
                 }
               :}
-              | error:e
+              | error:e GREATERT
                 {:
                     int line    = (eleft)+1;
                     int column  = eright;
-                    String message = "No se cumple con el orden de las llaves de apertura xson";
+                    String message = "Error para eliminar un usuario";
                     addError(line, column, message);
                     RESULT = null;
                 :}
               ;
 
 initDataUser::= KEYA USERDATA COLON BRACKETA KEYA
-                | error:e
+                | error:e KEYA
                 {:
                     int line    = (eleft)+1;
                     int column  = eright;
@@ -342,7 +363,7 @@ initDataUser::= KEYA USERDATA COLON BRACKETA KEYA
                 ;
 
 endKeyBracket::= KEYC BRACKETC KEYC
-                | error:e
+                | error:e KEYC
                 {:
                     int line    = (eleft)+1;
                     int column  = eright;
@@ -353,18 +374,18 @@ endKeyBracket::= KEYC BRACKETC KEYC
                 ;
 
 initRequest::= OPENREQ INREQUEST COLON
-               | error:e
-               {:
-                    int line    = (eleft)+1;
-                    int column  = eright;
-                    String message = "No se cumple con el orden para iniciar una solicitud de login";
-                    addError(line, column, message);
-                    RESULT = null;
-               :}
+//               | error:e COLON
+//               {:
+//                    int line    = (eleft)+1;
+//                    int column  = eright;
+//                    String message = "No se cumple con el orden para iniciar una solicitud de login";
+//                    addError(line, column, message);
+//                    RESULT = null;
+//               :}
                ;
 
 endRequest::= LESST EDREQUEST ENDREQ
-              | error:e
+              | error:e ENDREQ
                {:
                     int line    = (eleft)+1;
                     int column  = eright;
