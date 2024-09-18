@@ -40,6 +40,14 @@ public class User {
     //Empty Construct
     public User(){}
 
+    public User(String username, String password, String institution, String name, String dateCreation) {
+        this.username = username;
+        this.password = password;
+        this.institution = institution;
+        this.name = name;
+        this.dateCreation = dateCreation;
+    }
+
     public String getDateCreation() {
         return dateCreation;
     }

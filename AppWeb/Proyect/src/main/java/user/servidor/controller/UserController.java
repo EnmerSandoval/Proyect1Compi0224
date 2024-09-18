@@ -2,11 +2,14 @@ package user.servidor.controller;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import user.servidor.Objects.*;
+import user.servidor.Cup.json.UserJson;
+import user.servidor.Flex.json.UserJsonFlex;
 
 public class UserController {
 
@@ -30,7 +33,22 @@ public class UserController {
     public void registerUser(ArrayList<User> users) throws Exception{
         File file = new File(userdbPath);
         if(file.exists() && !file.isDirectory()){
-            //parsear file
+            String text = readFiles();
+            System.out.println(text);
+            UserJsonFlex userJsonFlex = new UserJsonFlex(new StringReader(text));
+            UserJson userJson = new UserJson(userJsonFlex);
+            System.out.println(userJson.parse());
+//            userJson.parse();
+            System.out.println(userJson.getUsers().size());
+            if(!userJson.getUsers().isEmpty()){
+                for(User u : userJson.getUsers()){
+                    System.out.println(u.getUsername());
+                    System.out.println(u.getPassword());
+                    System.out.println(u.getInstitution());
+                    System.out.println(u.getName());
+                    System.out.println(u.getDateCreation());
+                }
+            }
         } else {
             ObjectMapper objectMapper = new ObjectMapper();
             ArrayNode usersArray;
@@ -52,5 +70,18 @@ public class UserController {
                     e.printStackTrace();
                 }
         }
+    }
+
+    public String readFiles(){
+        StringBuilder stringBuilder = new StringBuilder();
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(userdbPath))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line).append("\n");
+            }
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+        return stringBuilder.toString();
     }
 }

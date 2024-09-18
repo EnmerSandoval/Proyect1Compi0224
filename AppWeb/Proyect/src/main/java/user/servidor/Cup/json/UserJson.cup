@@ -1,0 +1,129 @@
+package user.servidor.Cup.json;
+
+import java_cup.runtime.*;
+import java.util.ArrayList;
+import user.servidor.Errors.ErrorL;
+import user.servidor.Objects.*;
+
+class UserJson;
+
+parser code{:
+    private ArrayList<User> users = new ArrayList<User>();
+    private ArrayList<ErrorL> errors = new ArrayList<ErrorL>();
+    private String errorString = "";
+
+    public ArrayList<User> getUsers(){
+        return this.users;
+    }
+
+    public ArrayList<ErrorL> getErrors(){
+        return this.errors;
+    }
+
+    public void addError(int line, int column, String message){
+        errors.add(new ErrorL(errorString, line, column, "Sintactico", message));
+    }
+
+    public void syntax_error(Symbol s){
+        errorString = s.value+"";
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+        String message = "Error síntactico irrecuperable en la Línea " +
+        (s.left)+ " Columna "+s.right+". Componente " + s.value +
+        " no reconocido.";
+        System.out.println(message);
+    }
+:}
+
+terminal CORCHETEA, CORCHETEC, KEYA, KEYC, COLON, COMMA, USER, PASSWORD, INSTITUTION, NAME, DATE,
+         TEXT;
+
+non terminal String userStructure, passwordStructure, institutionStructure, nameStructure, dateStructure;
+
+non terminal in, initUser, dataUser, userComponents;
+
+start with in;
+
+in::= initUser;
+
+initUser::= CORCHETEA dataUser CORCHETEC;
+
+dataUser::= dataUser userComponents
+          | userComponents
+          ;
+
+userComponents::= KEYA
+        userStructure:user COMMA
+        passwordStructure:password COMMA
+        institutionStructure:institution COMMA
+        nameStructure:name COMMA
+        dateStructure:date
+        KEYC COMMA
+        {:
+            System.out.println("Ando aca");
+            System.out.println("user "+ user.toString());
+            System.out.println("PASSWORD "+ password.toString());
+            System.out.println("institution "+ institution.toString());
+            System.out.println("name "+ name.toString());
+            System.out.println("date "+ date.toString());
+            User userResult = new User(user.toString(), password.toString(), institution.toString(),
+            name.toString(), date.toString());
+            users.add(userResult);
+        :}
+        |KEYA
+                 userStructure:user COMMA
+                 passwordStructure:password COMMA
+                 institutionStructure:institution COMMA
+                 nameStructure:name COMMA
+                 dateStructure:date
+                 KEYC
+        {:
+            System.out.println("user "+ user.toString());
+            System.out.println("PASSWORD "+ password.toString());
+            System.out.println("institution "+ institution.toString());
+            System.out.println("name "+ name.toString());
+            System.out.println("date "+ date.toString());
+            User userResult = new User(user.toString(), password.toString(), institution.toString(),
+            name.toString(), date.toString());
+            users.add(userResult);
+        :}
+        | error:e
+          {:
+                int line        = (eleft)+1;
+                int column     = eright;
+                String message  = "No se cumplen los parametros de usuario en tipo json";
+                addError(line, column, message);
+          :}
+        ;
+
+userStructure::= USER COLON TEXT:user
+                {:
+                    System.out.println("user" + user.toString());
+                    RESULT = user.toString();
+                :}
+                ;
+
+passwordStructure::= PASSWORD COLON TEXT:password
+                    {:
+                        RESULT = password.toString();
+                    :}
+                    ;
+
+institutionStructure::= INSTITUTION COLON TEXT:institution
+                        {:
+                            RESULT = institution.toString();
+                        :}
+                        ;
+
+nameStructure::= NAME COLON TEXT:name
+                {:
+                    RESULT = name.toString();
+                :}
+                ;
+
+dateStructure::= DATE COLON TEXT:date
+                {:
+                    RESULT = date.toString();
+                :}
+                ;

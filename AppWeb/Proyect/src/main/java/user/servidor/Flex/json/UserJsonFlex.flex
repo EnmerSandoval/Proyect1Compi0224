@@ -3,11 +3,12 @@ package user.servidor.Flex.json;
 import java_cup.runtime.*;
 import java.util.ArrayList;
 import user.servidor.Errors.ErrorL;
+import user.servidor.Cup.json.UserJsonSym;
 
 %%
 
 %public
-%class UserJson
+%class UserJsonFlex
 %unicode
 %caseless
 %line
@@ -27,7 +28,7 @@ USER              = "\"USUARIO\""
 PASSWORD          = "\"PASSWORD\""
 INSTITUTION       = "\"INSTITUCION\""
 NAME              = "\"NOMBRE\""
-DATECREATION      = "\"FECHA_CREACION\""
+DATE              = "\"FECHA_CREACION\""
 
 WHITESPCS           = ([\s\t\r\n]+)
 DIGIT               = [0-9]*
@@ -70,7 +71,7 @@ TEXT                = {NUMBERVERSION} | ([\"”“]({LETTER}|_|-|\$)+({LETTER}|{
 {PASSWORD}          {return new Symbol(UserJsonSym.PASSWORD, yycolumn, yyline, yytext());}
 {INSTITUTION}       {return new Symbol(UserJsonSym.INSTITUTION, yycolumn, yyline, yytext());}
 {NAME}              {return new Symbol(UserJsonSym.NAME, yycolumn, yyline, yytext());}
-{DATECREATION}      {return new Symbol(UserJsonSym.DATECREATION, yycolumn, yyline, yytext());}
+{DATE}              {return new Symbol(UserJsonSym.DATE, yycolumn, yyline, yytext());}
 {TEXT}              {return new Symbol(UserJsonSym.TEXT, yycolumn, yyline, yytext());}
 {WHITESPCS}         {/*IGNORE*/}
 

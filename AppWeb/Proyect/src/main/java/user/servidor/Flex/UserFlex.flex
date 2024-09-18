@@ -63,7 +63,7 @@ DIGIT           = [0-9]
 NUMBER          = ([0-9])+
 LETTER          = [a-zA-Z]
 TEXT            = {NUMBERVERSION} | ([\"”“]({LETTER}|_|-|\$)+({LETTER}|{DIGIT}|_)*[\"”“])
-DATECREATION    = \"([0-9]{4}-[0-9]{2}-[0-9]{2})\"
+DATECREATION    = ([\"”“]([0-9]{4}-[0-9]{2}-[0-9]{2})[\"”“])
 
 
 %{
