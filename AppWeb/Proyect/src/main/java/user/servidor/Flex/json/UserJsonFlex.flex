@@ -34,7 +34,8 @@ WHITESPCS           = ([\s\t\r\n]+)
 DIGIT               = [0-9]*
 NUMBERVERSION       = [\"”“]{DIGIT}+(\.{DIGIT}+)?[\"”“]
 LETTER              = [a-zA-Z]
-TEXT                = {NUMBERVERSION} | ([\"”“]({LETTER}|_|-|\$)+({LETTER}|{DIGIT}|_)*[\"”“])
+TEXT                = "\""([^\"\n])([^\"\n])+"\"" | "'"([^'\n])([^'\n])+"'"
+DATECREATION        = ([\"”“]([0-9]{4}-[0-9]{2}-[0-9]{2})[\"”“])
 
 %{
     StringBuffer stringBuffer = new StringBuffer();
@@ -72,6 +73,7 @@ TEXT                = {NUMBERVERSION} | ([\"”“]({LETTER}|_|-|\$)+({LETTER}|{
 {INSTITUTION}       {return new Symbol(UserJsonSym.INSTITUTION, yycolumn, yyline, yytext());}
 {NAME}              {return new Symbol(UserJsonSym.NAME, yycolumn, yyline, yytext());}
 {DATE}              {return new Symbol(UserJsonSym.DATE, yycolumn, yyline, yytext());}
+{DATECREATION}      {return new Symbol(UserJsonSym.DATECREATION, yycolumn, yyline, yytext());}
 {TEXT}              {return new Symbol(UserJsonSym.TEXT, yycolumn, yyline, yytext());}
 {WHITESPCS}         {/*IGNORE*/}
 

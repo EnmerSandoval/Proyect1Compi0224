@@ -22,6 +22,12 @@ parser code{:
     private String currentInstitution = "";
     private String currentDateCreation = "";
     private String currentOldUser = "";
+    private boolean currentUserBoolean = false;
+    private boolean currentPasswordBoolean = false;
+    private boolean currentNameBoolean = false;
+    private boolean currentInstitutionBoolean = false;
+    private boolean currentDateCreationBoolean = false;
+    private boolean currentOldUserBoolean = false;
 
     public void emptyParameters(){
         currentUser = "";
@@ -30,6 +36,12 @@ parser code{:
         currentInstitution = "";
         currentDateCreation = "";
         currentOldUser = "";
+        currentUserBoolean = false;
+        currentPasswordBoolean = false;
+        currentNameBoolean = false;
+        currentInstitutionBoolean = false;
+        currentDateCreationBoolean = false;
+        currentOldUserBoolean = false;
     }
 
     public ArrayList<User> getUsers(){
@@ -50,6 +62,10 @@ parser code{:
 
     public void syntax_error(Symbol s){
         errorString = s.value+"";
+        String message = "Error síntactico irrecuperable en la Línea " +
+                (s.left)+ " Columna "+s.right+". Componente " + s.value +
+                " no reconocido.";
+                System.out.println(message);
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
@@ -110,21 +126,16 @@ newuser::= NEWUSER GREATERT
            endKeyBracket
            //flag 1
            {:
-                System.out.printf("currentuser " + currentUser);
-                System.out.printf("currentPassword " + currentPassword);
-                System.out.printf("currentName " + currentName);
-                System.out.printf("currentInstitution " + currentInstitution);
                 if(!currentUser.equals("") && !currentPassword.equals("") && !currentName.equals("")
                 && !currentInstitution.equals("")){
-                    if(currentDateCreation.equals("")){
-                        System.out.println("Aca andamos parser");
+                    if(!currentDateCreation.equals("")){
                         User user = new User(currentUser, currentPassword, currentName,
                         currentInstitution, currentDateCreation, 1);
                         users.add(user);
                         emptyParameters();
                     } else {
                         Date date = Calendar.getInstance().getTime();
-                        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
                         String strDate = dateFormat.format(date);
                         User user = new User(currentUser, currentPassword, currentName,
                         currentInstitution, strDate, 1);
@@ -139,14 +150,14 @@ newuser::= NEWUSER GREATERT
            :}
            ;
 
-paramStructureUser::= paramsUserStructure COMMA paramStructureUser
-                    | paramsUserStructure
+paramStructureUser::= paramsUserStructure
+                    | paramsUserStructure COMMA paramStructureUser
                     ;
 
 paramsUserStructure::= userStructure:user {:System.out.println("user+" + user.toString());:}
                      | passwordStructure:password {:System.out.println("password+ " + password.toString());:}
                      | nameStructure:name {:System.out.println("Name: " + name.toString());:}
-                     | institutionStructure:ins {:System.out.println("ins " + ins.toString());:}
+                     | institutionStructure:ins {:System.out.println("institution " + ins.toString());:}
                      | dateStructure:date {:System.out.println("date" + date.toString());:}
                      | error:e
                         {:
@@ -160,78 +171,72 @@ paramsUserStructure::= userStructure:user {:System.out.println("user+" + user.to
 
 userStructure::= USER COLON TEXT:user
                    {:
-                        currentUser = user.toString();
-                        RESULT = currentUser;
+                        if(currentUserBoolean){
+                            String message = "Ya existia un usuario";
+                            addError(message, "Semantico");
+                            RESULT = null;
+                        } else {
+                            currentUserBoolean = true;
+                            currentUser = user.toString().replace("\"", "");
+                            RESULT = currentUser;
+                        }
                    :}
-//                 | error:e
-//                   {:
-//                        int line       = (eleft)+1;
-//                        int column     = eright;
-//                        String message = "No se cumple la estructura de usuario, se espera: \"USUARIO: \"NOMBRE DEL USUARIO\"";
-//                        addError(line, column, message);
-//                        RESULT = null;
-//                   :}
                  ;
 
 passwordStructure::= PASSWORD COLON TEXT:password
                     {:
-                        currentPassword = password.toString();
-                        RESULT = currentPassword;
+                        if(currentPasswordBoolean){
+                            String message = "Ya existe una password";
+                            addError(message, "Semantico");
+                            RESULT = null;
+                        } else {
+                            currentPasswordBoolean = true;
+                            currentPassword = password.toString().replace("\"", "");
+                            RESULT = currentPassword;
+                        }
                     :}
-//                    | error:e
-//                      {:
-//                            int line       = (eleft)+1;
-//                            int column     = eright;
-//                            String message = "No se cumple la estructura de password, se espera: \"PASSWORD: \"PASSWORD DEL USUARIO\"";
-//                            addError(line, column, message);
-//                            RESULT = null;
-//                      :}
                     ;
 
 nameStructure::= NAME COLON TEXT:name
                 {:
-                    System.out.println("ANdo en nombre");
-                    currentName = name.toString();
-                    RESULT = currentName;
+                    if(currentNameBoolean){
+                        String message = "Ya existe un nombre";
+                        addError(message, "Semantico");
+                        RESULT = null;
+                    } else {
+                        currentNameBoolean = true;
+                        currentName = name.toString().replace("\"", "");
+                        RESULT = currentName;
+                    }
                 :}
-//                | error:e
-//                  {:
-//                    int line       = (eleft)+1;
-//                    int column     = eright;
-//                    String message = "No se cumple la estructura de Nombre de usuario, se espera: \"NOMBRE: \"NOMBRE DEL USUARIO\"";
-//                    addError(line, column, message);
-//                    RESULT = null;
-//                  :}
                 ;
 
 institutionStructure::= INSTITUTION COLON TEXT:institution
                         {:
-                            currentInstitution = institution.toString();
-                            RESULT = currentInstitution;
+                            if(currentInstitutionBoolean){
+                                String message = "Ya existe una institucion";
+                                addError(message, "Semantico");
+                                RESULT = null;
+                            } else {
+                                currentInstitutionBoolean = true;
+                                currentInstitution = institution.toString().replace("\"", "");
+                                RESULT = currentInstitution;
+                            }
                         :}
-//                        | error:e
-//                          {:
-//                            int line       = (eleft)+1;
-//                            int column     = eright;
-//                            String message = "No se cumple la estructura de usuario, se espera \"PASSWORD: \"PASSWORD DEL USUARIO\" ,";
-//                            addError(line, column, message);
-//                            RESULT = null;
-//                          :}
                         ;
 
 dateStructure::= DATE COLON DATECREATION:dateCreation
                 {:
-                    currentDateCreation = dateCreation.toString();
-                    RESULT = dateCreation.toString();
+                    if(currentDateCreationBoolean){
+                        String message = "Ya existia una fecha anterior";
+                        addError(message, "Semantico");
+                        RESULT = null;
+                    } else {
+                        currentDateCreationBoolean = true;
+                        currentDateCreation = dateCreation.toString().replace("\"", "");
+                        RESULT = dateCreation.toString();
+                    }
                 :}
-//                | error:e
-//                  {:
-//                        int line       = (eleft)+1;
-//                        int column     = eright;
-//                        String message = "No se cumple la estructura de usuario, se espera \"PASSWORD: \"PASSWORD DEL USUARIO\" ,";
-//                        addError(line, column, message);
-//                        RESULT = null;
-//                  :}
                 ;
 
 edituser::= EDITUSER GREATERT
@@ -249,7 +254,7 @@ edituser::= EDITUSER GREATERT
                         emptyParameters();
                     } else {
                         Date date = Calendar.getInstance().getTime();
-                        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
                         String strDate = dateFormat.format(date);
                         User user = new User(currentOldUser, currentUser, currentPassword,
                         currentInstitution, 2, strDate);
@@ -269,58 +274,66 @@ paramsEditUser::= oldUserStructure
                 | newPasswordStructure
                 | institutionStructure
                 | dateEditStructure
+                | error:e
+                {:
+
+                :}
                 ;
 
 oldUserStructure::= OLDUSER COLON TEXT:olduser
                     {:
-                        currentOldUser = olduser.toString();
-                        RESULT = currentOldUser;
+                        if(currentOldUserBoolean){
+                            String message = "Ya existia un usuario antiguo";
+                            addError(message, "Semantico");
+                            RESULT = null;
+                        } else {
+                            currentOldUserBoolean = true;
+                            currentOldUser = olduser.toString().replace("\"", "");
+                            RESULT = currentOldUser;
+                        }
                     :}
                     ;
 
 newUserStructure::= NEWUSER COLON TEXT:newuser
                     {:
-                        currentUser = newuser.toString();
-                        RESULT = currentUser;
+                        if(currentUserBoolean){
+                            String message = "Ya existia un usuario";
+                            addError(message, "Semantico");
+                            RESULT = null;
+                        } else {
+                            currentUserBoolean = true;
+                            currentUser = newuser.toString().replace("\"", "");
+                            RESULT = currentUser;
+                        }
                     :}
-//                    | error:e
-//                      {:
-//                        int line        = (eleft)+1;
-//                        int column      = eright;
-//                        String message  = "No se cumple la estructura de nuevo usuario, se espera: \"USUARIO_NUEVO\": \"Nuevo username\"";
-//                        addError(line, column, message);
-//                        RESULT = null;
-//                      :}
                     ;
 
 newPasswordStructure::= NEWPASSWORD COLON TEXT:newpassword
                         {:
-                            currentPassword = newpassword.toString();
-                            RESULT = currentPassword;
+                            if(currentPasswordBoolean){
+                                String message = "Ya existia una password";
+                                addError(message, "Semantico");
+                                RESULT = null;
+                            } else {
+                                currentPasswordBoolean = true;
+                                currentPassword = newpassword.toString().replace("\"", "");
+                                RESULT = currentPassword;
+                            }
                         :}
-//                        | error:e
-//                          {:
-//                            int line        = (eleft)+1;
-//                            int column      = eright;
-//                            String message  = "No se cumple la estructura de nuevo password, se espera: \"NUEVO_PASSWORD\": \"Nuevo password del usuario\"";
-//                            addError(line, column, message);
-//                            RESULT = null;
-//                          :}
                         ;
 
 dateEditStructure::= DATEEDIT COLON DATECREATION:dateCreation
                      {:
-                        currentDateCreation = dateCreation.toString();
-                        RESULT = currentDateCreation;
+                        if(currentDateCreationBoolean){
+                            String message = "Ya existia anteriormente una fecha";
+                            addError(message, "Semantico");
+                            RESULT = null;
+                        } else {
+                            currentDateCreationBoolean = true;
+                            currentDateCreation = dateCreation.toString().replace("\"", "");
+                            RESULT = currentDateCreation;
+                        }
                      :}
-//                    | error:e
-//                      {:
-//                        int line        = (eleft)+1;
-//                        int column      = eright;
-//                        String message  = "No se cumple la estructura de nuevo password, se espera: \"NUEVO_PASSWORD\": \"Nuevo password del usuario\"";
-//                        addError(line, column, message);
-//                        RESULT = null;
-//                      :}
                     ;
 
 deleteuser::= DELETEUSER GREATERT
@@ -341,14 +354,6 @@ deleteuser::= DELETEUSER GREATERT
                     RESULT = null;
                 }
               :}
-              | error:e GREATERT
-                {:
-                    int line    = (eleft)+1;
-                    int column  = eright;
-                    String message = "Error para eliminar un usuario";
-                    addError(line, column, message);
-                    RESULT = null;
-                :}
               ;
 
 initDataUser::= KEYA USERDATA COLON BRACKETA KEYA
@@ -374,14 +379,14 @@ endKeyBracket::= KEYC BRACKETC KEYC
                 ;
 
 initRequest::= OPENREQ INREQUEST COLON
-//               | error:e COLON
-//               {:
-//                    int line    = (eleft)+1;
-//                    int column  = eright;
-//                    String message = "No se cumple con el orden para iniciar una solicitud de login";
-//                    addError(line, column, message);
-//                    RESULT = null;
-//               :}
+               | error:e COLON
+               {:
+                    int line    = (eleft)+1;
+                    int column  = eright;
+                    String message = "No se cumple con el orden para iniciar una solicitud de login";
+                    addError(line, column, message);
+                    RESULT = null;
+               :}
                ;
 
 endRequest::= LESST EDREQUEST ENDREQ

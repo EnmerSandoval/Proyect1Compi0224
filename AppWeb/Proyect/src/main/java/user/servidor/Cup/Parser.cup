@@ -8,14 +8,9 @@ import org.proyect1.Objects.*;
 class Parser;
 
 parser code{:
-    private ArrayList<User> users = new ArrayList<User>();
     private ArrayList<Component> components = new ArrayList<Component>();
     private ArrayList<Trivia> trivias = new ArrayList<Trivia>();
     private ArrayList<Error> errors = new ArrayList<Error>();
-
-    public ArrayList<User> getUsers(){
-        return this.users;
-    }
 
     public ArrayList<Component> getComponents(){
         return this.components;
@@ -104,39 +99,6 @@ newtrivia::= NEWTRIVIA GREATERT
                 trivias.add(trivia);
                 RESULT = trivia;
              :}
-             | NEWTRIVIA GREATERT
-               initParametersTrivia
-               IDTRIVIA COLON TEXT:idTrivia COMMA
-               NAME COLON TEXT:nameTrivia COMMA
-               TIMEQUESTION COLON NUMBER:timeQuestion COMMA
-               USERCREATOR COLON TEXT:userCreator COMMA
-               THEME COLON TEXT:theme
-               endKeyBracket
-               //flag 1
-               {:
-                Date date = Calendar.getInstance().getTime();
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-                String strDate = dateFormat.format(date);
-                Trivia trivia = new Trivia(idTrivia.toString(), nameTrivia.toString(), timeQuestion,
-                userCreator.toString, theme.toString(), strDate, 1);
-                trivias.add(trivia);
-                RESULT = trivia;
-               :}
-             | NEWTRIVIA GREATERT
-               initParametersTrivia
-               IDTRIVIA COLON TEXT:idTrivia COMMA
-               NAME COLON TEXT:nameTrivia COMMA
-               TIMEQUESTION COLON NUMBER:timeQuestion COMMA
-               THEME COLON TEXT:theme COMMA
-               DATE COLON DATECREATION:dateCreation
-               endKeyBracket
-               //flag 1
-               {:
-               Trivia trivia = new Trivia(idTrivia.toString(), nameTrivia.toString(), timeQuestion,
-               "user default", theme.toString(), dateCreation.toString(), 1);
-               trivias.add(trivia);
-               RESULT = trivia;
-               :}
              ;
 
 deleteTrivia::= DELETETRIVIA GREATERT

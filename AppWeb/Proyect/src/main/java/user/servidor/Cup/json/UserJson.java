@@ -34,9 +34,9 @@ public class UserJson extends java_cup.runtime.lr_parser {
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
     "\000\015\000\002\002\004\000\002\007\003\000\002\010" +
-    "\005\000\002\011\004\000\002\011\003\000\002\012\016" +
-    "\000\002\012\015\000\002\012\003\000\002\002\005\000" +
-    "\002\003\005\000\002\004\005\000\002\005\005\000\002" +
+    "\005\000\002\010\004\000\002\011\005\000\002\011\003" +
+    "\000\002\012\011\000\002\012\003\000\002\002\006\000" +
+    "\002\003\006\000\002\004\006\000\002\005\006\000\002" +
     "\006\005" });
 
   /** Access to production table. */
@@ -45,26 +45,25 @@ public class UserJson extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\045\000\004\004\006\001\002\000\004\002\047\001" +
-    "\002\000\004\002\000\001\002\000\006\003\007\006\010" +
-    "\001\002\000\010\003\ufffa\005\ufffa\006\ufffa\001\002\000" +
-    "\004\012\016\001\002\000\010\003\ufffd\005\ufffd\006\ufffd" +
-    "\001\002\000\010\003\007\005\013\006\010\001\002\000" +
-    "\004\002\uffff\001\002\000\010\003\ufffe\005\ufffe\006\ufffe" +
-    "\001\002\000\004\011\021\001\002\000\004\010\017\001" +
-    "\002\000\004\017\020\001\002\000\004\011\ufff9\001\002" +
-    "\000\004\013\023\001\002\000\004\011\026\001\002\000" +
-    "\004\010\024\001\002\000\004\017\025\001\002\000\004" +
-    "\011\ufff8\001\002\000\004\014\030\001\002\000\004\011" +
-    "\033\001\002\000\004\010\031\001\002\000\004\017\032" +
-    "\001\002\000\004\011\ufff7\001\002\000\004\015\035\001" +
-    "\002\000\004\011\040\001\002\000\004\010\036\001\002" +
-    "\000\004\017\037\001\002\000\004\011\ufff6\001\002\000" +
-    "\004\016\042\001\002\000\004\007\045\001\002\000\004" +
-    "\010\043\001\002\000\004\017\044\001\002\000\004\007" +
-    "\ufff5\001\002\000\012\003\ufffb\005\ufffb\006\ufffb\011\046" +
-    "\001\002\000\010\003\ufffc\005\ufffc\006\ufffc\001\002\000" +
-    "\004\002\001\001\002" });
+    "\000\046\000\004\004\006\001\002\000\004\002\050\001" +
+    "\002\000\004\002\000\001\002\000\010\003\007\005\010" +
+    "\006\011\001\002\000\006\005\ufffa\011\ufffa\001\002\000" +
+    "\004\002\ufffe\001\002\000\004\012\020\001\002\000\004" +
+    "\005\016\001\002\000\006\005\ufffc\011\014\001\002\000" +
+    "\006\003\007\006\011\001\002\000\004\005\ufffd\001\002" +
+    "\000\004\002\uffff\001\002\000\004\013\025\001\002\000" +
+    "\004\010\021\001\002\000\004\017\022\001\002\000\004" +
+    "\011\023\001\002\000\004\013\ufff9\001\002\000\004\014" +
+    "\032\001\002\000\004\010\026\001\002\000\004\017\027" +
+    "\001\002\000\004\011\030\001\002\000\004\014\ufff8\001" +
+    "\002\000\004\015\037\001\002\000\004\010\033\001\002" +
+    "\000\004\017\034\001\002\000\004\011\035\001\002\000" +
+    "\004\015\ufff7\001\002\000\004\016\044\001\002\000\004" +
+    "\010\040\001\002\000\004\017\041\001\002\000\004\011" +
+    "\042\001\002\000\004\016\ufff6\001\002\000\004\007\047" +
+    "\001\002\000\004\010\045\001\002\000\004\020\046\001" +
+    "\002\000\004\007\ufff5\001\002\000\006\005\ufffb\011\ufffb" +
+    "\001\002\000\004\002\001\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -72,20 +71,20 @@ public class UserJson extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\045\000\006\007\003\010\004\001\001\000\002\001" +
-    "\001\000\002\001\001\000\006\011\011\012\010\001\001" +
-    "\000\002\001\001\000\004\002\014\001\001\000\002\001" +
-    "\001\000\004\012\013\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\004\003\021\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\004\004\026\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\004\005" +
-    "\033\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\006\040\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001" });
+    "\000\046\000\006\007\003\010\004\001\001\000\002\001" +
+    "\001\000\002\001\001\000\006\011\011\012\012\001\001" +
+    "\000\002\001\001\000\002\001\001\000\004\002\016\001" +
+    "\001\000\002\001\001\000\002\001\001\000\006\011\014" +
+    "\012\012\001\001\000\002\001\001\000\002\001\001\000" +
+    "\004\003\023\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\004\004\030\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\004\005\035\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\004\006\042\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -142,6 +141,9 @@ public class UserJson extends java_cup.runtime.lr_parser {
 
     public void syntax_error(Symbol s){
         errorString = s.value+"";
+        String errorString = "Error sintactico recuperable en la linea: "+
+        (s.left)+ " columna: " + s.right + ". Componente  " + s.value + " no reconocido.";
+        System.out.println("Error sintactico: "+errorString);
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
@@ -209,16 +211,25 @@ class CUP$UserJson$actions {
           return CUP$UserJson$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // dataUser ::= dataUser userComponents 
+          case 3: // initUser ::= CORCHETEA CORCHETEC 
             {
               Object RESULT =null;
 
-              CUP$UserJson$result = parser.getSymbolFactory().newSymbol("dataUser",7, ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)), ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()), RESULT);
+              CUP$UserJson$result = parser.getSymbolFactory().newSymbol("initUser",6, ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)), ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()), RESULT);
             }
           return CUP$UserJson$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // dataUser ::= userComponents 
+          case 4: // dataUser ::= userComponents COMMA dataUser 
+            {
+              Object RESULT =null;
+
+              CUP$UserJson$result = parser.getSymbolFactory().newSymbol("dataUser",7, ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-2)), ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()), RESULT);
+            }
+          return CUP$UserJson$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 5: // dataUser ::= userComponents 
             {
               Object RESULT =null;
 
@@ -227,69 +238,30 @@ class CUP$UserJson$actions {
           return CUP$UserJson$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // userComponents ::= KEYA userStructure COMMA passwordStructure COMMA institutionStructure COMMA nameStructure COMMA dateStructure KEYC COMMA 
+          case 6: // userComponents ::= KEYA userStructure passwordStructure institutionStructure nameStructure dateStructure KEYC 
             {
               Object RESULT =null;
-		int userleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-10)).left;
-		int userright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-10)).right;
-		String user = (String)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-10)).value;
-		int passwordleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-8)).left;
-		int passwordright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-8)).right;
-		String password = (String)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-8)).value;
-		int institutionleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-6)).left;
-		int institutionright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-6)).right;
-		String institution = (String)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-6)).value;
-		int nameleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-4)).left;
-		int nameright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-4)).right;
-		String name = (String)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-4)).value;
-		int dateleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-2)).left;
-		int dateright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-2)).right;
-		String date = (String)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-2)).value;
-		
-            System.out.println("Ando aca");
-            System.out.println("user "+ user.toString());
-            System.out.println("PASSWORD "+ password.toString());
-            System.out.println("institution "+ institution.toString());
-            System.out.println("name "+ name.toString());
-            System.out.println("date "+ date.toString());
-            User userResult = new User(user.toString(), password.toString(), institution.toString(),
-            name.toString(), date.toString());
-            users.add(userResult);
-        
-              CUP$UserJson$result = parser.getSymbolFactory().newSymbol("userComponents",8, ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-11)), ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()), RESULT);
-            }
-          return CUP$UserJson$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // userComponents ::= KEYA userStructure COMMA passwordStructure COMMA institutionStructure COMMA nameStructure COMMA dateStructure KEYC 
-            {
-              Object RESULT =null;
-		int userleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-9)).left;
-		int userright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-9)).right;
-		String user = (String)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-9)).value;
-		int passwordleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-7)).left;
-		int passwordright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-7)).right;
-		String password = (String)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-7)).value;
-		int institutionleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-5)).left;
-		int institutionright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-5)).right;
-		String institution = (String)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-5)).value;
-		int nameleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-3)).left;
-		int nameright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-3)).right;
-		String name = (String)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-3)).value;
+		int userleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-5)).left;
+		int userright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-5)).right;
+		String user = (String)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-5)).value;
+		int passwordleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-4)).left;
+		int passwordright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-4)).right;
+		String password = (String)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-4)).value;
+		int institutionleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-3)).left;
+		int institutionright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-3)).right;
+		String institution = (String)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-3)).value;
+		int nameleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-2)).left;
+		int nameright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-2)).right;
+		String name = (String)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-2)).value;
 		int dateleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)).left;
 		int dateright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)).right;
 		String date = (String)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)).value;
 		
-            System.out.println("user "+ user.toString());
-            System.out.println("PASSWORD "+ password.toString());
-            System.out.println("institution "+ institution.toString());
-            System.out.println("name "+ name.toString());
-            System.out.println("date "+ date.toString());
             User userResult = new User(user.toString(), password.toString(), institution.toString(),
             name.toString(), date.toString());
             users.add(userResult);
         
-              CUP$UserJson$result = parser.getSymbolFactory().newSymbol("userComponents",8, ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-10)), ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()), RESULT);
+              CUP$UserJson$result = parser.getSymbolFactory().newSymbol("userComponents",8, ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-6)), ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()), RESULT);
             }
           return CUP$UserJson$result;
 
@@ -311,71 +283,71 @@ class CUP$UserJson$actions {
           return CUP$UserJson$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // userStructure ::= USER COLON TEXT 
+          case 8: // userStructure ::= USER COLON TEXT COMMA 
             {
               String RESULT =null;
-		int userleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()).left;
-		int userright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()).right;
-		Object user = (Object)((java_cup.runtime.Symbol) CUP$UserJson$stack.peek()).value;
+		int userleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)).left;
+		int userright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)).right;
+		Object user = (Object)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)).value;
 		
                     System.out.println("user" + user.toString());
-                    RESULT = user.toString();
+                    RESULT = user.toString().replace("\"", "");
                 
-              CUP$UserJson$result = parser.getSymbolFactory().newSymbol("userStructure",0, ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-2)), ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()), RESULT);
+              CUP$UserJson$result = parser.getSymbolFactory().newSymbol("userStructure",0, ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-3)), ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()), RESULT);
             }
           return CUP$UserJson$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // passwordStructure ::= PASSWORD COLON TEXT 
+          case 9: // passwordStructure ::= PASSWORD COLON TEXT COMMA 
             {
               String RESULT =null;
-		int passwordleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()).left;
-		int passwordright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()).right;
-		Object password = (Object)((java_cup.runtime.Symbol) CUP$UserJson$stack.peek()).value;
+		int passwordleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)).left;
+		int passwordright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)).right;
+		Object password = (Object)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)).value;
 		
-                        RESULT = password.toString();
+                        RESULT = password.toString().replace("\"", "");
                     
-              CUP$UserJson$result = parser.getSymbolFactory().newSymbol("passwordStructure",1, ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-2)), ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()), RESULT);
+              CUP$UserJson$result = parser.getSymbolFactory().newSymbol("passwordStructure",1, ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-3)), ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()), RESULT);
             }
           return CUP$UserJson$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // institutionStructure ::= INSTITUTION COLON TEXT 
+          case 10: // institutionStructure ::= INSTITUTION COLON TEXT COMMA 
             {
               String RESULT =null;
-		int institutionleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()).left;
-		int institutionright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()).right;
-		Object institution = (Object)((java_cup.runtime.Symbol) CUP$UserJson$stack.peek()).value;
+		int institutionleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)).left;
+		int institutionright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)).right;
+		Object institution = (Object)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)).value;
 		
-                            RESULT = institution.toString();
+                            RESULT = institution.toString().replace("\"", "");
                         
-              CUP$UserJson$result = parser.getSymbolFactory().newSymbol("institutionStructure",2, ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-2)), ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()), RESULT);
+              CUP$UserJson$result = parser.getSymbolFactory().newSymbol("institutionStructure",2, ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-3)), ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()), RESULT);
             }
           return CUP$UserJson$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // nameStructure ::= NAME COLON TEXT 
+          case 11: // nameStructure ::= NAME COLON TEXT COMMA 
             {
               String RESULT =null;
-		int nameleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()).left;
-		int nameright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()).right;
-		Object name = (Object)((java_cup.runtime.Symbol) CUP$UserJson$stack.peek()).value;
+		int nameleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)).left;
+		int nameright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)).right;
+		Object name = (Object)((java_cup.runtime.Symbol) CUP$UserJson$stack.elementAt(CUP$UserJson$top-1)).value;
 		
-                    RESULT = name.toString();
+                    RESULT = name.toString().replace("\"", "");
                 
-              CUP$UserJson$result = parser.getSymbolFactory().newSymbol("nameStructure",3, ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-2)), ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()), RESULT);
+              CUP$UserJson$result = parser.getSymbolFactory().newSymbol("nameStructure",3, ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-3)), ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()), RESULT);
             }
           return CUP$UserJson$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // dateStructure ::= DATE COLON TEXT 
+          case 12: // dateStructure ::= DATE COLON DATECREATION 
             {
               String RESULT =null;
 		int dateleft = ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()).left;
 		int dateright = ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()).right;
 		Object date = (Object)((java_cup.runtime.Symbol) CUP$UserJson$stack.peek()).value;
 		
-                    RESULT = date.toString();
+                    RESULT = date.toString().replace("\"", "");
                 
               CUP$UserJson$result = parser.getSymbolFactory().newSymbol("dateStructure",4, ((java_cup.runtime.Symbol)CUP$UserJson$stack.elementAt(CUP$UserJson$top-2)), ((java_cup.runtime.Symbol)CUP$UserJson$stack.peek()), RESULT);
             }

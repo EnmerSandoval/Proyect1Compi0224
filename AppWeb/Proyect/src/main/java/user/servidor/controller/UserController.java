@@ -1,6 +1,7 @@
 package user.servidor.controller;
 
 import java.io.*;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,57 +31,150 @@ public class UserController {
     public UserController() {
     }
 
-    public void registerUser(ArrayList<User> users) throws Exception{
+    public boolean existFileUserBd(){
         File file = new File(userdbPath);
-        if(file.exists() && !file.isDirectory()){
-            String text = readFiles();
-            System.out.println(text);
-            UserJsonFlex userJsonFlex = new UserJsonFlex(new StringReader(text));
+        return file.exists() && !file.isDirectory();
+    }
+
+    public ArrayList<User> returnUsersJson() throws Exception{
+        String textUser = readFiles();
+        if(existFileUserBd()){
+            UserJsonFlex userJsonFlex = new UserJsonFlex(new StringReader(textUser));
             UserJson userJson = new UserJson(userJsonFlex);
-            System.out.println(userJson.parse());
-//            userJson.parse();
-            System.out.println(userJson.getUsers().size());
-            if(!userJson.getUsers().isEmpty()){
-                for(User u : userJson.getUsers()){
-                    System.out.println(u.getUsername());
-                    System.out.println(u.getPassword());
-                    System.out.println(u.getInstitution());
-                    System.out.println(u.getName());
-                    System.out.println(u.getDateCreation());
+            userJson.parse();
+            if(userJson.getUsers() != null && !userJson.getUsers().isEmpty()){
+                return userJson.getUsers();
+            } else {
+                return new ArrayList<>();
+            }
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    public void registerUser(ArrayList<User> users) throws Exception {
+        ArrayList<User> usersToRegister = returnUsersJson();
+        if (existFileUserBd()) {
+            if (!usersToRegister.isEmpty()) {
+                for (User user : users) {
+                    if (!verificationToExistUser(user)) {
+                        usersToRegister.add(user);
+                    } else {
+                        System.out.println("El usuario ya existe");
+                    }
                 }
             }
         } else {
-            ObjectMapper objectMapper = new ObjectMapper();
-            ArrayNode usersArray;
-            usersArray = objectMapper.createArrayNode();
-
-            for (User user : users) {
-                ObjectNode userJson = objectMapper.createObjectNode();
-                userJson.put("USUARIO", user.getUsername());
-                userJson.put("PASSWORD", user.getPassword());
-                userJson.put("INSTITUCION", user.getInstitution());
-                userJson.put("NOMBRE", user.getName());
-                userJson.put("FECHA_CREACION", user.getDateCreation());
-                usersArray.add(userJson);
-            }
-
-                try(BufferedWriter writer = new BufferedWriter(new FileWriter(userdbPackage))){
-                    objectMapper.writeValue(writer, usersArray);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+            usersToRegister.addAll(users);
         }
+        writeUsersToFile(usersToRegister);
+    }
+
+    public void editUser(ArrayList<User> users) throws Exception{
+        ArrayList<User> userToEdit = returnUsersJson();
+        if (existFileUserBd()){
+            if(!userToEdit.isEmpty()){
+                for (User user : users) {
+                    if (verificationToExistUser(user)) {
+
+                    }
+                }
+            }
+        }
+        writeUsersToFile(userToEdit);
+    }
+
+    public void deleteUser(ArrayList<User> users) throws Exception{
+        ArrayList<User> userToDelete = returnUsersJson();
+        int index = 0;
+        if (existFileUserBd()){
+            if(!userToDelete.isEmpty()){
+                for (User user : users) {
+                    if (verificationToExistUser(user)) {
+                        userToDelete.remove(index);
+                    }
+                    index++;
+                }
+            }
+        }
+        writeUsersToFile(userToDelete);
+    }
+
+    public void writeUsersToFile(ArrayList<User> usersToRegister) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ArrayNode usersArray = objectMapper.createArrayNode();
+
+        for (User user : usersToRegister) {
+            ObjectNode userJson = objectMapper.createObjectNode();
+            System.out.println(user.getUsername());
+            userJson.put("USUARIO", user.getUsername());
+            userJson.put("PASSWORD", user.getPassword());
+            userJson.put("INSTITUCION", user.getInstitution());
+            userJson.put("NOMBRE", user.getName());
+            userJson.put("FECHA_CREACION", user.getDateCreation());
+            usersArray.add(userJson);
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(userdbPackage))) {
+            objectMapper.writeValue(writer, usersArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public boolean verificationToLoginUser(User user) throws Exception{
+        boolean verified = false;
+        ArrayList<User> userJson = returnUsersJson();
+        if(userJson != null && !userJson.isEmpty()){
+            for (User userVerified : userJson) {
+                if (userVerified.getUsername().equals(user.getUsername()) && userVerified.getPassword().equals(user.getPassword())) {
+                    verified = true;
+                    break;
+                }
+            }
+        }
+        return verified;
+    }
+
+    public boolean verificationToExistUser(User user) throws Exception{
+        boolean verified = false;
+        ArrayList<User> userJson = returnUsersJson();
+        if(userJson != null && !userJson.isEmpty()){
+            for (User userVerified : userJson) {
+                if(userVerified.getUsername().equals(user.getUsername())){
+                    verified = true;
+                    break;
+                }
+            }
+        }
+        return verified;
+    }
+
+    public int iteratorUser(User user) throws Exception{
+        int iterator = 0;
+        ArrayList<User> userJson = returnUsersJson();
+        if(userJson != null && !userJson.isEmpty()){
+            for (User userVerified : userJson) {
+                if(userVerified.getUsername().equals(user.getUsername())){
+                    break;
+                }
+                iterator++;
+            }
+        }
+        return iterator;
     }
 
     public String readFiles(){
         StringBuilder stringBuilder = new StringBuilder();
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(userdbPath))) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line).append("\n");
+        if(existFileUserBd()){
+            try(BufferedReader bufferedReader = new BufferedReader(new FileReader(userdbPath))) {
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                }
+            }catch (IOException ex){
+                ex.printStackTrace();
             }
-        }catch (IOException ex){
-            ex.printStackTrace();
         }
         return stringBuilder.toString();
     }

@@ -26,6 +26,9 @@ parser code{:
 
     public void syntax_error(Symbol s){
         errorString = s.value+"";
+        String errorString = "Error sintactico recuperable en la linea: "+
+        (s.left)+ " columna: " + s.right + ". Componente  " + s.value + " no reconocido.";
+        System.out.println("Error sintactico: "+errorString);
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
@@ -37,7 +40,7 @@ parser code{:
 :}
 
 terminal CORCHETEA, CORCHETEC, KEYA, KEYC, COLON, COMMA, USER, PASSWORD, INSTITUTION, NAME, DATE,
-         TEXT;
+         TEXT, DATECREATION;
 
 non terminal String userStructure, passwordStructure, institutionStructure, nameStructure, dateStructure;
 
@@ -47,43 +50,22 @@ start with in;
 
 in::= initUser;
 
-initUser::= CORCHETEA dataUser CORCHETEC;
+initUser::= CORCHETEA dataUser CORCHETEC
+          | CORCHETEA CORCHETEC
+          ;
 
-dataUser::= dataUser userComponents
+dataUser::= userComponents COMMA dataUser
           | userComponents
           ;
 
 userComponents::= KEYA
-        userStructure:user COMMA
-        passwordStructure:password COMMA
-        institutionStructure:institution COMMA
-        nameStructure:name COMMA
+        userStructure:user
+        passwordStructure:password
+        institutionStructure:institution
+        nameStructure:name
         dateStructure:date
-        KEYC COMMA
+        KEYC
         {:
-            System.out.println("Ando aca");
-            System.out.println("user "+ user.toString());
-            System.out.println("PASSWORD "+ password.toString());
-            System.out.println("institution "+ institution.toString());
-            System.out.println("name "+ name.toString());
-            System.out.println("date "+ date.toString());
-            User userResult = new User(user.toString(), password.toString(), institution.toString(),
-            name.toString(), date.toString());
-            users.add(userResult);
-        :}
-        |KEYA
-                 userStructure:user COMMA
-                 passwordStructure:password COMMA
-                 institutionStructure:institution COMMA
-                 nameStructure:name COMMA
-                 dateStructure:date
-                 KEYC
-        {:
-            System.out.println("user "+ user.toString());
-            System.out.println("PASSWORD "+ password.toString());
-            System.out.println("institution "+ institution.toString());
-            System.out.println("name "+ name.toString());
-            System.out.println("date "+ date.toString());
             User userResult = new User(user.toString(), password.toString(), institution.toString(),
             name.toString(), date.toString());
             users.add(userResult);
@@ -97,33 +79,33 @@ userComponents::= KEYA
           :}
         ;
 
-userStructure::= USER COLON TEXT:user
+userStructure::= USER COLON TEXT:user COMMA
                 {:
                     System.out.println("user" + user.toString());
-                    RESULT = user.toString();
+                    RESULT = user.toString().replace("\"", "");
                 :}
                 ;
 
-passwordStructure::= PASSWORD COLON TEXT:password
+passwordStructure::= PASSWORD COLON TEXT:password COMMA
                     {:
-                        RESULT = password.toString();
+                        RESULT = password.toString().replace("\"", "");
                     :}
                     ;
 
-institutionStructure::= INSTITUTION COLON TEXT:institution
+institutionStructure::= INSTITUTION COLON TEXT:institution COMMA
                         {:
-                            RESULT = institution.toString();
+                            RESULT = institution.toString().replace("\"", "");
                         :}
                         ;
 
-nameStructure::= NAME COLON TEXT:name
+nameStructure::= NAME COLON TEXT:name COMMA
                 {:
-                    RESULT = name.toString();
+                    RESULT = name.toString().replace("\"", "");
                 :}
                 ;
 
-dateStructure::= DATE COLON TEXT:date
+dateStructure::= DATE COLON DATECREATION:date
                 {:
-                    RESULT = date.toString();
+                    RESULT = date.toString().replace("\"", "");
                 :}
                 ;

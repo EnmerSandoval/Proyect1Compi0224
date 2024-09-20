@@ -23,45 +23,75 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();
         String text = req.getParameter("registerText");
-        System.out.println(text);
         ArrayList<ErrorL> errors =  new ArrayList<>();
+        UserFlex userFlex = new UserFlex(new StringReader(text));
+        UserParser userParser = new UserParser(userFlex);
         try {
-           // UserFlex userFlex = new UserFlex(new StringReader(text));
-            //UserParser userParser = new UserParser(userFlex);
-            //System.out.println(userParser.parse());
-            //if(!userParser.getUsers().isEmpty()){
-              //  ArrayList<User> users = userParser.getUsers();
-                ArrayList<User> userParser = new ArrayList<>();
-                User usere = new User("Juan", "123Bajista", "Osvaldo", "CUNOC", "12/3/2024", 1);
-//                User user2 = new User("Alexandra", "aleangel21", "Alexa", "CUSAM", "18/3/2023", 1);
-//                User user3 = new User("Mario", "maradoso28", "marod28", "CUSAM", "11/6/2023", 1);
-//                User user4 = new User("Valeska", "vale23", "Valeska", "CUM", "12/4/2023", 1);
-//
-                userParser.add(usere);
-//                userParser.add(user2);
-//                userParser.add(user3);
-//                userParser.add(user4);
-                for(User user : userParser){
-                    if(user.getFlag() == 1){
-                        //crear usuario
-                        UserController userController = new UserController();
-                        userController.registerUser(userParser);
-                    } else if(user.getFlag() == 2){
-                        //Editar usuario
-                    } else if(user.getFlag() == 3){
-                        //Eliminar usuario  v
-                    }
+            userParser.parse();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        UserController userController = new UserController();
+        if(!userParser.getUsers().isEmpty()){
+            ArrayList<User> registerUsers = returnRegisterUsers(userParser.getUsers());
+            ArrayList<User> editUsers = returnEditUser(userParser.getUsers());
+            ArrayList<User> deleteUsers = returnDeleteUser(userParser.getUsers());
+            try {
+                if (!registerUsers.isEmpty()) {
+                    userController.registerUser(registerUsers);
                 }
-                req.setAttribute("success", "Todo fue parseado correctamente");
+                if(!editUsers.isEmpty()){
+                    userController.editUser(editUsers);
+                }
+
+                if(!deleteUsers.isEmpty()){
+                    userController.deleteUser(deleteUsers);
+                }
+            } catch (Exception e){
+                throw new RuntimeException(e);
+            }
+        }
+
+
+
+//                req.setAttribute("success", "Todo fue parseado correctamente");
               //  if(!userParser.getUsers().isEmpty()){
                 //    req.setAttribute("error", userParser.getErrors());
                // }
            // } else if(!userParser.getErrors().isEmpty()){
              //   req.setAttribute("errors", userParser.getErrors());
             //}
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
 
+
+    }
+
+    public ArrayList<User> returnRegisterUsers(ArrayList<User> users){
+        ArrayList<User> usersRegister = new ArrayList<>();
+        for(User user : users){
+            if (user.getFlag() == 1){
+                usersRegister.add(user);
+            }
+        }
+        return usersRegister;
+    }
+
+    public ArrayList<User> returnEditUser(ArrayList<User> users){
+        ArrayList<User> usersEdit = new ArrayList<>();
+        for(User user : users){
+            if (user.getFlag() == 2){
+                usersEdit.add(user);
+            }
+        }
+        return usersEdit;
+    }
+
+    public ArrayList<User> returnDeleteUser(ArrayList<User> users){
+        ArrayList<User> usersDelete = new ArrayList<>();
+        for(User user : users){
+            if (user.getFlag() == 3){
+                usersDelete.add(user);
+            }
+        }
+        return usersDelete;
     }
 }

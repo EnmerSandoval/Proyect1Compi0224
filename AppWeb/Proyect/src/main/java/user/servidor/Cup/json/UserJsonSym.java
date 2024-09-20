@@ -13,6 +13,7 @@ public class UserJsonSym {
   public static final int USER = 8;
   public static final int EOF = 0;
   public static final int KEYC = 5;
+  public static final int DATECREATION = 14;
   public static final int KEYA = 4;
   public static final int error = 1;
   public static final int COMMA = 7;
@@ -36,7 +37,8 @@ public class UserJsonSym {
   "INSTITUTION",
   "NAME",
   "DATE",
-  "TEXT"
+  "TEXT",
+  "DATECREATION"
   };
 }
 

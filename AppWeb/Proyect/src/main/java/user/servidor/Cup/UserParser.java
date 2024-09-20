@@ -38,23 +38,23 @@ public class UserParser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\065\000\002\002\004\000\002\037\004\000\002\003" +
+    "\000\066\000\002\002\004\000\002\037\004\000\002\003" +
     "\003\000\002\003\003\000\002\022\005\000\002\023\003" +
     "\000\002\007\005\000\002\011\006\000\002\011\005\000" +
     "\002\005\003\000\002\005\003\000\002\005\003\000\002" +
-    "\013\007\000\002\035\005\000\002\035\003\000\002\036" +
+    "\013\007\000\002\035\003\000\002\035\005\000\002\036" +
     "\003\000\002\036\003\000\002\036\003\000\002\036\003" +
     "\000\002\036\003\000\002\036\003\000\002\024\005\000" +
     "\002\025\005\000\002\026\005\000\002\027\005\000\002" +
     "\030\005\000\002\014\007\000\002\016\005\000\002\016" +
     "\003\000\002\017\003\000\002\017\003\000\002\017\003" +
-    "\000\002\017\003\000\002\017\003\000\002\031\005\000" +
-    "\002\032\005\000\002\033\005\000\002\034\005\000\002" +
-    "\015\007\000\002\015\004\000\002\021\007\000\002\021" +
+    "\000\002\017\003\000\002\017\003\000\002\017\003\000" +
+    "\002\031\005\000\002\032\005\000\002\033\005\000\002" +
+    "\034\005\000\002\015\007\000\002\021\007\000\002\021" +
     "\004\000\002\020\005\000\002\020\004\000\002\004\005" +
-    "\000\002\006\005\000\002\006\004\000\002\002\010\000" +
-    "\002\002\003\000\002\010\005\000\002\010\003\000\002" +
-    "\012\005\000\002\012\003" });
+    "\000\002\004\004\000\002\006\005\000\002\006\004\000" +
+    "\002\002\010\000\002\002\003\000\002\010\005\000\002" +
+    "\010\003\000\002\012\005\000\002\012\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -62,81 +62,82 @@ public class UserParser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\167\000\006\003\006\036\007\001\002\000\004\002" +
-    "\171\001\002\000\006\003\017\031\021\001\002\000\006" +
-    "\003\uffd1\031\uffd1\001\002\000\004\037\010\001\002\000" +
+    "\000\170\000\006\003\006\036\007\001\002\000\004\002" +
+    "\172\001\002\000\006\003\017\031\021\001\002\000\006" +
+    "\003\uffd0\031\uffd0\001\002\000\004\037\010\001\002\000" +
     "\004\040\011\001\002\000\004\041\012\001\002\000\004" +
     "\011\013\001\002\000\004\042\014\001\002\000\006\003" +
-    "\uffd2\031\uffd2\001\002\000\004\031\154\001\002\000\004" +
-    "\002\ufffe\001\002\000\004\031\uffcf\001\002\000\004\002" +
-    "\000\001\002\000\006\032\151\043\150\001\002\000\004" +
-    "\002\uffff\001\002\000\012\003\030\004\025\017\026\023" +
-    "\034\001\002\000\004\002\ufffc\001\002\000\004\005\122" +
-    "\001\002\000\004\005\067\001\002\000\006\003\ufff6\033" +
-    "\ufff6\001\002\000\004\005\066\001\002\000\006\003\ufff8" +
-    "\033\ufff8\001\002\000\006\003\ufff7\033\ufff7\001\002\000" +
-    "\006\003\060\033\062\001\002\000\004\005\035\001\002" +
-    "\000\006\003\037\024\040\001\002\000\004\007\047\001" +
-    "\002\000\004\024\045\001\002\000\004\025\041\001\002" +
-    "\000\004\010\042\001\002\000\004\026\043\001\002\000" +
-    "\004\024\044\001\002\000\026\003\uffd9\004\uffd9\007\uffd9" +
-    "\012\uffd9\013\uffd9\014\uffd9\015\uffd9\020\uffd9\021\uffd9\022" +
-    "\uffd9\001\002\000\026\003\uffd8\004\uffd8\007\uffd8\012\uffd8" +
-    "\013\uffd8\014\uffd8\015\uffd8\020\uffd8\021\uffd8\022\uffd8\001" +
-    "\002\000\006\003\052\027\053\001\002\000\004\010\050" +
-    "\001\002\000\004\011\051\001\002\000\010\003\uffec\006" +
-    "\uffec\027\uffec\001\002\000\004\027\057\001\002\000\004" +
-    "\030\055\001\002\000\006\003\uffdb\033\uffdb\001\002\000" +
-    "\004\027\056\001\002\000\006\003\uffd7\033\uffd7\001\002" +
-    "\000\006\003\uffd6\033\uffd6\001\002\000\004\035\065\001" +
-    "\002\000\004\002\ufffd\001\002\000\004\034\063\001\002" +
-    "\000\004\035\064\001\002\000\010\002\uffd4\003\uffd4\031" +
-    "\uffd4\001\002\000\010\002\uffd3\003\uffd3\031\uffd3\001\002" +
-    "\000\006\003\uffda\033\uffda\001\002\000\006\003\037\024" +
-    "\040\001\002\000\014\004\072\014\104\020\073\021\102" +
-    "\022\077\001\002\000\010\003\uffe2\006\uffe2\027\uffe2\001" +
-    "\002\000\004\010\120\001\002\000\004\010\116\001\002" +
-    "\000\010\003\uffe4\006\uffe4\027\uffe4\001\002\000\010\003" +
-    "\uffe0\006\uffe0\027\uffe0\001\002\000\010\003\uffe5\006\114" +
-    "\027\uffe5\001\002\000\004\010\112\001\002\000\010\003" +
-    "\uffe1\006\uffe1\027\uffe1\001\002\000\010\003\uffe3\006\uffe3" +
-    "\027\uffe3\001\002\000\004\010\110\001\002\000\006\003" +
-    "\052\027\053\001\002\000\004\010\105\001\002\000\004" +
-    "\011\106\001\002\000\010\003\uffe9\006\uffe9\027\uffe9\001" +
-    "\002\000\006\003\uffe7\033\uffe7\001\002\000\004\011\111" +
-    "\001\002\000\010\003\uffdd\006\uffdd\027\uffdd\001\002\000" +
-    "\004\016\113\001\002\000\010\003\uffdc\006\uffdc\027\uffdc" +
-    "\001\002\000\014\004\072\014\104\020\073\021\102\022" +
-    "\077\001\002\000\006\003\uffe6\027\uffe6\001\002\000\004" +
-    "\011\117\001\002\000\010\003\uffdf\006\uffdf\027\uffdf\001" +
-    "\002\000\004\011\121\001\002\000\010\003\uffde\006\uffde" +
-    "\027\uffde\001\002\000\006\003\037\024\040\001\002\000" +
-    "\016\003\132\007\047\012\136\013\135\014\104\015\124" +
-    "\001\002\000\004\010\146\001\002\000\010\003\ufff2\006" +
-    "\ufff2\027\ufff2\001\002\000\010\003\uffee\006\uffee\027\uffee" +
-    "\001\002\000\006\003\052\027\053\001\002\000\010\003" +
-    "\ufff3\006\143\027\ufff3\001\002\000\010\003\uffef\006\uffef" +
-    "\027\uffef\001\002\000\010\003\uffed\006\uffed\027\uffed\001" +
-    "\002\000\010\003\ufff1\006\ufff1\027\ufff1\001\002\000\010" +
-    "\003\ufff0\006\ufff0\027\ufff0\001\002\000\004\010\141\001" +
-    "\002\000\004\010\137\001\002\000\004\011\140\001\002" +
-    "\000\010\003\uffeb\006\uffeb\027\uffeb\001\002\000\004\011" +
-    "\142\001\002\000\010\003\uffea\006\uffea\027\uffea\001\002" +
-    "\000\016\003\132\007\047\012\136\013\135\014\104\015" +
-    "\124\001\002\000\006\003\ufff4\027\ufff4\001\002\000\006" +
-    "\003\ufff5\033\ufff5\001\002\000\004\016\147\001\002\000" +
-    "\010\003\uffe8\006\uffe8\027\uffe8\001\002\000\004\005\153" +
-    "\001\002\000\004\010\152\001\002\000\012\003\uffd5\004" +
-    "\uffd5\017\uffd5\023\uffd5\001\002\000\004\031\uffd0\001\002" +
-    "\000\004\032\151\001\002\000\006\003\161\031\163\001" +
-    "\002\000\012\003\030\004\025\017\026\023\034\001\002" +
-    "\000\006\003\060\033\062\001\002\000\006\003\ufff9\031" +
-    "\ufff9\001\002\000\004\002\uffcd\001\002\000\004\002\ufffb" +
-    "\001\002\000\006\032\151\044\167\001\002\000\012\003" +
-    "\030\004\025\017\026\023\034\001\002\000\006\003\060" +
-    "\033\062\001\002\000\006\003\ufffa\031\ufffa\001\002\000" +
-    "\004\005\170\001\002\000\004\002\uffce\001\002\000\004" +
-    "\002\001\001\002" });
+    "\uffd1\031\uffd1\001\002\000\006\003\154\031\155\001\002" +
+    "\000\004\002\ufffe\001\002\000\010\003\uffce\010\153\031" +
+    "\uffce\001\002\000\004\002\000\001\002\000\006\032\150" +
+    "\043\147\001\002\000\004\002\uffff\001\002\000\010\004" +
+    "\025\017\026\023\033\001\002\000\004\002\ufffc\001\002" +
+    "\000\004\005\121\001\002\000\004\005\065\001\002\000" +
+    "\006\003\ufff6\033\ufff6\001\002\000\006\003\ufff8\033\ufff8" +
+    "\001\002\000\006\003\ufff7\033\ufff7\001\002\000\006\003" +
+    "\057\033\061\001\002\000\004\005\034\001\002\000\006" +
+    "\003\036\024\037\001\002\000\004\007\046\001\002\000" +
+    "\004\024\044\001\002\000\004\025\040\001\002\000\004" +
+    "\010\041\001\002\000\004\026\042\001\002\000\004\024" +
+    "\043\001\002\000\026\003\uffd9\004\uffd9\007\uffd9\012\uffd9" +
+    "\013\uffd9\014\uffd9\015\uffd9\020\uffd9\021\uffd9\022\uffd9\001" +
+    "\002\000\026\003\uffd8\004\uffd8\007\uffd8\012\uffd8\013\uffd8" +
+    "\014\uffd8\015\uffd8\020\uffd8\021\uffd8\022\uffd8\001\002\000" +
+    "\006\003\051\027\052\001\002\000\004\010\047\001\002" +
+    "\000\004\011\050\001\002\000\010\003\uffec\006\uffec\027" +
+    "\uffec\001\002\000\004\027\056\001\002\000\004\030\054" +
+    "\001\002\000\006\003\uffda\033\uffda\001\002\000\004\027" +
+    "\055\001\002\000\006\003\uffd7\033\uffd7\001\002\000\006" +
+    "\003\uffd6\033\uffd6\001\002\000\004\035\064\001\002\000" +
+    "\004\002\ufffd\001\002\000\004\034\062\001\002\000\004" +
+    "\035\063\001\002\000\010\002\uffd3\003\uffd3\031\uffd3\001" +
+    "\002\000\010\002\uffd2\003\uffd2\031\uffd2\001\002\000\006" +
+    "\003\036\024\037\001\002\000\016\003\077\004\070\014" +
+    "\103\020\071\021\101\022\074\001\002\000\010\003\uffe2" +
+    "\006\uffe2\027\uffe2\001\002\000\004\010\117\001\002\000" +
+    "\004\010\115\001\002\000\010\003\uffe4\006\uffe4\027\uffe4" +
+    "\001\002\000\010\003\uffe0\006\uffe0\027\uffe0\001\002\000" +
+    "\004\010\113\001\002\000\010\003\uffe5\006\111\027\uffe5" +
+    "\001\002\000\010\003\uffe1\006\uffe1\027\uffe1\001\002\000" +
+    "\010\003\uffdf\006\uffdf\027\uffdf\001\002\000\010\003\uffe3" +
+    "\006\uffe3\027\uffe3\001\002\000\004\010\107\001\002\000" +
+    "\006\003\051\027\052\001\002\000\004\010\104\001\002" +
+    "\000\004\011\105\001\002\000\010\003\uffe9\006\uffe9\027" +
+    "\uffe9\001\002\000\006\003\uffe7\033\uffe7\001\002\000\004" +
+    "\011\110\001\002\000\010\003\uffdc\006\uffdc\027\uffdc\001" +
+    "\002\000\016\003\077\004\070\014\103\020\071\021\101" +
+    "\022\074\001\002\000\006\003\uffe6\027\uffe6\001\002\000" +
+    "\004\016\114\001\002\000\010\003\uffdb\006\uffdb\027\uffdb" +
+    "\001\002\000\004\011\116\001\002\000\010\003\uffde\006" +
+    "\uffde\027\uffde\001\002\000\004\011\120\001\002\000\010" +
+    "\003\uffdd\006\uffdd\027\uffdd\001\002\000\006\003\036\024" +
+    "\037\001\002\000\016\003\131\007\046\012\135\013\134" +
+    "\014\103\015\123\001\002\000\004\010\145\001\002\000" +
+    "\010\003\ufff2\006\ufff2\027\ufff2\001\002\000\010\003\uffee" +
+    "\006\uffee\027\uffee\001\002\000\006\003\051\027\052\001" +
+    "\002\000\010\003\ufff4\006\142\027\ufff4\001\002\000\010" +
+    "\003\uffef\006\uffef\027\uffef\001\002\000\010\003\uffed\006" +
+    "\uffed\027\uffed\001\002\000\010\003\ufff1\006\ufff1\027\ufff1" +
+    "\001\002\000\010\003\ufff0\006\ufff0\027\ufff0\001\002\000" +
+    "\004\010\140\001\002\000\004\010\136\001\002\000\004" +
+    "\011\137\001\002\000\010\003\uffeb\006\uffeb\027\uffeb\001" +
+    "\002\000\004\011\141\001\002\000\010\003\uffea\006\uffea" +
+    "\027\uffea\001\002\000\016\003\131\007\046\012\135\013" +
+    "\134\014\103\015\123\001\002\000\006\003\ufff3\027\ufff3" +
+    "\001\002\000\006\003\ufff5\033\ufff5\001\002\000\004\016" +
+    "\146\001\002\000\010\003\uffe8\006\uffe8\027\uffe8\001\002" +
+    "\000\004\005\152\001\002\000\004\010\151\001\002\000" +
+    "\010\004\uffd5\017\uffd5\023\uffd5\001\002\000\006\003\uffcf" +
+    "\031\uffcf\001\002\000\010\004\uffd4\017\uffd4\023\uffd4\001" +
+    "\002\000\004\010\153\001\002\000\004\032\150\001\002" +
+    "\000\006\003\162\031\164\001\002\000\010\004\025\017" +
+    "\026\023\033\001\002\000\006\003\057\033\061\001\002" +
+    "\000\006\003\ufff9\031\ufff9\001\002\000\006\002\uffcc\010" +
+    "\153\001\002\000\004\002\ufffb\001\002\000\006\032\150" +
+    "\044\170\001\002\000\010\004\025\017\026\023\033\001" +
+    "\002\000\006\003\057\033\061\001\002\000\006\003\ufffa" +
+    "\031\ufffa\001\002\000\004\005\171\001\002\000\004\002" +
+    "\uffcd\001\002\000\004\002\001\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -144,53 +145,53 @@ public class UserParser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\167\000\006\002\004\037\003\001\001\000\002\001" +
+    "\000\170\000\006\002\004\037\003\001\001\000\002\001" +
     "\001\000\016\003\017\004\022\007\023\010\014\022\021" +
     "\023\015\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\006\004\155\011\154\001" +
+    "\001\001\000\002\001\001\000\006\004\156\011\155\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\012\005\032\013" +
-    "\030\014\031\015\026\001\001\000\002\001\001\000\002" +
+    "\000\002\001\001\000\002\001\001\000\012\005\031\013" +
+    "\027\014\030\015\026\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\004\006\060" +
-    "\001\001\000\002\001\001\000\004\021\035\001\001\000" +
-    "\004\024\045\001\001\000\002\001\001\000\002\001\001" +
+    "\001\000\002\001\001\000\004\006\057\001\001\000\002" +
+    "\001\001\000\004\021\034\001\001\000\004\024\044\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\020\053\001\001" +
+    "\002\001\001\000\004\020\052\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\004\021\067\001\001\000\020\016\102\017\075\027\077" +
-    "\031\073\032\100\033\070\034\074\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\020\106\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\020\016" +
-    "\114\017\075\027\077\031\073\032\100\033\070\034\074" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\004\021\122" +
-    "\001\001\000\020\024\124\025\132\026\133\027\130\030" +
-    "\125\035\126\036\127\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\020\144\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\000\002\001\001\000\004\021\065\001\001\000\020\016" +
+    "\101\017\074\027\075\031\071\032\077\033\066\034\072" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\020\024\124\025\132\026\133\027" +
-    "\130\030\125\035\143\036\127\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\004\020\105\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\020" +
+    "\016\111\017\074\027\075\031\071\032\077\033\066\034" +
+    "\072\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\004\021\121\001\001\000\020" +
+    "\024\123\025\131\026\132\027\127\030\124\035\125\036" +
+    "\126\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\004\020\143\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\020\024\123\025\131\026\132\027\127\030\124\035" +
+    "\142\036\126\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\006\004\163\012\161\001" +
-    "\001\000\012\005\156\013\030\014\031\015\026\001\001" +
-    "\000\004\006\157\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\012\005\164" +
-    "\013\030\014\031\015\026\001\001\000\004\006\165\001" +
+    "\001\001\000\002\001\001\000\002\001\001\000\006\004" +
+    "\164\012\162\001\001\000\012\005\157\013\027\014\030" +
+    "\015\026\001\001\000\004\006\160\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001" });
+    "\000\012\005\165\013\027\014\030\015\026\001\001\000" +
+    "\004\006\166\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -239,6 +240,12 @@ public class UserParser extends java_cup.runtime.lr_parser {
     private String currentInstitution = "";
     private String currentDateCreation = "";
     private String currentOldUser = "";
+    private boolean currentUserBoolean = false;
+    private boolean currentPasswordBoolean = false;
+    private boolean currentNameBoolean = false;
+    private boolean currentInstitutionBoolean = false;
+    private boolean currentDateCreationBoolean = false;
+    private boolean currentOldUserBoolean = false;
 
     public void emptyParameters(){
         currentUser = "";
@@ -247,6 +254,12 @@ public class UserParser extends java_cup.runtime.lr_parser {
         currentInstitution = "";
         currentDateCreation = "";
         currentOldUser = "";
+        currentUserBoolean = false;
+        currentPasswordBoolean = false;
+        currentNameBoolean = false;
+        currentInstitutionBoolean = false;
+        currentDateCreationBoolean = false;
+        currentOldUserBoolean = false;
     }
 
     public ArrayList<User> getUsers(){
@@ -267,6 +280,10 @@ public class UserParser extends java_cup.runtime.lr_parser {
 
     public void syntax_error(Symbol s){
         errorString = s.value+"";
+        String message = "Error síntactico irrecuperable en la Línea " +
+                (s.left)+ " Columna "+s.right+". Componente " + s.value +
+                " no reconocido.";
+                System.out.println(message);
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
@@ -420,21 +437,16 @@ class CUP$UserParser$actions {
             {
               Object RESULT =null;
 		
-                System.out.printf("currentuser " + currentUser);
-                System.out.printf("currentPassword " + currentPassword);
-                System.out.printf("currentName " + currentName);
-                System.out.printf("currentInstitution " + currentInstitution);
                 if(!currentUser.equals("") && !currentPassword.equals("") && !currentName.equals("")
                 && !currentInstitution.equals("")){
-                    if(currentDateCreation.equals("")){
-                        System.out.println("Aca andamos parser");
+                    if(!currentDateCreation.equals("")){
                         User user = new User(currentUser, currentPassword, currentName,
                         currentInstitution, currentDateCreation, 1);
                         users.add(user);
                         emptyParameters();
                     } else {
                         Date date = Calendar.getInstance().getTime();
-                        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
                         String strDate = dateFormat.format(date);
                         User user = new User(currentUser, currentPassword, currentName,
                         currentInstitution, strDate, 1);
@@ -452,20 +464,20 @@ class CUP$UserParser$actions {
           return CUP$UserParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // paramStructureUser ::= paramsUserStructure COMMA paramStructureUser 
-            {
-              String RESULT =null;
-
-              CUP$UserParser$result = parser.getSymbolFactory().newSymbol("paramStructureUser",27, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-2)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
-            }
-          return CUP$UserParser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // paramStructureUser ::= paramsUserStructure 
+          case 13: // paramStructureUser ::= paramsUserStructure 
             {
               String RESULT =null;
 
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("paramStructureUser",27, ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
+            }
+          return CUP$UserParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 14: // paramStructureUser ::= paramsUserStructure COMMA paramStructureUser 
+            {
+              String RESULT =null;
+
+              CUP$UserParser$result = parser.getSymbolFactory().newSymbol("paramStructureUser",27, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-2)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
           return CUP$UserParser$result;
 
@@ -512,7 +524,7 @@ class CUP$UserParser$actions {
 		int insleft = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).left;
 		int insright = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).right;
 		String ins = (String)((java_cup.runtime.Symbol) CUP$UserParser$stack.peek()).value;
-		System.out.println("ins " + ins.toString());
+		System.out.println("institution " + ins.toString());
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("paramsUserStructure",28, ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
           return CUP$UserParser$result;
@@ -555,8 +567,15 @@ class CUP$UserParser$actions {
 		int userright = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).right;
 		Object user = (Object)((java_cup.runtime.Symbol) CUP$UserParser$stack.peek()).value;
 		
-                        currentUser = user.toString();
-                        RESULT = currentUser;
+                        if(currentUserBoolean){
+                            String message = "Ya existia un usuario";
+                            addError(message, "Semantico");
+                            RESULT = null;
+                        } else {
+                            currentUserBoolean = true;
+                            currentUser = user.toString().replace("\"", "");
+                            RESULT = currentUser;
+                        }
                    
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("userStructure",18, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-2)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
@@ -570,8 +589,15 @@ class CUP$UserParser$actions {
 		int passwordright = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).right;
 		Object password = (Object)((java_cup.runtime.Symbol) CUP$UserParser$stack.peek()).value;
 		
-                        currentPassword = password.toString();
-                        RESULT = currentPassword;
+                        if(currentPasswordBoolean){
+                            String message = "Ya existe una password";
+                            addError(message, "Semantico");
+                            RESULT = null;
+                        } else {
+                            currentPasswordBoolean = true;
+                            currentPassword = password.toString().replace("\"", "");
+                            RESULT = currentPassword;
+                        }
                     
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("passwordStructure",19, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-2)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
@@ -585,9 +611,15 @@ class CUP$UserParser$actions {
 		int nameright = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).right;
 		Object name = (Object)((java_cup.runtime.Symbol) CUP$UserParser$stack.peek()).value;
 		
-                    System.out.println("ANdo en nombre");
-                    currentName = name.toString();
-                    RESULT = currentName;
+                    if(currentNameBoolean){
+                        String message = "Ya existe un nombre";
+                        addError(message, "Semantico");
+                        RESULT = null;
+                    } else {
+                        currentNameBoolean = true;
+                        currentName = name.toString().replace("\"", "");
+                        RESULT = currentName;
+                    }
                 
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("nameStructure",20, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-2)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
@@ -601,8 +633,15 @@ class CUP$UserParser$actions {
 		int institutionright = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).right;
 		Object institution = (Object)((java_cup.runtime.Symbol) CUP$UserParser$stack.peek()).value;
 		
-                            currentInstitution = institution.toString();
-                            RESULT = currentInstitution;
+                            if(currentInstitutionBoolean){
+                                String message = "Ya existe una institucion";
+                                addError(message, "Semantico");
+                                RESULT = null;
+                            } else {
+                                currentInstitutionBoolean = true;
+                                currentInstitution = institution.toString().replace("\"", "");
+                                RESULT = currentInstitution;
+                            }
                         
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("institutionStructure",21, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-2)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
@@ -616,8 +655,15 @@ class CUP$UserParser$actions {
 		int dateCreationright = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).right;
 		Object dateCreation = (Object)((java_cup.runtime.Symbol) CUP$UserParser$stack.peek()).value;
 		
-                    currentDateCreation = dateCreation.toString();
-                    RESULT = dateCreation.toString();
+                    if(currentDateCreationBoolean){
+                        String message = "Ya existia una fecha anterior";
+                        addError(message, "Semantico");
+                        RESULT = null;
+                    } else {
+                        currentDateCreationBoolean = true;
+                        currentDateCreation = dateCreation.toString().replace("\"", "");
+                        RESULT = dateCreation.toString();
+                    }
                 
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("dateStructure",22, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-2)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
@@ -637,7 +683,7 @@ class CUP$UserParser$actions {
                         emptyParameters();
                     } else {
                         Date date = Calendar.getInstance().getTime();
-                        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
                         String strDate = dateFormat.format(date);
                         User user = new User(currentOldUser, currentUser, currentPassword,
                         currentInstitution, 2, strDate);
@@ -714,67 +760,109 @@ class CUP$UserParser$actions {
           return CUP$UserParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 34: // oldUserStructure ::= OLDUSER COLON TEXT 
+          case 34: // paramsEditUser ::= error 
+            {
+              Object RESULT =null;
+		int eleft = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$UserParser$stack.peek()).value;
+		
+
+                
+              CUP$UserParser$result = parser.getSymbolFactory().newSymbol("paramsEditUser",13, ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
+            }
+          return CUP$UserParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 35: // oldUserStructure ::= OLDUSER COLON TEXT 
             {
               String RESULT =null;
 		int olduserleft = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).left;
 		int olduserright = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).right;
 		Object olduser = (Object)((java_cup.runtime.Symbol) CUP$UserParser$stack.peek()).value;
 		
-                        currentOldUser = olduser.toString();
-                        RESULT = currentOldUser;
+                        if(currentOldUserBoolean){
+                            String message = "Ya existia un usuario antiguo";
+                            addError(message, "Semantico");
+                            RESULT = null;
+                        } else {
+                            currentOldUserBoolean = true;
+                            currentOldUser = olduser.toString().replace("\"", "");
+                            RESULT = currentOldUser;
+                        }
                     
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("oldUserStructure",23, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-2)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
           return CUP$UserParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 35: // newUserStructure ::= NEWUSER COLON TEXT 
+          case 36: // newUserStructure ::= NEWUSER COLON TEXT 
             {
               String RESULT =null;
 		int newuserleft = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).left;
 		int newuserright = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).right;
 		Object newuser = (Object)((java_cup.runtime.Symbol) CUP$UserParser$stack.peek()).value;
 		
-                        currentUser = newuser.toString();
-                        RESULT = currentUser;
+                        if(currentUserBoolean){
+                            String message = "Ya existia un usuario";
+                            addError(message, "Semantico");
+                            RESULT = null;
+                        } else {
+                            currentUserBoolean = true;
+                            currentUser = newuser.toString().replace("\"", "");
+                            RESULT = currentUser;
+                        }
                     
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("newUserStructure",24, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-2)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
           return CUP$UserParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 36: // newPasswordStructure ::= NEWPASSWORD COLON TEXT 
+          case 37: // newPasswordStructure ::= NEWPASSWORD COLON TEXT 
             {
               String RESULT =null;
 		int newpasswordleft = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).left;
 		int newpasswordright = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).right;
 		Object newpassword = (Object)((java_cup.runtime.Symbol) CUP$UserParser$stack.peek()).value;
 		
-                            currentPassword = newpassword.toString();
-                            RESULT = currentPassword;
+                            if(currentPasswordBoolean){
+                                String message = "Ya existia una password";
+                                addError(message, "Semantico");
+                                RESULT = null;
+                            } else {
+                                currentPasswordBoolean = true;
+                                currentPassword = newpassword.toString().replace("\"", "");
+                                RESULT = currentPassword;
+                            }
                         
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("newPasswordStructure",25, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-2)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
           return CUP$UserParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 37: // dateEditStructure ::= DATEEDIT COLON DATECREATION 
+          case 38: // dateEditStructure ::= DATEEDIT COLON DATECREATION 
             {
               String RESULT =null;
 		int dateCreationleft = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).left;
 		int dateCreationright = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).right;
 		Object dateCreation = (Object)((java_cup.runtime.Symbol) CUP$UserParser$stack.peek()).value;
 		
-                        currentDateCreation = dateCreation.toString();
-                        RESULT = currentDateCreation;
+                        if(currentDateCreationBoolean){
+                            String message = "Ya existia anteriormente una fecha";
+                            addError(message, "Semantico");
+                            RESULT = null;
+                        } else {
+                            currentDateCreationBoolean = true;
+                            currentDateCreation = dateCreation.toString().replace("\"", "");
+                            RESULT = currentDateCreation;
+                        }
                      
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("dateEditStructure",26, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-2)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
           return CUP$UserParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 38: // deleteuser ::= DELETEUSER GREATERT initDataUser userStructure endKeyBracket 
+          case 39: // deleteuser ::= DELETEUSER GREATERT initDataUser userStructure endKeyBracket 
             {
               Object RESULT =null;
 		int userleft = ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-1)).left;
@@ -794,24 +882,6 @@ class CUP$UserParser$actions {
                 }
               
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("deleteuser",11, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-4)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
-            }
-          return CUP$UserParser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 39: // deleteuser ::= error GREATERT 
-            {
-              Object RESULT =null;
-		int eleft = ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-1)).left;
-		int eright = ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-1)).right;
-		Object e = (Object)((java_cup.runtime.Symbol) CUP$UserParser$stack.elementAt(CUP$UserParser$top-1)).value;
-		
-                    int line    = (eleft)+1;
-                    int column  = eright;
-                    String message = "Error para eliminar un usuario";
-                    addError(line, column, message);
-                    RESULT = null;
-                
-              CUP$UserParser$result = parser.getSymbolFactory().newSymbol("deleteuser",11, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-1)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
           return CUP$UserParser$result;
 
@@ -879,7 +949,25 @@ class CUP$UserParser$actions {
           return CUP$UserParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 45: // endRequest ::= LESST EDREQUEST ENDREQ 
+          case 45: // initRequest ::= error COLON 
+            {
+              Object RESULT =null;
+		int eleft = ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-1)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-1)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$UserParser$stack.elementAt(CUP$UserParser$top-1)).value;
+		
+                    int line    = (eleft)+1;
+                    int column  = eright;
+                    String message = "No se cumple con el orden para iniciar una solicitud de login";
+                    addError(line, column, message);
+                    RESULT = null;
+               
+              CUP$UserParser$result = parser.getSymbolFactory().newSymbol("initRequest",2, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-1)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
+            }
+          return CUP$UserParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 46: // endRequest ::= LESST EDREQUEST ENDREQ 
             {
               Object RESULT =null;
 
@@ -888,7 +976,7 @@ class CUP$UserParser$actions {
           return CUP$UserParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 46: // endRequest ::= error ENDREQ 
+          case 47: // endRequest ::= error ENDREQ 
             {
               Object RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-1)).left;
@@ -906,7 +994,7 @@ class CUP$UserParser$actions {
           return CUP$UserParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 47: // initxson ::= OPENXS XSON VERSION EQUALS TEXT ENDXS 
+          case 48: // initxson ::= OPENXS XSON VERSION EQUALS TEXT ENDXS 
             {
               Object RESULT =null;
 
@@ -915,7 +1003,7 @@ class CUP$UserParser$actions {
           return CUP$UserParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 48: // initxson ::= error 
+          case 49: // initxson ::= error 
             {
               Object RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).left;
@@ -933,7 +1021,7 @@ class CUP$UserParser$actions {
           return CUP$UserParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 49: // initMoreRequest ::= OPENREQ INITREQUESTS GREATERT 
+          case 50: // initMoreRequest ::= OPENREQ INITREQUESTS GREATERT 
             {
               Object RESULT =null;
 
@@ -942,7 +1030,7 @@ class CUP$UserParser$actions {
           return CUP$UserParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 50: // initMoreRequest ::= error 
+          case 51: // initMoreRequest ::= error 
             {
               Object RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).left;
@@ -960,7 +1048,7 @@ class CUP$UserParser$actions {
           return CUP$UserParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 51: // endMoreRequest ::= OPENREQ ENDREQUESTS GREATERT 
+          case 52: // endMoreRequest ::= OPENREQ ENDREQUESTS GREATERT 
             {
               Object RESULT =null;
 
@@ -969,7 +1057,7 @@ class CUP$UserParser$actions {
           return CUP$UserParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 52: // endMoreRequest ::= error 
+          case 53: // endMoreRequest ::= error 
             {
               Object RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()).left;

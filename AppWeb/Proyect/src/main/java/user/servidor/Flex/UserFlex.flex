@@ -39,31 +39,31 @@ VERSION             =       "version"
 INREQUEST           =       "realizar_solicitud"
 EDREQUEST           =       "fin_solicitud_realizada"
 //Make requests
-INREQUESTS        =       "realizar_solicitudes"
+INREQUESTS          =       "realizar_solicitudes"
 ENDREQUESTS         =       "fin_solicitudes_realizada"
 //Register user
-NEWUSER             =       "\"USUARIO_NUEVO\""
-USERDATA            =       "\"DATOS_USUARIO\""
-USER                =       "\"USUARIO\""
-PASSWORD            =       "\"PASSWORD\""
-NAME                =       "\"NOMBRE\""
-INSTITUTION         =       "\"INSTITUCION\""
-DATE                =       "\"FECHA_CREACION\""
-DATEEDIT            =       "\"FECHA_MODIFICACION\""
+NEWUSER             =       ([\"”“]"USUARIO_NUEVO"[\"”“])
+USERDATA            =       ([\"”“]"DATOS_USUARIO"[\"”“])
+USER                =       ([\"”“]"USUARIO"[\"”“])
+PASSWORD            =       ([\"”“]"PASSWORD"[\"”“])
+NAME                =       ([\"”“]"NOMBRE"[\"”“])
+INSTITUTION         =       ([\"”“]"INSTITUCION"[\"”“])
+DATE                =       ([\"”“]"FECHA_CREACION"[\"”“])
+DATEEDIT            =       ([\"”“]"FECHA_MODIFICACION"[\"”“])
 //Modify user
-EDITUSER            =       "\"MODIFICAR_USUARIO\""
-OLDUSER             =       "\"USUARIO_ANTIGUO\""
-NEWPASSWORD         =       "\"NUEVO_PASSWORD\""
+EDITUSER            =       [\"”“]"MODIFICAR_USUARIO"[\"”“]
+OLDUSER             =       [\"”“]"USUARIO_ANTIGUO"[\"”“]
+NEWPASSWORD         =       [\"”“]"NUEVO_PASSWORD"[\"”“]
 //Delete user for the system
-DELETEUSER          =       "\"ELIMINAR_USUARIO\""
+DELETEUSER          =       [\"”“]"ELIMINAR_USUARIO"[\"”“]
 //REGEX
-WHITESPCS       = ([\s\t\r\n]+)
+WHITESPCS           = ([\s\t\r\n]+)
+DIGIT               = [0-9]
 NUMBERVERSION       = [\"”“]{DIGIT}+(\.{DIGIT}+)?[\"”“]
-DIGIT           = [0-9]
-NUMBER          = ([0-9])+
-LETTER          = [a-zA-Z]
-TEXT            = {NUMBERVERSION} | ([\"”“]({LETTER}|_|-|\$)+({LETTER}|{DIGIT}|_)*[\"”“])
-DATECREATION    = ([\"”“]([0-9]{4}-[0-9]{2}-[0-9]{2})[\"”“])
+NUMBER              = ([0-9])+
+LETTER              = ([a-z]|[A-Z])+
+TEXT                = {NUMBERVERSION} | ([\"”“]({LETTER}|_|-|\$)+({WHITESPCS})*({LETTER}|{DIGIT}|_)*[\"”“])
+DATECREATION        = ([\"”“]([0-9]{4}-[0-9]{2}-[0-9]{2})[\"”“])
 
 
 %{
