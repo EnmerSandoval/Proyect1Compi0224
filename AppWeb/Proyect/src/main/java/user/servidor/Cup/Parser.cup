@@ -12,6 +12,67 @@ parser code{:
     private ArrayList<Trivia> trivias = new ArrayList<Trivia>();
     private ArrayList<Error> errors = new ArrayList<Error>();
 
+    //Booleans to the trivia
+    private boolean idTriviaBoolean = false;
+    private boolean nameBoolean = false;
+    private boolean timeQuestionBoolean = false;
+    private boolean userCreatorBoolean = false;
+    private boolean themeBoolean = false;
+    //Strings to the Trivia
+    private String currentIdTrivia = "";
+    private String currentTimeQuestion = "";
+    private String currentName = "";
+    private String currentTheme = "";
+    private String currentDateCreation = "";
+    private String currentUserCreator;
+
+    public void cleanAttributsTrivia(){
+        idTriviaBoolean = false;
+        nameBoolean = false;
+        timeQuestionBoolean = false;
+        userCreatorBoolean = false;
+        themeBoolean = false;
+
+        currentIdTrivia = "";
+        currentTimeQuestion = "";
+        currentName = "";
+        currentTheme = "";
+        currentDateCreation = "";
+        currentUserCreator = "";
+    }
+
+    //Booleans to the Components
+    private boolean idComponentBoolean = false;
+    private boolean triviaComponentBoolean = false;
+    private boolean classComponentBoolean = false;
+    private boolean txtVisibleComponentBoolean = false;
+    private boolean responseComponentBoolean = false;
+    private boolean indexComponentBoolean = false;
+    //Strings to the Components
+    private String currentIdComponent = "";
+    private String currentTriviaComponent = "";
+    private String currentClassComponent = "";
+    private String currentTxtVisibleComponent = "";
+    private String currentResponseComponent = "";
+    private String currentIndexComponent = "";
+
+    public void cleanComponents(){
+        idComponentBoolean = false;
+        triviaComponentBoolean = false;
+        classComponentBoolean = false;
+        txtVisibleComponentBoolean = false;
+        responseComponentBoolean = false;
+        indexComponentBoolean = false;
+
+        currentIdComponent = "";
+        currentTriviaComponent = "";
+        currentClassComponent = "";
+        currentTxtVisibleComponent = "";
+        currentResponseComponent = "";
+        currentIndexComponent = "";
+
+    }
+
     public ArrayList<Component> getComponents(){
         return this.components;
     }
@@ -73,8 +134,6 @@ recursiveRequest::= initRequest onerequest endRequest recursiveRequest
                 | initRequest onerequest endRequest
                 ;
 
-
-
 onerequest::= newtrivia
             | deletetrivia
             | edittrivia
@@ -85,25 +144,80 @@ onerequest::= newtrivia
 
 newtrivia::= NEWTRIVIA GREATERT
              initParametersTrivia
-             IDTRIVIA COLON TEXT:idTrivia COMMA
-             NAME COLON TEXT:nameTrivia COMMA
-             TIMEQUESTION COLON NUMBER:timeQuestion COMMA
-             USERCREATOR COLON TEXT:userCreator COMMA
-             THEME COLON TEXT:theme COMMA
-             DATE COLON DATECREATION:dateCreation
+             componentsTrivia
              endKeyBracket
              //flag 1
              {:
-                Trivia trivia = new Trivia(idTrivia.toStrring(), nameTrivia.toString(), timeQuestion,
-                userCreator.toString(), theme.toString(), dateCreation.toString(), 1);
+                if(!currentIdTrivia.equals("") && !currentName.equals("") &&
+                !currentTimeQuestion.equals("") && !currentTheme.equals("")){
+
+                Trivia trivia = new Trivia(currentIdTrivia, currentName, currentTimeQuestion,
+                currentUserCreator, currentTheme, currentDateCreation, 1);
+
+                }
                 trivias.add(trivia);
                 RESULT = trivia;
              :}
              ;
 
+componentsTrivia::= componentsT COMMA componentsTrivia
+                  | componentsT
+                  ;
+
+componentsT::= idTrivia:idTrivia
+                  | nameTrivia:nameTrivia
+                  | timeQuestionTrivia:timeQuestionTrivia
+                  | userCreatorTrivia:userCreatorTrivia
+                  | themeTrivia:themeTrivia
+                  | dateTrivia:dateTrivia
+                  | error:e
+                  ;
+
+idTrivia::= IDTRIVIA COLON TEXT:idTrivia
+            {:
+                currentIdTrivia = idTrivia.toString();
+                RESULT = currentIdTrivia;
+            :}
+            ;
+
+nameTrivia::= NAME COLON TEXT:name
+            {:
+                currentName = name.toString();
+                RESULT = currentName;
+            :}
+            ;
+
+timeQuestionTrivia::= TIMEQUESTION COLON NUMBER:timeQuestion
+                    {:
+                        currentTimeQuestion = timeQuestion.toString();
+                        RESULT = currentTimeQuestion;
+                    :}
+                    ;
+
+userCreatorTrivia::= USERCREATOR COLON TEXT:userCreator
+                    {:
+                        currentUserCreator = userCreator.toString();
+                        RESULT = currentUserCreator;
+                    :}
+                    ;
+
+themeTrivia::= THEME COLON TEXT:theme
+             {:
+                currentTheme = theme.toString();
+                RESULT = currentTheme;
+             :}
+             ;
+
+dateTrivia::= DATE COLON DATECREATION:dateCreation
+            {:
+                currentDateCreation = dateCreation.toString();
+                RESULT = currentDateCreation;
+            :}
+            ;
+
 deleteTrivia::= DELETETRIVIA GREATERT
                 initParametersTrivia
-                IDTRIVIA COLON TEXT:idTrivia COMMA
+                idTrivia:idTrivia
                 endKeyBracket
                 //flag 2
                 {:
@@ -115,10 +229,7 @@ deleteTrivia::= DELETETRIVIA GREATERT
 
 editTrivia::= EDITTRIVIA GREATERT
               initParametersTrivia
-              IDTRIVIA COLON TEXT:idTrivia COMMA
-              TIMEQUESTION COLON NUMBER:timeQuestion COMMA
-              NAME COLON TEXT:name COMMA
-              THEME COLON TEXT:theme
+              paramsET
               endKeyBracket
               //flag 3
               {:
@@ -127,6 +238,17 @@ editTrivia::= EDITTRIVIA GREATERT
                 RESULT = trivia;
               :}
               ;
+
+paramsET::= paramsEditTrivia COMMA paramsET
+          | paramsEditTrivia
+          ;
+
+paramsEditTrivia::= idTrivia:idTrivia
+                  | timeQuestionTrivia:timeQuestion
+                  | nameTrivia:nameTrivia
+                  | themeTrivia:themeTrivia
+                  | error:e
+                  ;
 
 addcomponent::= ADDCOMPONENT GREATERT
                 initParametersComponent

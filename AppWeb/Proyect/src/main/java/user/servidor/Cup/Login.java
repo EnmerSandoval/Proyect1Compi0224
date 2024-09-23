@@ -279,7 +279,7 @@ class CUP$Login$actions {
 		int userright = ((java_cup.runtime.Symbol)CUP$Login$stack.elementAt(CUP$Login$top-1)).right;
 		Object user = (Object)((java_cup.runtime.Symbol) CUP$Login$stack.elementAt(CUP$Login$top-1)).value;
 		
-                        RESULT = user.toString();
+                        RESULT = user.toString().replace("\"", "");
                    
               CUP$Login$result = parser.getSymbolFactory().newSymbol("userStructure",8, ((java_cup.runtime.Symbol)CUP$Login$stack.elementAt(CUP$Login$top-3)), ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), RESULT);
             }
@@ -311,7 +311,7 @@ class CUP$Login$actions {
 		int passwordright = ((java_cup.runtime.Symbol)CUP$Login$stack.peek()).right;
 		Object password = (Object)((java_cup.runtime.Symbol) CUP$Login$stack.peek()).value;
 		
-                        RESULT = password.toString();
+                        RESULT = password.toString().replace("\"", "");
                      
               CUP$Login$result = parser.getSymbolFactory().newSymbol("passwordStructure",9, ((java_cup.runtime.Symbol)CUP$Login$stack.elementAt(CUP$Login$top-2)), ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), RESULT);
             }

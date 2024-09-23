@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Trivia {
     private String idTrivia;
-    private int timeQuestion;
+    private String timeQuestion;
     private String name;
     private String theme;
     private String dateCreation;
@@ -12,7 +12,7 @@ public class Trivia {
     private int flag;
     private ArrayList<Component> componentsTrivia;
     //Create and Modify trivia
-    public Trivia(String idTrivia, String name, int timeQuestion, String userCreator,   String theme, String dateCreation, int flag) {
+    public Trivia(String idTrivia, String name, String timeQuestion, String userCreator,   String theme, String dateCreation, int flag) {
         this.idTrivia = idTrivia;
         this.timeQuestion = timeQuestion;
         this.userCreator = userCreator;
@@ -28,7 +28,7 @@ public class Trivia {
     }
 
     //Edit trivia
-    public Trivia(String idTrivia, int timeQuestion, String name, String theme, int flag){
+    public Trivia(String idTrivia, String timeQuestion, String name, String theme, int flag){
         this.idTrivia = idTrivia;
         this.timeQuestion = timeQuestion;
         this.name = name;
@@ -65,14 +65,14 @@ public class Trivia {
     }
 
     public void setIdTrivia(String idTrivia) {
-        this.idTrivia = idTrivia;
+        this    .idTrivia = idTrivia;
     }
 
-    public int getTimeQuestion() {
+    public String getTimeQuestion() {
         return timeQuestion;
     }
 
-    public void setTimeQuestion(int timeQuestion) {
+    public void setTimeQuestion(String timeQuestion) {
         this.timeQuestion = timeQuestion;
     }
 

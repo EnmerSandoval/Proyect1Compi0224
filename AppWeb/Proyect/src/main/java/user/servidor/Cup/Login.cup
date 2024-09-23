@@ -81,7 +81,7 @@ login::= initRequestLogin
 
 userStructure::= USER COLON TEXT:user COMMA
                    {:
-                        RESULT = user.toString();
+                        RESULT = user.toString().replace("\"", "");
                    :}
                  | error:e
                    {:
@@ -95,7 +95,7 @@ userStructure::= USER COLON TEXT:user COMMA
 
 passwordStructure::= PASSWORD COLON TEXT:password
                      {:
-                        RESULT = password.toString();
+                        RESULT = password.toString().replace("\"", "");
                      :}
                      | error:e
                      {:

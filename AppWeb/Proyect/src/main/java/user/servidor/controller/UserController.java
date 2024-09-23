@@ -57,12 +57,14 @@ public class UserController {
         if (existFileUserBd()) {
             if (!usersToRegister.isEmpty()) {
                 for (User user : users) {
-                    if (!verificationToExistUser(user)) {
+                    if (!verificationToExistUser(user)) {;
                         usersToRegister.add(user);
                     } else {
                         System.out.println("El usuario ya existe");
                     }
                 }
+            } else {
+                usersToRegister.addAll(users);
             }
         } else {
             usersToRegister.addAll(users);
@@ -76,7 +78,15 @@ public class UserController {
             if(!userToEdit.isEmpty()){
                 for (User user : users) {
                     if (verificationToExistUser(user)) {
-
+                        User userEdited = new User();
+                        userEdited.setName(user.getName());
+                        userEdited.setPassword(user.getPassword());
+                        if(!user.getInstitution().equals("")){
+                            userEdited.setInstitution(user.getInstitution());
+                        }
+                        userToEdit.add(userEdited);
+                    } else {
+                        userToEdit.add(user);
                     }
                 }
             }
@@ -86,14 +96,12 @@ public class UserController {
 
     public void deleteUser(ArrayList<User> users) throws Exception{
         ArrayList<User> userToDelete = returnUsersJson();
-        int index = 0;
         if (existFileUserBd()){
             if(!userToDelete.isEmpty()){
                 for (User user : users) {
                     if (verificationToExistUser(user)) {
-                        userToDelete.remove(index);
+                        userToDelete.remove(iteratorUser(user));
                     }
-                    index++;
                 }
             }
         }
@@ -121,7 +129,6 @@ public class UserController {
         }
     }
 
-
     public boolean verificationToLoginUser(User user) throws Exception{
         boolean verified = false;
         ArrayList<User> userJson = returnUsersJson();
@@ -132,6 +139,8 @@ public class UserController {
                     break;
                 }
             }
+        } else {
+            verified = false;
         }
         return verified;
     }

@@ -48,8 +48,8 @@ LOGINUSER           =       "\"LOGIN_USUARIO\""
 //REGEX
 WHITESPCS           = ([\s\t\r\n]+)
 DIGIT               = [0-9]*
-NUMBERVERSION       = [\"”“]{DIGIT}+(\.{DIGIT}+)?[\"”“]
-LETTER              = [a-zA-Z]
+NUMBERVERSION       = [\"”“]{DIGIT}+(\.{DIGIT}+)? ({LETTER})[\"”“]
+LETTER              = ([a-z]|[A-Z])+
 TEXT                = {NUMBERVERSION} | ([\"”“]({LETTER}|_|-|\$)+({LETTER}|{DIGIT}|_)*[\"”“])
 
 

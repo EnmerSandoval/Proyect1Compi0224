@@ -19,6 +19,7 @@ public class User {
         this.flag = flag;
     }
 
+    //Edit User
     public User(String userOld, String newUser, String password, String institution,  int flag, String dateCreation) {
         this.userOld = userOld;
         this.newUser = newUser;

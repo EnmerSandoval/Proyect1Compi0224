@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.jsp">
-            <img src="resources/logo.png" height="23" width="42">
+            <img src="resources/logo.png" height="70" width="70">
         </a>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
