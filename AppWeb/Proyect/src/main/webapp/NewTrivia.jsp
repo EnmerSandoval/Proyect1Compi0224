@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Crear Trivia</title>
-    <jsp:include page="WEB-INF/pages/header/NavBarHome.jsp"/>
+    <jsp:include page="WEB-INF/pages/header/head.jsp"/>
 </head>
 <body>
     <jsp:include page="WEB-INF/pages/header/NavBarHome.jsp"/>

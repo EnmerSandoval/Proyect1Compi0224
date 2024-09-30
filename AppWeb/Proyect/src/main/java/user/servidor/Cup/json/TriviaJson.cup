@@ -1,0 +1,125 @@
+package user.servidor.Cup.json;
+
+import java_cup.runtime.*;
+import java.util.ArrayList;
+import user.servidor.Errors.ErrorL;
+import user.servidor.Objects.*;
+
+class TriviaJson;
+
+// Clase principal del parser
+parser code{:
+    private ArrayList<Trivia> trivias = new ArrayList<Trivia>();
+    private ArrayList<ErrorL> errors = new ArrayList<ErrorL>();
+    private String errorString = "";
+
+    public ArrayList<Trivia> getTrivias(){
+        return this.trivias;
+    }
+
+    public ArrayList<ErrorL> getErrors(){
+        return this.errors;
+    }
+
+    public void addError(int line, int column, String message){
+        errors.add(new ErrorL(errorString, line, column, "Sintactico", message));
+    }
+
+    public void syntax_error(Symbol s){
+        errorString = s.value + "";
+        String errorString = "Error sintactico recuperable en la linea: " +
+        (s.left) + " columna: " + s.right + ". Componente " + s.value + " no reconocido.";
+        System.out.println("Error sintactico: " + errorString);
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+        String message = "Error síntactico irrecuperable en la Línea " +
+        (s.left) + " Columna " + s.right + ". Componente " + s.value +
+        " no reconocido.";
+        System.out.println(message);
+    }
+:}
+
+terminal CORCHETEA, CORCHETEC, ID, TIME, NAME, THEME, DATE, USER, COMPONENTS,
+         TXT_VISIBLE, RESPONSE, CLASS, ROWS, COLS, TEXT, RADIO, TEXT_AREA;
+
+non terminal in, initTrivia, dataTrivia, triviaComponents, componentStructure, componentsList;
+
+start with in;
+
+in::= initTrivia;
+
+initTrivia::= CORCHETEA dataTrivia CORCHETEC
+            | CORCHETEA CORCHETEC
+            ;
+
+dataTrivia::= triviaComponents COMMA dataTrivia
+             | triviaComponents
+             | empty
+             ;
+
+triviaComponents::= ID COLON TEXT:id COMMA
+                  TIME COLON TEXT:time COMMA
+                  NAME COLON TEXT:name COMMA
+                  THEME COLON TEXT:theme COMMA
+                  DATE COLON TEXT:date COMMA
+                  USER COLON TEXT:user COMMA
+                  COMPONENTS COLON CORCHETEA componentsList CORCHETEC
+                  {:
+                      // Crear un objeto Trivia y agregarlo a la lista
+                      Trivia triviaResult = new Trivia(id.toString().replace("\"", ""),
+                                                      time.toString().replace("\"", ""),
+                                                      name.toString().replace("\"", ""),
+                                                      theme.toString().replace("\"", ""),
+                                                      date.toString().replace("\"", ""),
+                                                      user.toString().replace("\"", ""),
+                                                      new ArrayList<Component>());
+                      for (Component component : componentsList) {
+                          triviaResult.addComponent(component);
+                      }
+                      trivias.add(triviaResult);
+                  :}
+                | error:e
+                  {:
+                      int line = (e.left) + 1;
+                      int column = e.right;
+                      String message = "No se cumplen los parámetros de trivia en tipo json";
+                      addError(line, column, message);
+                  :}
+                ;
+
+componentsList::= componentStructure COMMA componentsList
+                | componentStructure
+                | empty
+                ;
+
+componentStructure::= ID COLON TEXT:id COMMA
+                    CLASS COLON TEXT:classType COMMA
+                    INDEX COLON TEXT:index
+                    {:
+                        String indexValue = index != null ? index.toString() : null;
+                    :}
+                    TXT_VISIBLE COLON TEXT:txtVisible COMMA
+                    RESPONSE COLON TEXT:response
+                    ROWS COLON TEXT:rows
+                    COLS COLON TEXT:cols
+                    {:
+                        Component componentResult = new Component(id.toString().replace("\"", ""),
+                                                                  classType.toString().replace("\"", ""),
+                                                                  indexValue,
+                                                                  txtVisible.toString().replace("\"", ""),
+                                                                  response.toString().replace("\"", ""),
+                                                                  rows,
+                                                                  cols);
+                        if (trivias.size() > 0) {
+                            trivias.get(trivias.size() - 1).addComponent(componentResult);
+                        }
+                    :}
+                    | error:e
+                      {:
+                          int line = (e.left) + 1;
+                          int column = e.right;
+                          String message = "No se cumplen los parámetros de componente en tipo json";
+                          addError(line, column, message);
+                      :}
+                    ;

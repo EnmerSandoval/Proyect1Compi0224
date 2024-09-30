@@ -1,13 +1,15 @@
 package user.servidor.Objects;
 
 public class Component {
-    private String id;
-    private String trivia;
-    private String classComponent;
-    private String txtVisible;
-    private String response;
+    private String id = "";
+    private String trivia = "";
+    private String classComponent = "";
+    private String txtVisible = "";
+    private String response = "";
     private int flag;
-    private String index;
+    private String index = "";
+    private String rows = "";
+    private String cols = "";
 
     //Create Component
     public Component(String id, String trivia, String classComponent, String txtVisible, String response, int flag) {
@@ -90,5 +92,21 @@ public class Component {
 
     public void setIndex(String index) {
         this.index = index;
+    }
+
+    public String getRows() {
+        return rows;
+    }
+
+    public void setRows(String rows) {
+        this.rows = rows;
+    }
+
+    public String getCols() {
+        return cols;
+    }
+
+    public void setCols(String cols) {
+        this.cols = cols;
     }
 }

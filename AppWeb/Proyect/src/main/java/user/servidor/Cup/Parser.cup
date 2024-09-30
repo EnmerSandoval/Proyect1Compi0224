@@ -1,77 +1,95 @@
-package org.proyect1.Cup;
+package user.servidor.Cup;
 
 import java_cup.runtime.*;
 import java.util.ArrayList;
 import java.util.Date.*;
-import org.proyect1.Objects.*;
+import user.servidor.Objects.*;
+import user.servidor.Errors.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 
 class Parser;
+
 
 parser code{:
     private ArrayList<Component> components = new ArrayList<Component>();
     private ArrayList<Trivia> trivias = new ArrayList<Trivia>();
-    private ArrayList<Error> errors = new ArrayList<Error>();
+    private ArrayList<ErrorL> errors = new ArrayList<ErrorL>();
+    private String errorString = "";
 
     //Booleans to the trivia
-    private boolean idTriviaBoolean = false;
-    private boolean nameBoolean = false;
-    private boolean timeQuestionBoolean = false;
-    private boolean userCreatorBoolean = false;
-    private boolean themeBoolean = false;
-    private boolean dateBoolean = false;
+    private boolean idTriviaBoolean         = false;
+    private boolean nameBoolean             = false;
+    private boolean timeQuestionBoolean     = false;
+    private boolean userCreatorBoolean      = false;
+    private boolean themeBoolean            = false;
+    private boolean dateBoolean             = false;
     //Strings to the Trivia
-    private String currentIdTrivia = "";
-    private String currentTimeQuestion = "";
-    private String currentName = "";
-    private String currentTheme = "";
-    private String currentDateCreation = "";
-    private String currentUserCreator;
+    private String currentIdTrivia      = "";
+    private String currentTimeQuestion  = "";
+    private String currentName          = "";
+    private String currentTheme         = "";
+    private String currentDateCreation  = "";
+    private String currentUserCreator   = "";
 
     public void cleanAttributsTrivia(){
-        idTriviaBoolean = false;
-        nameBoolean = false;
+        idTriviaBoolean     = false;
+        nameBoolean         = false;
         timeQuestionBoolean = false;
-        userCreatorBoolean = false;
-        themeBoolean = false;
-        dateBoolean = false;
+        userCreatorBoolean  = false;
+        themeBoolean        = false;
+        dateBoolean         = false;
 
-        currentIdTrivia = "";
-        currentTimeQuestion = "";
-        currentName = "";
-        currentTheme = "";
-        currentDateCreation = "";
-        currentUserCreator = "";
+        currentIdTrivia         = "";
+        currentTimeQuestion     = "";
+        currentName             = "";
+        currentTheme            = "";
+        currentDateCreation     = "";
+        currentUserCreator      = "";
     }
 
     //Booleans to the Components
-    private boolean idComponentBoolean = false;
-    private boolean triviaComponentBoolean = false;
-    private boolean classComponentBoolean = false;
-    private boolean txtVisibleComponentBoolean = false;
-    private boolean responseComponentBoolean = false;
+    private boolean idComponentBoolean          = false;
+    private boolean triviaComponentBoolean      = false;
+    private boolean classComponentBoolean       = false;
+    private boolean txtVisibleComponentBoolean  = false;
+    private boolean responseComponentBoolean    = false;
+    private boolean indexComponentBoolean       = false;
+    private boolean rowComponentBoolean         = false;
+    private boolean columnComponentBoolena      = false;
     //Strings to the Components
-    private String currentIdComponent = "";
-    private String currentTriviaComponent = "";
-    private String currentClassComponent = "";
-    private String currentTxtVisibleComponent = "";
-    private String currentResponseComponent = "";
+    private String currentIdComponent           = "";
+    private String currentTriviaComponent       = "";
+    private String currentClassComponent        = "";
+    private String currentTxtVisibleComponent   = "";
+    private String currentResponseComponent     = "";
+    private String currentIndexComponent        = "";
+    private String currentRowComponent          = "";
+    private String currentColumnComponent       = "";
 
     public void cleanComponents(){
-        idComponentBoolean = false;
-        triviaComponentBoolean = false;
-        classComponentBoolean = false;
-        txtVisibleComponentBoolean = false;
-        responseComponentBoolean = false;
-        indexComponentBoolean = false;
+        idComponentBoolean          = false;
+        triviaComponentBoolean      = false;
+        classComponentBoolean       = false;
+        txtVisibleComponentBoolean  = false;
+        responseComponentBoolean    = false;
+        indexComponentBoolean       = false;
+        rowComponentBoolean         = false;
+        columnComponentBoolena      = false;
 
-        currentIdComponent = "";
-        currentTriviaComponent = "";
-        currentClassComponent = "";
-        currentTxtVisibleComponent = "";
-        currentResponseComponent = "";
-        currentIndexComponent = "";
-
+        currentIdComponent          = "";
+        currentTriviaComponent      = "";
+        currentClassComponent       = "";
+        currentTxtVisibleComponent  = "";
+        currentResponseComponent    = "";
+        currentIndexComponent       = "";
+        currentRowComponent         = "";
+        currentColumnComponent      = "";
     }
+
 
     public ArrayList<Component> getComponents(){
         return this.components;
@@ -81,12 +99,16 @@ parser code{:
         return this.trivias;
     }
 
-    public ArrayList<Error> getErrors(){
+    public ArrayList<ErrorL> getErrors(){
         return this.errors;
     }
 
     public void addError(int line, int column, String message){
         errors.add(new ErrorL(errorString, line, column, "Sintactico", message));
+    }
+
+    public void addError(String message, String typeError){
+        errors.add(new ErrorL(errorString, 0, 0, typeError, message));
     }
 
     public void syntax_error(Symbol s){
@@ -97,7 +119,6 @@ parser code{:
         String message = "Error síntactico irrecuperable en la Línea " +
         (s.left)+ " Columna "+s.right+". Componente " + s.value +
         " no reconocido.";
-        messages.add(message);
     }
 
 
@@ -108,31 +129,35 @@ terminal OPENXS, XSON, VERSION, EQUALS, NUMBERVERSION, ENDXS, NEWTRIVIA, GREATER
          EDITTRIVIA, ADDCOMPONENT, ID, TRIVIA, CLASSTRIVIA, TXTVISIBLE, RESPONSETRIVIA, DELETECOMPONENT,
          EDITCOMPONENT, INDEX, OPTIONS, OPTIONSRESPONSES, TEXTFIELD, TEXTAREA, CHECKBOX, RADIO, CARDINEX,
          COMBO, KEYA, KEYC, USERDATA, BRACKETA, BRACKETC, PARAMETERSTRIVIA, PARAMETERSCOMPONENT, OPENREQ,
-         INREQUEST, LESST, EDREQUEST, ENDREQ, INITREQUEST, INITREQUESTS, INRESPONSE, EDRESPONSE,
-         INITRESPONSES, ENDRESPONSES, ROW, COLUMN;
+         INREQUEST, LESST, EDREQUEST, ENDREQ,  INITREQUESTS, INRESPONSE, EDRESPONSE,
+         INITRESPONSES, ENDRESPONSES, ROW, COLUMN, ENDREQUESTS;
 
-non terminal endRequest, initRequest, endKeyBracket, initParametersComponent, initParametersTrivia, initDataUser;
+non terminal endRequest, initRequest, endKeyBracket, initParametersComponent, initParametersTrivia;
 non terminal String optionsresponse, classComponent, typequestion;
-non terminal Component modifyComponent, addComponent;
+non terminal String modifyComponent;
 non terminal in, initxson, statement, onerequest, requests, oneresponse, responses, initMoreRequest,
-             recursiveRequest, endMoreRequest, newtrivia, deletetrivia, edittrivia, addcomponents,
-             deleteComponent, componentsTrivia, componentsT, editTrivia, paramsET, paramsEditTrivia,
+             recursiveRequest, endMoreRequest, newtrivia, deletetrivia, edittrivia,
+             deleteComponent, componentsTrivia, componentsT, editTrivia, paramsET,
+             oneResponse, endResponse, initMoreResponses, endMoreResponses, statementRequest,
              deleteTrivia, addcomponent, parameterC, parametersComponentEdit, editComponent, parametersComponent;
 non terminal String idTrivia, nameTrivia, timeQuestionTrivia, userCreatorTrivia, themeTrivia, dateTrivia,
-             idComponent, triviaComponent, classTriviaComponent, txtComponent, responseComponent;
+             idComponent, triviaComponent, classTriviaComponent, txtComponent, responseComponent, index, rowComponent,
+             columnComponent;
 
 
 start with in;
 
 in::= initxson statement;
 
-statement::= initRequest onerequest endRequest
+statement::= statementRequest
            | requests
            | oneresponse
            | responses
            ;
 
 initxson::= OPENXS XSON VERSION EQUALS NUMBERVERSION ENDXS;
+
+statementRequest::= initRequest onerequest endRequest;
 
 requests::= initMoreRequest
             recursiveRequest
@@ -141,13 +166,13 @@ requests::= initMoreRequest
 
 responses::= ;
 
-recursiveRequest::= initRequest onerequest endRequest recursiveRequest
-                | initRequest onerequest endRequest
+recursiveRequest::= recursiveRequest statementRequest
+                | statementRequest
                 ;
 
 onerequest::= newtrivia
-            | deletetrivia
-            | edittrivia
+            | deleteTrivia
+            | editTrivia
             | addcomponent
             | deleteComponent
             | modifyComponent
@@ -179,7 +204,7 @@ newtrivia::= NEWTRIVIA GREATERT
                     addError("No se cumple los requisitos para una nueva trivia", "Semantico");
                     cleanAttributsTrivia();
                 }
-                RESULT = trivia;
+                RESULT = "";
              :}
              ;
 
@@ -219,13 +244,13 @@ idTrivia::= IDTRIVIA COLON TEXT:idTrivia
 nameTrivia::= NAME COLON TEXT:name
             {:
                 if(nameBoolean){
-                    String message = "Ya existe un nombre";
+                    String message      = "Ya existe un nombre";
                     addError(message, "Semantico");
-                    RESULT = "";
+                    RESULT              = "";
                 } else {
                     nameBoolean = true;
                     currentName = name.toString().replace("\"", "");
-                    RESULT= currentName;
+                    RESULT      = currentName;
                 }
             :}
             ;
@@ -247,13 +272,13 @@ timeQuestionTrivia::= TIMEQUESTION COLON NUMBER:timeQuestion
 userCreatorTrivia::= USERCREATOR COLON TEXT:userCreator
                     {:
                         if(userCreatorBoolean){
-                            String message = "Ya existe un usuario creador";
+                            String message  = "Ya existe un usuario creador";
                             addError(message, "Semantico");
-                            RESULT = "";
+                            RESULT          = "";
                         } else {
-                            userCreatorBoolean = true;
-                            currentUserCreator = userCreator.toString().replace("\"", "");
-                            RESULT = currentUserCreator;
+                            userCreatorBoolean  = true;
+                            currentUserCreator  = userCreator.toString().replace("\"", "");
+                            RESULT              = currentUserCreator;
                         }
                     :}
                     ;
@@ -295,9 +320,11 @@ deleteTrivia::= DELETETRIVIA GREATERT
                     if(!idTrivia.toString().equals("")){
                         Trivia trivia = new Trivia(idTrivia.toString(), 2);
                         trivias.add(trivia);
+                        cleanAttributsTrivia();
                         RESULT = trivia;
                     } else {
                         addError("El id no es valido para eliminar", "Semantico");
+                        cleanAttributsTrivia();
                         RESULT = "";
                     }
                 :}
@@ -311,25 +338,16 @@ editTrivia::= EDITTRIVIA GREATERT
               {:
                 if(!currentIdTrivia.equals("") && !currentName.equals("") &&
                 !currentTimeQuestion.equals("") && !currentTheme.equals("")){
-                    Trivia trivia = new Trivia(curentIdTrivia, currentTimeQuestion, currentName, currentTheme, 3);
+                    Trivia trivia = new Trivia(currentIdTrivia, currentTimeQuestion, currentName, currentTheme, 3);
                     trivias.add(trivia);
+                    cleanAttributsTrivia();
                     RESULT = trivia;
                 } else {
+                    cleanAttributsTrivia();
                     RESULT = "";
                 }
               :}
               ;
-
-paramsET::= paramsEditTrivia COMMA paramsET
-          | paramsEditTrivia
-          ;
-
-paramsEditTrivia::= idTrivia:idTrivia
-                  | timeQuestionTrivia:timeQuestion
-                  | nameTrivia:nameTrivia
-                  | themeTrivia:themeTrivia
-                  | error:e
-                  ;
 
 addcomponent::= ADDCOMPONENT GREATERT
                 initParametersComponent
@@ -339,20 +357,90 @@ addcomponent::= ADDCOMPONENT GREATERT
                 //flag 1
                 {:
                     if(!currentIdComponent.equals("") && !currentTriviaComponent.equals("") &&
-                    !currentClassComponent.equals("")){
-                        Component component = new Component(idComponent.toString(), trivia.toString(),
-                        classComponent.toString(), txtVisible.toString(), 1);
-                        components.add(component);
-                        RESULT = component;
+                    !currentClassComponent.equals("") && !currentTxtVisibleComponent.equals("") && currentClassComponent.equals("AREA_TEXTO") &&
+                    !currentResponseComponent.equals("")){
+                        if(!currentRowComponent.equals("") && !currentColumnComponent.equals("")){
+                            Component component = new Component(currentIdComponent, currentTriviaComponent,
+                            currentClassComponent, currentTxtVisibleComponent, currentResponseComponent, 1);
+                            component.setRows(currentRowComponent);
+                            component.setCols(currentColumnComponent);
+                            component.setResponse(currentResponseComponent);
+                            components.add(component);
+                            cleanComponents();
+                            RESULT = "Ok";
+                        } else {
+                            addError("No se pudo crear este componente, por que no cumplio con filas y columnas", "Semantico");
+                            cleanComponents();
+                        }
+                        RESULT = "OK";
+                    } else if(!currentIdComponent.equals("") && !currentTriviaComponent.equals("") && !currentClassComponent.equals("")
+                              && !currentTxtVisibleComponent.equals("") && !currentResponseComponent.equals("")){
+                            Component component = new Component(currentIdComponent, currentTriviaComponent, currentClassComponent,
+                            currentTxtVisibleComponent, currentResponseComponent, 1);
+                            component.setResponse(currentResponseComponent);
+                            components.add(component);
+                            cleanComponents();
+                            RESULT = "OK";
                     } else {
-
+                        addError("Error en los parametros para crear un componente","Semantico");
+                        cleanComponents();
+                        RESULT = "";
                     }
                 :}
                 ;
 
+
+modifyComponent::= EDITCOMPONENT GREATERT
+                   initParametersComponent
+                   parametersComponentEdit
+                   typequestion:typeQuestion
+                   endKeyBracket
+                   //Flag 3
+                   {:
+                    if(!currentIdComponent.equals("") && !currentTriviaComponent.equals("") &&
+                        !currentClassComponent.equals("") && !currentTxtVisibleComponent.equals("") && currentClassComponent.equals("AREA_TEXTO") &&
+                        !currentResponseComponent.equals("")){
+                            if(!currentRowComponent.equals("") && !currentColumnComponent.equals("")){
+                                Component component = new Component(currentIdComponent, currentTriviaComponent, currentClassComponent,
+                                currentIndexComponent, currentTxtVisibleComponent, currentResponseComponent,   1);
+                                component.setRows(currentRowComponent);
+                                component.setCols(currentColumnComponent);
+                                component.setResponse(currentResponseComponent);
+                                components.add(component);
+                                cleanComponents();
+                                RESULT = "OK";
+                            } else {
+                                addError("No se pudo crear este componente, por que no cumplio con filas y columnas", "Semantico");
+                                cleanComponents();
+                            }
+                            RESULT = "OK";
+                        } else if(!currentIdComponent.equals("") && !currentTriviaComponent.equals("") && !currentClassComponent.equals("")
+                                  && !currentTxtVisibleComponent.equals("") && !currentResponseComponent.equals("")){
+                                Component component = new Component(currentIdComponent, currentTriviaComponent, currentClassComponent,
+                                currentIndexComponent, currentTxtVisibleComponent, currentResponseComponent,   1);
+                                component.setResponse(currentResponseComponent);
+                                components.add(component);
+                                cleanComponents();
+                                RESULT = "OK";
+                    } else {
+                            addError("Error en los parametros para crear un componente","Semantico");
+                            cleanComponents();
+                            RESULT = "";
+                    }
+                   :}
+                   ;
+
 parametersComponent::= parameterC COMMA parametersComponent
                      | parameterC
                      ;
+
+parametersComponentEdit::= editComponent COMMA parametersComponent
+                         | editComponent
+                         ;
+
+editComponent::= parameterC
+                | index
+                ;
 
 parameterC::= idComponent
             | triviaComponent
@@ -366,20 +454,28 @@ parameterC::= idComponent
 
 rowComponent::= ROW COLON NUMBER:number
                 {:
-
+                    currentRowComponent = number.toString();
+                    RESULT = currentRowComponent;
                 :}
               ;
+
+columnComponent::= COLUMN COLON NUMBER:number
+                 {:
+                    currentColumnComponent = number.toString();
+                    RESULT = currentColumnComponent;
+                 :}
+                 ;
 
 idComponent::= ID COLON TEXT:idComponent
                {:
                     if(idComponentBoolean){
                         String message = "Ya existe el id del componente";
                         addError(message, "Semantico");
-                        RESULT = "";
+                        RESULT         = "";
                     } else {
                         idComponentBoolean = true;
                         currentIdComponent = idComponent.toString().replace("\"", "");
-                        RESULT = currentIdComponent;
+                        RESULT             = currentIdComponent;
                     }
                :}
                ;
@@ -427,7 +523,7 @@ txtComponent::= TXTVISIBLE COLON TEXT:txtVisible
 
 responseComponent::= RESPONSETRIVIA COLON TEXT:response
                    {:
-                        if(responseComponentBoolen){
+                        if(responseComponentBoolean){
                             addError("Ya existe una respuesta anterior", "Semantico");
                             RESULT = "";
                         } else {
@@ -438,10 +534,6 @@ responseComponent::= RESPONSETRIVIA COLON TEXT:response
                    :}
                    ;
 
-parametersComponentEdit::= editComponent COMMA parametersComponent
-                         | editComponent
-                         ;
-
 deleteComponent::= DELETECOMPONENT GREATERT
                    initParametersComponent
                    ID COLON TEXT:idTrivia COMMA
@@ -449,37 +541,31 @@ deleteComponent::= DELETECOMPONENT GREATERT
                    endKeyBracket
                    //flag 2
                    {:
-                    if(!idTrivia.toString.equals("") && !trivia.toString().equals("")){
-                        Component component = new Component(idTrivia.toString(), trivia.toString(), 2);
-                        components.add(component);
-                        RESULT = component;
-                    } else {
-                        addError("Los errores para eliminar una trivia no se cumplen", "Semantico");
-                        RESULT "";
-                    }
+                        if(!idTrivia.toString().equals("") && !trivia.toString().equals("")){
+                            Component component = new Component(idTrivia.toString(), trivia.toString(), 2);
+                            components.add(component);
+                            cleanComponents();
+                            RESULT = component;
+                        } else {
+                            addError("Los errores para eliminar una trivia no se cumplen", "Semantico");
+                            cleanComponents();
+                            RESULT = "";
+                        }
                    :}
                    ;
 
-editComponent::= idComponent
-                | triviaComponent
-                | classTriviaComponent
-                | index
-                ;
-
-modifyComponent::= EDITCOMPONENT GREATERT
-                   initParametersComponent
-                   INDEX COLON TEXT:numberVersion COMMA
-                   TXTVISIBLE COLON TEXT:txtVisible
-                   typequestion:typeQuestion
-                   endKeyBracket
-                   //Flag 3
-                   {:
-                    Component component = new Component(id.toString(), trivia.toString(), classComponent.toString(),
-                    numberVersion.toString(), txtVisible.toString(), typeQuestion.toString(), 3);
-                    components.add(component);
-                    RESULT = component;
-                   :}
-                   ;
+index::= INDEX COLON TEXT:index
+        {:
+            if(indexComponentBoolean){
+                addError("Ya existe un indice anterior para modificar", "Semantico");
+                RESULT = "";
+            } else {
+                indexComponentBoolean = true;
+                currentIndexComponent = index.toString();
+                RESULT = currentIndexComponent;
+            }
+        :}
+        ;
 
 typequestion::= oneresponse:oneResponse
                 {:
@@ -507,20 +593,10 @@ classComponent::= TEXTFIELD:txtField        {:RESULT = txtField.toString().repla
                   | TEXTAREA:txtArea        {:RESULT = txtArea.toString().replace("\"", "");:}
                   | CHECKBOX:checkBox       {:RESULT = checkBox.toString().replace("\"", "");:}
                   | RADIO:radio             {:RESULT = radio.toString().replace("\"", "");:}
-                  | CARDINDEX:cardIndex     {:RESULT = cardIndex.toString().replace("\"", "");:}
+                  | CARDINEX:cardIndex     {:RESULT = cardIndex.toString().replace("\"", "");:}
                   | COMBO:combo             {:RESULT = combo.toString().replace("\"", "");:}
                   ;
 
-initDataUser::= KEYA USERDATA COLON BRACKETA KEYA
-                | error:e
-                                                                    {:
-                                                                        int line        = (eleft)+1;
-                                                                        int column      = eright;
-                                                                        String message  = "No se cumple los parametros para iniciar la data";
-                                                                        addError(line, column, message);
-                                                                        RESULT = "";
-                                                                    :}
-                ;
 
 initParametersTrivia::= KEYA PARAMETERSTRIVIA COLON BRACKETA KEYA
                         | error:e
@@ -556,14 +632,6 @@ endKeyBracket::= KEYC BRACKETC KEYC
                  ;
 
 initRequest::= OPENREQ INREQUEST COLON
-               | error:e
-                                                  {:
-                                                      int line        = (eleft)+1;
-                                                      int column      = eright;
-                                                      String message  = "No se cumple los parametros para iniciar las solicitudes";
-                                                      addError(line, column, message);
-                                                      RESULT = "";
-                                                  :}
                 ;
 
 endRequest::= LESST EDREQUEST ENDREQ

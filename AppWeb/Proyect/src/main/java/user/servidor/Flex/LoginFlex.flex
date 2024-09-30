@@ -40,18 +40,17 @@ INREQUEST           =       "realizar_solicitud"
 EDREQUEST           =       "fin_solicitud_realizada"
 
 //Register user
-USERDATA            =       "\"DATOS_USUARIO\""
-USER                =       "\"USUARIO\""
-PASSWORD            =       "\"PASSWORD\""
+USERDATA            =       ([\"”“]"DATOS_USUARIO"[\"”“])
+USER                =       ([\"”“]"USUARIO"[\"”“])
+PASSWORD            =       ([\"”“]"PASSWORD"[\"”“])
 //Modify user
-LOGINUSER           =       "\"LOGIN_USUARIO\""
+LOGINUSER           =       ([\"”“]"LOGIN_USUARIO"[\"”“])
 //REGEX
 WHITESPCS           = ([\s\t\r\n]+)
 DIGIT               = [0-9]*
-NUMBERVERSION       = [\"”“]{DIGIT}+(\.{DIGIT}+)? ({LETTER})[\"”“]
+NUMBERVERSION       = ([\"”“]{DIGIT}+(\.{DIGIT}+)?[\"”“])
 LETTER              = ([a-z]|[A-Z])+
 TEXT                = {NUMBERVERSION} | ([\"”“]({LETTER}|_|-|\$)+({LETTER}|{DIGIT}|_)*[\"”“])
-
 
 %{
         StringBuffer stringBuffer = new StringBuffer();

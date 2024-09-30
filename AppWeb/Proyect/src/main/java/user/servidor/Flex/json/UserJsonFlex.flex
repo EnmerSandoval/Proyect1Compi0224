@@ -77,4 +77,4 @@ DATECREATION        = ([\"”“]([0-9]{4}-[0-9]{2}-[0-9]{2})[\"”“])
 {TEXT}              {return new Symbol(UserJsonSym.TEXT, yycolumn, yyline, yytext());}
 {WHITESPCS}         {/*IGNORE*/}
 
-[^]                 {/*ADD ERRORS LEX*/}
+[^]                 {errors.add(new ErrorL(yytext(), yyline, yycolumn, "Error Lexico", "No coincide este caracter"));}

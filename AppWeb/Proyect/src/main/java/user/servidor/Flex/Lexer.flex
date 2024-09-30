@@ -1,8 +1,9 @@
-package org.proyect1.Flex;
+package user.servidor.Flex;
 
 import java_cup.runtime.*;
 import java.util.ArrayList;
 import user.servidor.Errors.ErrorL;
+import user.servidor.Cup.*;
 
 %%
 
@@ -19,12 +20,10 @@ import user.servidor.Errors.ErrorL;
 EQUALS              =       "="
 GREATERT            =       ">"
 LESST               =       "<"
-EXCLAMATION         =       "!"
 KEYA                =       "{"
 KEYC                =       "}"
 BRACKETA            =       "["
 BRACKETC            =       "]"
-OR                  =       "|"
 COLON               =       ":"
 COMMA               =       ","
 
@@ -50,22 +49,7 @@ EDRESPONSE          =       "fin_envio_respuesta"
 INITRESPONSES       =       "envio_respuestas"
 ENDRESPONSES        =       "fin_envio_respuestas"
 //Register user
-NEWUSER             =       ([\"”“]"USUARIO_NUEVO"[\"”“])
-USERDATA            =       ([\"”“]"DATOS_USUARIO"[\"”“])
-USER                =       ([\"”“]"USUARIO"[\"”“])
-PASSWORD            =       ([\"”“]"PASSWORD"[\"”“])
-NAME                =       ([\"”“]"NOMBRE"[\"”“])
-INSTITUTION         =       ([\"”“]"INSTITUCION"[\"”“])
 DATE                =       ([\"”“]"FECHA_CREACION"[\"”“])
-DATEEDIT            =       ([\"”“]"FECHA_MODIFICACION"[\"”“])
-//Modify user
-EDITUSER            =       ([\"”“]"MODIFICAR_USUARIO"[\"”“])
-OLDUSER             =       ([\"”“]"USUARIO_ANTIGUO"[\"”“])
-NEWPASSWORD         =       ([\"”“]"NUEVO_PASSWORD"[\"”“])
-//Delete user for the system
-DELETEUSER          =       ([\"”“]"ELIMINAR_USUARIO"[\"”“])
-//Login user
-LOGINUSER           =       (\"”“]"LOGIN_USUARIO"[\"”“])
 //Trivia
 NEWTRIVIA           =       ([\"”“]"NUEVA_TRIVIA"[\"”“])
 PARAMETERSTRIVIA    =       ([\"”“]"PARAMETROS_TRIVIA"[\"”“])
@@ -100,7 +84,7 @@ TEXTFIELD           =       ([\"”“]"CAMPO_TEXTO"[\"”“])
 TEXTAREA            =       ([\"”“]"AREA_TEXTO"[\"”“])
 CHECKBOX            =       ([\"”“]"CHECKBOX"[\"”“])
 RADIO               =       ([\"”“]"RADIO"[\"”“])
-CARDINDEX           =       ([\"”“]"FICHERO"[\"”“])
+CARDINEX           =       ([\"”“]"FICHERO"[\"”“])
 COMBO               =       ([\"”“]"COMBO"[\"”“])
 
 
@@ -117,7 +101,7 @@ DATECREATION    = [\"”“]([0-9]{4}-[0-9]{2}-[0-9]{2})[\"”“]
 
 %{
         StringBuffer stringBuffer = new StringBuffer();
-        ArrayList<Error> errors = new ArrayList<Error>();
+        ArrayList<ErrorL> errors = new ArrayList<ErrorL>();
 
         private Symbol symbol(int type){
             return new Symbol(type, yyline+1, yycolumn+1);
@@ -144,7 +128,7 @@ DATECREATION    = [\"”“]([0-9]{4}-[0-9]{2}-[0-9]{2})[\"”“]
 {VERSION}               {return new Symbol(ParserSym.VERSION, yycolumn, yyline, yytext());}
 {INREQUEST}             {return new Symbol(ParserSym.INREQUEST, yycolumn, yyline, yytext());}
 {EDREQUEST}             {return new Symbol(ParserSym.EDREQUEST, yycolumn, yyline, yytext());}
-{INITREQUESTS}          {return new Symbol(ParserSym.INITREQUEST, yycolumn, yyline, yytext());}
+{INITREQUESTS}          {return new Symbol(ParserSym.INITREQUESTS, yycolumn, yyline, yytext());}
 {ENDREQUESTS}           {return new Symbol(ParserSym.ENDREQUESTS, yycolumn, yyline, yytext());}
 {ENDXS}                 {return new Symbol(ParserSym.ENDXS, yycolumn, yyline, yytext());}
 {ENDREQ}                {return new Symbol(ParserSym.ENDREQ, yycolumn, yyline, yytext());}
@@ -152,19 +136,7 @@ DATECREATION    = [\"”“]([0-9]{4}-[0-9]{2}-[0-9]{2})[\"”“]
 {EDRESPONSE}            {return new Symbol(ParserSym.EDRESPONSE, yycolumn, yyline, yytext());}
 {INITRESPONSES}         {return new Symbol(ParserSym.INITRESPONSES, yycolumn, yyline, yytext());}
 {ENDRESPONSES}          {return new Symbol(ParserSym.ENDRESPONSES, yycolumn, yyline, yytext());}
-{NEWUSER}               {return new Symbol(ParserSym.NEWUSER, yycolumn, yyline, yytext());}
-{USERDATA}              {return new Symbol(ParserSym.USERDATA, yycolumn, yyline, yytext());}
-{USER}                  {return new Symbol(ParserSym.USER, yycolumn, yyline, yytext());}
-{PASSWORD}              {return new Symbol(ParserSym.PASSWORD, yycolumn, yyline, yytext());}
-{NAME}                  {return new Symbol(ParserSym.NAME, yycolumn, yyline, yytext());}
-{INSTITUTION}           {return new Symbol(ParserSym.INSTITUTION, yycolumn, yyline, yytext());}
 {DATE}                  {return new Symbol(ParserSym.DATE, yycolumn, yyline, yytext());}
-{DATEEDIT}              {return new Symbol(ParserSym.DATEEDIT, yycolumn, yyline, yytext());}
-{EDITUSER}              {return new Symbol(ParserSym.EDITUSER, yycolumn, yyline, yytext());}
-{OLDUSER}               {return new Symbol(ParserSym.OLDUSER, yycolumn, yyline, yytext());}
-{NEWPASSWORD}           {return new Symbol(ParserSym.NEWPASSWORD, yycolumn, yyline, yytext());}
-{DELETEUSER}            {return new Symbol(ParserSym.DELETEUSER, yycolumn, yyline, yytext());}
-{LOGINUSER}             {return new Symbol(ParserSym.LOGINUSER, yycolumn, yyline, yytext());}
 {NEWTRIVIA}             {return new Symbol(ParserSym.NEWTRIVIA, yycolumn, yyline, yytext());}
 {PARAMETERSTRIVIA}      {return new Symbol(ParserSym.PARAMETERSTRIVIA, yycolumn, yyline, yytext());}
 {USERCREATOR}           {return new Symbol(ParserSym.USERCREATOR, yycolumn, yyline, yytext());}
@@ -177,30 +149,28 @@ DATECREATION    = [\"”“]([0-9]{4}-[0-9]{2}-[0-9]{2})[\"”“]
 {PARAMETERSCOMPONENT}   {return new Symbol(ParserSym.PARAMETERSCOMPONENT, yycolumn, yyline, yytext());}
 {ID}                    {return new Symbol(ParserSym.ID, yycolumn, yyline, yytext());}
 {TRIVIA}                {return new Symbol(ParserSym.TRIVIA, yycolumn, yyline, yytext());}
-{CLASSTRIVIA}           {return new Symbol(ParserSym.CLASS, yycolumn, yyline, yytext());}
+{CLASSTRIVIA}           {return new Symbol(ParserSym.CLASSTRIVIA, yycolumn, yyline, yytext());}
 {TXTVISIBLE}            {return new Symbol(ParserSym.TXTVISIBLE, yycolumn, yyline, yytext());}
 {RESPONSETRIVIA}        {return new Symbol(ParserSym.RESPONSETRIVIA, yycolumn, yyline, yytext());}
 {ROW}                   {return new Symbol(ParserSym.COLUMN, yycolumn, yyline, yytext());}
 {COLUMN}                {return new Symbol(ParserSym.COLUMN, yycolumn, yyline, yytext());}
 {OPTIONS}               {return new Symbol(ParserSym.OPTIONS, yycolumn, yyline, yytext());}
-{DELETECOMPONENTT}      {return new Symbol(ParserSym.DELETECOMPONENTT, yycolumn, yyline, yytext());}
+{DELETECOMPONENTT}      {return new Symbol(ParserSym.DELETECOMPONENT, yycolumn, yyline, yytext());}
 {EDITCOMPONENT}         {return new Symbol(ParserSym.EDITCOMPONENT, yycolumn, yyline, yytext());}
 {INDEX}                 {return new Symbol(ParserSym.INDEX, yycolumn, yyline, yytext());}
 {TEXTFIELD}             {return new Symbol(ParserSym.TEXTFIELD, yycolumn, yyline, yytext());}
 {TEXTAREA}              {return new Symbol(ParserSym.TEXTAREA, yycolumn, yyline, yytext());}
 {CHECKBOX}              {return new Symbol(ParserSym.CHECKBOX, yycolumn, yyline, yytext());}
 {RADIO}                 {return new Symbol(ParserSym.RADIO, yycolumn, yyline, yytext());}
-{CARDINDEX}             {return new Symbol(ParserSym.CARDINDEX, yycolumn, yyline, yytext());}
+{CARDINEX}             {return new Symbol(ParserSym.CARDINEX, yycolumn, yyline, yytext());}
 {COMBO}                 {return new Symbol(ParserSym.COMBO, yycolumn, yyline, yytext());}
 {EQUALS}                {return new Symbol(ParserSym.EQUALS, yycolumn, yyline, yytext());}
 {GREATERT}              {return new Symbol(ParserSym.GREATERT, yycolumn, yyline, yytext());}
 {LESST}                 {return new Symbol(ParserSym.LESST, yycolumn, yyline, yytext());}
-{EXCLAMATION}           {return new Symbol(ParserSym.EXCLAMATION, yycolumn, yyline, yytext());}
 {KEYA}                  {return new Symbol(ParserSym.KEYA, yycolumn, yyline, yytext());}
 {KEYC}                  {return new Symbol(ParserSym.KEYC, yycolumn, yyline, yytext());}
 {BRACKETA}              {return new Symbol(ParserSym.BRACKETA, yycolumn, yyline, yytext());}
 {BRACKETC}              {return new Symbol(ParserSym.BRACKETC, yycolumn, yyline, yytext());}
-{OR}                    {return new Symbol(ParserSym.OR, yycolumn, yyline, yytext());}
 {COMMA}                 {return new Symbol(ParserSym.COMMA, yycolumn, yyline, yytext());}
 {DATECREATION}          {return new Symbol(ParserSym.DATECREATION, yycolumn, yyline, yytext());}
 {NUMBER}                {return new Symbol(ParserSym.NUMBER, yyline, yycolumn, yytext());}

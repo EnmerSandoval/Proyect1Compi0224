@@ -13,6 +13,17 @@
     <jsp-file>/index.jsp</jsp-file>
   </servlet>
 
+  <servlet>
+    <servlet-name>TriviasServlet</servlet-name>
+    <servlet-class>user.TriviasServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>TriviasServlet</servlet-name>
+    <url-pattern>/TriviasServlet</url-pattern>
+  </servlet-mapping>
+
+
   <servlet-mapping>
     <servlet-name>myServlet</servlet-name>
     <url-pattern>/index</url-pattern>

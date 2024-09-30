@@ -10,7 +10,7 @@ public class Trivia {
     private String dateCreation;
     private String userCreator;
     private int flag;
-    private ArrayList<Component> componentsTrivia;
+    private ArrayList<Component> componentsTrivia = new ArrayList<>();
     //Create and Modify trivia
     public Trivia(String idTrivia, String name, String timeQuestion, String userCreator,   String theme, String dateCreation, int flag) {
         this.idTrivia = idTrivia;
@@ -34,6 +34,13 @@ public class Trivia {
         this.name = name;
         this.theme = theme;
         this.flag = flag;
+    }
+
+    public Trivia() {
+    }
+
+    public void addComponentToArrayList(Component component){
+        componentsTrivia.add(component);
     }
 
     public ArrayList<Component> getComponentsTrivia() {
