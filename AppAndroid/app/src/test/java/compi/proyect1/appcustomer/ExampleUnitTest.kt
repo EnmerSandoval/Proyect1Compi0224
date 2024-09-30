@@ -1,4 +1,4 @@
-package compi.proyect1.customerApp
+package compi.proyect1.appcustomer
 
 import org.junit.Test
 

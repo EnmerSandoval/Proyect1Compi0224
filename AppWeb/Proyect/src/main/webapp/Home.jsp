@@ -27,6 +27,5 @@
     <div class="col-auto p-5 text-center">
         <img src="resources/logo.jpg" width="500" alt="500">
     </div>
-
 </body>
 </html>

@@ -18,6 +18,7 @@ parser code{:
     private boolean timeQuestionBoolean = false;
     private boolean userCreatorBoolean = false;
     private boolean themeBoolean = false;
+    private boolean dateBoolean = false;
     //Strings to the Trivia
     private String currentIdTrivia = "";
     private String currentTimeQuestion = "";
@@ -32,6 +33,7 @@ parser code{:
         timeQuestionBoolean = false;
         userCreatorBoolean = false;
         themeBoolean = false;
+        dateBoolean = false;
 
         currentIdTrivia = "";
         currentTimeQuestion = "";
@@ -47,14 +49,12 @@ parser code{:
     private boolean classComponentBoolean = false;
     private boolean txtVisibleComponentBoolean = false;
     private boolean responseComponentBoolean = false;
-    private boolean indexComponentBoolean = false;
     //Strings to the Components
     private String currentIdComponent = "";
     private String currentTriviaComponent = "";
     private String currentClassComponent = "";
     private String currentTxtVisibleComponent = "";
     private String currentResponseComponent = "";
-    private String currentIndexComponent = "";
 
     public void cleanComponents(){
         idComponentBoolean = false;
@@ -103,12 +103,23 @@ parser code{:
 
 :}
 
-terminal OPENXS, XSON, VERSION, EQUALS, NUMBERVERSION, ENDXS, OPENREQ, INREQUEST, COLON;
+terminal OPENXS, XSON, VERSION, EQUALS, NUMBERVERSION, ENDXS, NEWTRIVIA, GREATERT, COMMA, IDTRIVIA,
+         COLON, TEXT, NAME, TIMEQUESTION, NUMBER, USERCREATOR, THEME, DATE, DATECREATION, DELETETRIVIA,
+         EDITTRIVIA, ADDCOMPONENT, ID, TRIVIA, CLASSTRIVIA, TXTVISIBLE, RESPONSETRIVIA, DELETECOMPONENT,
+         EDITCOMPONENT, INDEX, OPTIONS, OPTIONSRESPONSES, TEXTFIELD, TEXTAREA, CHECKBOX, RADIO, CARDINEX,
+         COMBO, KEYA, KEYC, USERDATA, BRACKETA, BRACKETC, PARAMETERSTRIVIA, PARAMETERSCOMPONENT, OPENREQ,
+         INREQUEST, LESST, EDREQUEST, ENDREQ, INITREQUEST, INITREQUESTS, INRESPONSE, EDRESPONSE,
+         INITRESPONSES, ENDRESPONSES, ROW, COLUMN;
 
 non terminal endRequest, initRequest, endKeyBracket, initParametersComponent, initParametersTrivia, initDataUser;
 non terminal String optionsresponse, classComponent, typequestion;
-non terminal Component modifyComponent, deleteComponent, addComponent;
-non terminal initDataUser;
+non terminal Component modifyComponent, addComponent;
+non terminal in, initxson, statement, onerequest, requests, oneresponse, responses, initMoreRequest,
+             recursiveRequest, endMoreRequest, newtrivia, deletetrivia, edittrivia, addcomponents,
+             deleteComponent, componentsTrivia, componentsT, editTrivia, paramsET, paramsEditTrivia,
+             deleteTrivia, addcomponent, parameterC, parametersComponentEdit, editComponent, parametersComponent;
+non terminal String idTrivia, nameTrivia, timeQuestionTrivia, userCreatorTrivia, themeTrivia, dateTrivia,
+             idComponent, triviaComponent, classTriviaComponent, txtComponent, responseComponent;
 
 
 start with in;
@@ -137,9 +148,9 @@ recursiveRequest::= initRequest onerequest endRequest recursiveRequest
 onerequest::= newtrivia
             | deletetrivia
             | edittrivia
-            | addcomponents
-            | deletecomponent
-            | editcomponent
+            | addcomponent
+            | deleteComponent
+            | modifyComponent
             ;
 
 newtrivia::= NEWTRIVIA GREATERT
@@ -150,12 +161,24 @@ newtrivia::= NEWTRIVIA GREATERT
              {:
                 if(!currentIdTrivia.equals("") && !currentName.equals("") &&
                 !currentTimeQuestion.equals("") && !currentTheme.equals("")){
-
-                Trivia trivia = new Trivia(currentIdTrivia, currentName, currentTimeQuestion,
-                currentUserCreator, currentTheme, currentDateCreation, 1);
-
+                    if(currentDateCreation.equals("")){
+                        Date date = Calendar.getInstance().getTime();
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+                        String strDate = dateFormat.format(date);
+                        Trivia trivia = new Trivia(currentIdTrivia, currentName, currentTimeQuestion,
+                        currentUserCreator, currentTheme, currentDateCreation, 1);
+                        trivias.add(trivia);
+                        cleanAttributsTrivia();
+                    } else {
+                        Trivia trivia = new Trivia(currentIdTrivia, currentName, currentTimeQuestion,
+                        currentUserCreator, currentTheme, currentDateCreation, 1);
+                        trivias.add(trivia);
+                        cleanAttributsTrivia();
+                    }
+                } else {
+                    addError("No se cumple los requisitos para una nueva trivia", "Semantico");
+                    cleanAttributsTrivia();
                 }
-                trivias.add(trivia);
                 RESULT = trivia;
              :}
              ;
@@ -164,54 +187,102 @@ componentsTrivia::= componentsT COMMA componentsTrivia
                   | componentsT
                   ;
 
-componentsT::= idTrivia:idTrivia
-                  | nameTrivia:nameTrivia
-                  | timeQuestionTrivia:timeQuestionTrivia
-                  | userCreatorTrivia:userCreatorTrivia
-                  | themeTrivia:themeTrivia
-                  | dateTrivia:dateTrivia
-                  | error:e
+componentsT::= idTrivia:idTrivia                             {:RESULT = idTrivia.toString();:}
+                  | nameTrivia:nameTrivia                    {:RESULT = nameTrivia.toString();:}
+                  | timeQuestionTrivia:timeQuestionTrivia    {:RESULT = timeQuestionTrivia.toString();:}
+                  | userCreatorTrivia:userCreatorTrivia      {:RESULT = userCreatorTrivia.toString();:}
+                  | themeTrivia:themeTrivia                  {:RESULT = themeTrivia.toString();:}
+                  | dateTrivia:dateTrivia                    {:RESULT = dateTrivia.toString();:}
+                  | error:e                                  {:
+                                                                    int line    = (eleft)+1;
+                                                                    int column  = eright;
+                                                                    String message = "No se cumple con los parametros de los componentes";
+                                                                    addError(line, column, message);
+                                                                    RESULT = "";
+                                                             :}
                   ;
 
 idTrivia::= IDTRIVIA COLON TEXT:idTrivia
             {:
-                currentIdTrivia = idTrivia.toString();
-                RESULT = currentIdTrivia;
+                if(idTriviaBoolean){
+                    String message = "Ya existe un usuario";
+                    addError(message, "Semantico");
+                    RESULT = "";
+                } else {
+                    idTriviaBoolean = true;
+                    currentIdTrivia = idTrivia.toString().replace("\"", "");
+                    RESULT = currentIdTrivia;
+                }
             :}
             ;
 
 nameTrivia::= NAME COLON TEXT:name
             {:
-                currentName = name.toString();
-                RESULT = currentName;
+                if(nameBoolean){
+                    String message = "Ya existe un nombre";
+                    addError(message, "Semantico");
+                    RESULT = "";
+                } else {
+                    nameBoolean = true;
+                    currentName = name.toString().replace("\"", "");
+                    RESULT= currentName;
+                }
             :}
             ;
 
 timeQuestionTrivia::= TIMEQUESTION COLON NUMBER:timeQuestion
                     {:
-                        currentTimeQuestion = timeQuestion.toString();
-                        RESULT = currentTimeQuestion;
+                        if(timeQuestionBoolean){
+                            String message = "Ya existe un usuario";
+                            addError(message, "Semantico");
+                            RESULT = "";
+                        } else {
+                            timeQuestionBoolean = true;
+                            currentTimeQuestion = timeQuestion.toString().replace("\"", "");
+                            RESULT = currentTimeQuestion;
+                        }
                     :}
                     ;
 
 userCreatorTrivia::= USERCREATOR COLON TEXT:userCreator
                     {:
-                        currentUserCreator = userCreator.toString();
-                        RESULT = currentUserCreator;
+                        if(userCreatorBoolean){
+                            String message = "Ya existe un usuario creador";
+                            addError(message, "Semantico");
+                            RESULT = "";
+                        } else {
+                            userCreatorBoolean = true;
+                            currentUserCreator = userCreator.toString().replace("\"", "");
+                            RESULT = currentUserCreator;
+                        }
                     :}
                     ;
 
 themeTrivia::= THEME COLON TEXT:theme
              {:
-                currentTheme = theme.toString();
-                RESULT = currentTheme;
+                if(themeBoolean){
+                    String message = "Ya existe un tema";
+                    addError(message, "Semantico");
+                    RESULT = "";
+                } else {
+                    themeBoolean = true;
+                    currentTheme = theme.toString().replace("\"", "");
+                    RESULT = currentTheme;
+                }
              :}
              ;
 
 dateTrivia::= DATE COLON DATECREATION:dateCreation
             {:
-                currentDateCreation = dateCreation.toString();
-                RESULT = currentDateCreation;
+                if(dateBoolean){
+                    String message = "Ya existe una fecha anterior";
+                    addError(message, "Semantico");
+                    RESULT = "";
+                } else {
+                    dateBoolean = true;
+                    currentDateCreation = dateCreation.toString().replace("\"", "");
+                    RESULT = currentDateCreation;
+                }
             :}
             ;
 
@@ -221,9 +292,14 @@ deleteTrivia::= DELETETRIVIA GREATERT
                 endKeyBracket
                 //flag 2
                 {:
-                    Trivia trivia = new Trivia(idTrivia.toString(), 2);
-                    trivias.add(trivia);
-                    RESULT = trivia;
+                    if(!idTrivia.toString().equals("")){
+                        Trivia trivia = new Trivia(idTrivia.toString(), 2);
+                        trivias.add(trivia);
+                        RESULT = trivia;
+                    } else {
+                        addError("El id no es valido para eliminar", "Semantico");
+                        RESULT = "";
+                    }
                 :}
                 ;
 
@@ -233,9 +309,14 @@ editTrivia::= EDITTRIVIA GREATERT
               endKeyBracket
               //flag 3
               {:
-                Trivia trivia = new Trivia(idTrivia.toString(), timeQuestion, name.toString(), theme.toString(), 3);
-                trivias.add(trivia);
-                RESULT = trivia;
+                if(!currentIdTrivia.equals("") && !currentName.equals("") &&
+                !currentTimeQuestion.equals("") && !currentTheme.equals("")){
+                    Trivia trivia = new Trivia(curentIdTrivia, currentTimeQuestion, currentName, currentTheme, 3);
+                    trivias.add(trivia);
+                    RESULT = trivia;
+                } else {
+                    RESULT = "";
+                }
               :}
               ;
 
@@ -252,20 +333,114 @@ paramsEditTrivia::= idTrivia:idTrivia
 
 addcomponent::= ADDCOMPONENT GREATERT
                 initParametersComponent
-                ID COLON TEXT:idComponent COMMA
-                TRIVIA COLON TEXT:trivia COMMA
-                CLASSTRIVIA COLON classComponent:classComponent COMMA
-                TXTVISIBLE COLON TEXT:txtVisible COMMA
+                parametersComponent
                 typequestion
                 endKeyBracket
                 //flag 1
                 {:
-                    Component component = new Component(idComponent.toString(), trivia.toString(),
-                    classComponent.toString(), txtVisible.toString(), 1);
-                    components.add(component);
-                    RESULT = component;
+                    if(!currentIdComponent.equals("") && !currentTriviaComponent.equals("") &&
+                    !currentClassComponent.equals("")){
+                        Component component = new Component(idComponent.toString(), trivia.toString(),
+                        classComponent.toString(), txtVisible.toString(), 1);
+                        components.add(component);
+                        RESULT = component;
+                    } else {
+
+                    }
                 :}
                 ;
+
+parametersComponent::= parameterC COMMA parametersComponent
+                     | parameterC
+                     ;
+
+parameterC::= idComponent
+            | triviaComponent
+            | classTriviaComponent
+            | txtComponent
+            | optionsresponse
+            | rowComponent
+            | columnComponent
+            | responseComponent
+            ;
+
+rowComponent::= ROW COLON NUMBER:number
+                {:
+
+                :}
+              ;
+
+idComponent::= ID COLON TEXT:idComponent
+               {:
+                    if(idComponentBoolean){
+                        String message = "Ya existe el id del componente";
+                        addError(message, "Semantico");
+                        RESULT = "";
+                    } else {
+                        idComponentBoolean = true;
+                        currentIdComponent = idComponent.toString().replace("\"", "");
+                        RESULT = currentIdComponent;
+                    }
+               :}
+               ;
+triviaComponent::= TRIVIA COLON TEXT:trivia
+                    {:
+                        if(triviaComponentBoolean){
+                            String message = "Ya existe una trivia anterior";
+                            addError(message, "Semantico");
+                            RESULT = "";
+                        } else {
+                            triviaComponentBoolean = true;
+                            currentTriviaComponent = trivia.toString().replace("\"", "");
+                            RESULT = currentTriviaComponent;
+                        }
+                    :}
+                    ;
+
+classTriviaComponent::= CLASSTRIVIA COLON classComponent:classComponent
+                        {:
+                            if(classComponentBoolean){
+                                String message = "Ya existe una clase del componente";
+                                addError(message, "Semantico");
+                                RESULT = "";
+                            } else {
+                                classComponentBoolean = true;
+                                currentClassComponent = classComponent.toString().replace("\"", "");
+                                RESULT = currentClassComponent;
+                            }
+                        :}
+                        ;
+
+txtComponent::= TXTVISIBLE COLON TEXT:txtVisible
+                {:
+                    if(txtVisibleComponentBoolean){
+                        String message = "Ya existe un texto visible";
+                        addError(message, "Semantico");
+                        RESULT = "";
+                    } else {
+                        txtVisibleComponentBoolean = true;
+                        currentTxtVisibleComponent = txtVisible.toString().replace("\"", "");
+                        RESULT = currentTxtVisibleComponent;
+                    }
+                :}
+                ;
+
+responseComponent::= RESPONSETRIVIA COLON TEXT:response
+                   {:
+                        if(responseComponentBoolen){
+                            addError("Ya existe una respuesta anterior", "Semantico");
+                            RESULT = "";
+                        } else {
+                            responseComponentBoolean = true;
+                            currentResponseComponent = response.toString();
+                            RESULT = currentResponseComponent;
+                        }
+                   :}
+                   ;
+
+parametersComponentEdit::= editComponent COMMA parametersComponent
+                         | editComponent
+                         ;
 
 deleteComponent::= DELETECOMPONENT GREATERT
                    initParametersComponent
@@ -274,19 +449,27 @@ deleteComponent::= DELETECOMPONENT GREATERT
                    endKeyBracket
                    //flag 2
                    {:
-                    Component component = new Component(idTrivia.toString(), trivia.toString(), 2);
-                    components.add(component);
-                    RESULT = component;
+                    if(!idTrivia.toString.equals("") && !trivia.toString().equals("")){
+                        Component component = new Component(idTrivia.toString(), trivia.toString(), 2);
+                        components.add(component);
+                        RESULT = component;
+                    } else {
+                        addError("Los errores para eliminar una trivia no se cumplen", "Semantico");
+                        RESULT "";
+                    }
                    :}
                    ;
 
+editComponent::= idComponent
+                | triviaComponent
+                | classTriviaComponent
+                | index
+                ;
+
 modifyComponent::= EDITCOMPONENT GREATERT
                    initParametersComponent
-                   ID COLON TEXT:id COMMA
-                   TRIVIA COLON TEXT:trivia COMMA
-                   CLASSTRIVIA COLON classComponent:classComponent COMMA
-                   INDEX COLON NUMBERVERSION:numberVersion COMMA
-                   TXTVISIBLE COLON TEXT:txtVisible COMMA
+                   INDEX COLON TEXT:numberVersion COMMA
+                   TXTVISIBLE COLON TEXT:txtVisible
                    typequestion:typeQuestion
                    endKeyBracket
                    //Flag 3
@@ -300,57 +483,162 @@ modifyComponent::= EDITCOMPONENT GREATERT
 
 typequestion::= oneresponse:oneResponse
                 {:
-                    RESULT = oneResponse.toString();
+                    RESULT = oneResponse.toString().replace("\"", "");
                 :}
                 | optionsresponse:optionsResponse
                 {:
-                    RESULT = optionsResponse.toString();
+                    RESULT = optionsResponse.toString().replace("\"", "");
                 :}
                 ;
 
 oneresponse::= RESPONSETRIVIA COLON TEXT:textResponse
                {:
-                    RESULT = textResponse.toString();
+                    RESULT = textResponse.toString().replace("\"", "");
                :}
                ;
 
 optionsresponse::= OPTIONS COLON OPTIONSRESPONSES:optionsResponse
                    {:
-                        RESULT = optionsResponse.toString();
+                        RESULT = optionsResponse.toString().replace("\"", "");
                    :}
                    ;
 
-classComponent::= TEXTFIELD:txtField        {:RESULT = txtField.toString();:}
-                  | TEXTAREA:txtArea        {:RESULT = txtArea.toString();:}
-                  | CHECKBOX:checkBox       {:RESULT = checkBox.toString();:}
-                  | RADIO:radio             {:RESULT = radio.toString();:}
-                  | CARDINDEX:cardIndex     {:RESULT = cardIndex.toString();:}
-                  | COMBO:combo             {:RESULT = combo.toString();:}
+classComponent::= TEXTFIELD:txtField        {:RESULT = txtField.toString().replace("\"", "");:}
+                  | TEXTAREA:txtArea        {:RESULT = txtArea.toString().replace("\"", "");:}
+                  | CHECKBOX:checkBox       {:RESULT = checkBox.toString().replace("\"", "");:}
+                  | RADIO:radio             {:RESULT = radio.toString().replace("\"", "");:}
+                  | CARDINDEX:cardIndex     {:RESULT = cardIndex.toString().replace("\"", "");:}
+                  | COMBO:combo             {:RESULT = combo.toString().replace("\"", "");:}
                   ;
 
-initDataUser::= KEYA USERDATA COLON BRACKETA KEYA;
-           // | error
+initDataUser::= KEYA USERDATA COLON BRACKETA KEYA
+                | error:e
+                                                                    {:
+                                                                        int line        = (eleft)+1;
+                                                                        int column      = eright;
+                                                                        String message  = "No se cumple los parametros para iniciar la data";
+                                                                        addError(line, column, message);
+                                                                        RESULT = "";
+                                                                    :}
+                ;
 
-initParametersTrivia::= KEYA PARAMETERSTRIVIA COLON BRACKETA KEYA;
+initParametersTrivia::= KEYA PARAMETERSTRIVIA COLON BRACKETA KEYA
+                        | error:e
+                                                                            {:
+                                                                                int line        = (eleft)+1;
+                                                                                int column      = eright;
+                                                                                String message  = "No se cumple los parametros para crear la trivia";
+                                                                                addError(line, column, message);
+                                                                                RESULT = "";
+                                                                            :}
+                        ;
 
-initParametersComponent::= KEYA PARAMETERSCOMPONENT COLON BRACKETA KEYA;
+initParametersComponent::= KEYA PARAMETERSCOMPONENT COLON BRACKETA KEYA
+                           | error:e
+                                                                               {:
+                                                                                   int line        = (eleft)+1;
+                                                                                   int column      = eright;
+                                                                                   String message  = "No se cumple los parametros para iniciar los componentes";
+                                                                                   addError(line, column, message);
+                                                                                   RESULT = "";
+                                                                               :}
+                            ;
 
-endKeyBracket::= KEYC BRACKETC KEYC;
-             //| error
+endKeyBracket::= KEYC BRACKETC KEYC
+                 | error:e
+                                                    {:
+                                                        int line        = (eleft)+1;
+                                                        int column      = eright;
+                                                        String message  = "No se cumple los parametros para iniciar las solicitudes";
+                                                        addError(line, column, message);
+                                                        RESULT = "";
+                                                    :}
+                 ;
 
-initRequest::= OPENREQ INREQUEST COLON;
-           // | error
+initRequest::= OPENREQ INREQUEST COLON
+               | error:e
+                                                  {:
+                                                      int line        = (eleft)+1;
+                                                      int column      = eright;
+                                                      String message  = "No se cumple los parametros para iniciar las solicitudes";
+                                                      addError(line, column, message);
+                                                      RESULT = "";
+                                                  :}
+                ;
 
-endRequest::= LESST EDREQUEST ENDREQ;
+endRequest::= LESST EDREQUEST ENDREQ
+              | error:e
+                                                 {:
+                                                     int line        = (eleft)+1;
+                                                     int column      = eright;
+                                                     String message  = "No se cumple los parametros para iniciar las solicitudes";
+                                                     addError(line, column, message);
+                                                     RESULT = "";
+                                                 :}
+              ;
 
-initMoreRequest::= OPENREQ INITREQUESTS GREATERT;
+initMoreRequest::= OPENREQ INITREQUESTS GREATERT
+                   | error:e
+                                                      {:
+                                                          int line        = (eleft)+1;
+                                                          int column      = eright;
+                                                          String message  = "No se cumple los parametros para iniciar las solicitudes";
+                                                          addError(line, column, message);
+                                                          RESULT = "";
+                                                      :}
+                    ;
 
-endMoreRequest::= OPENREQ ENDREQUESTS GREATERT;
+endMoreRequest::= OPENREQ ENDREQUESTS GREATERT
+                  | error:e
+                                                     {:
+                                                         int line        = (eleft)+1;
+                                                         int column      = eright;
+                                                         String message  = "No se cumple los parametros para iniciar las solicitudes";
+                                                         addError(line, column, message);
+                                                         RESULT = "";
+                                                     :}
+                  ;
 
-oneResponse::= OPENREQ INRESPONSE GREATERT;
+oneResponse::= OPENREQ INRESPONSE GREATERT
+               | error:e
+                                   {:
+                                       int line        = (eleft)+1;
+                                       int column      = eright;
+                                       String message  = "No se cumple los parametros para iniciar las solicitudes";
+                                       addError(line, column, message);
+                                       RESULT = "";
+                                   :}
+                ;
 
-endResponse::= OPENREQ EDRESPONSE ENDREQ;
+endResponse::= OPENREQ EDRESPONSE ENDREQ
+               | error:e
+                                    {:
+                                        int line        = (eleft)+1;
+                                        int column      = eright;
+                                        String message  = "No se cumple los parametros para finalizar una respuesta";
+                                        addError(line, column, message);
+                                        RESULT = "";
+                                    :}
+                ;
 
-initMoreResponses::= OPENREQ INITRESPONSES GREATERT;
+initMoreResponses::= OPENREQ INITRESPONSES GREATERT
+                     | error:e
+                                         {:
+                                             int line        = (eleft)+1;
+                                             int column      = eright;
+                                             String message  = "No se cumple los parametros para iniciar las respuesta";
+                                             addError(line, column, message);
+                                             RESULT = "";
+                                         :}
+                     ;
 
-endMoreResponses::= OPENREQ ENDRESPONSES ENDREQ;
+endMoreResponses::= OPENREQ ENDRESPONSES ENDREQ
+                    | error:e
+                                        {:
+                                            int line        = (eleft)+1;
+                                            int column      = eright;
+                                            String message  = "No se cumple los parametros para finalizar una respuesta";
+                                            addError(line, column, message);
+                                            RESULT = "";
+                                        :}
+                    ;

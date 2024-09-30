@@ -14,7 +14,15 @@
             <label for="registerText"></label>
             <textarea class="form-control" placeholder="Ingrese la estructura xml aca" id="registerText" name="registerText" style="height: 200px"></textarea>
             <button type="submit" class="btn btn-primary mt-3">Registrar</button>
-            <div id="positionDisplay" class="mt-2">Fila: 1, Columna: 1</div>
+        </div>
+        <div id="positionDisplay" class="mt-2">
+            <c:if test="${!empty(error)}">
+                <br>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>No se pudo completar la solicitud!</strong> ${error}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
         </div>
     </form>
 </div>

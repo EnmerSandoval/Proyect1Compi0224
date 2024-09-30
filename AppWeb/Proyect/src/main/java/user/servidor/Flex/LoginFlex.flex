@@ -102,4 +102,4 @@ TEXT                = {NUMBERVERSION} | ([\"”“]({LETTER}|_|-|\$)+({LETTER}|{
 {TEXT}                  {return new Symbol(LoginSym.TEXT, yyline, yycolumn, yytext());}
 {WHITESPCS}             {/*ignore*/}
 
-[^]                  {System.out.println(yytext());}
+[^]                     {errors.add(new ErrorL(yytext(), yyline, yycolumn, "Error Lexico", "No coincide este caracter"));}

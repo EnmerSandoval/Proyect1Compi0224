@@ -165,7 +165,7 @@ paramsUserStructure::= userStructure:user {:System.out.println("user+" + user.to
                             int column     = eright;
                             String message = "No se cumple la estructura de usuario, se espera \"PASSWORD: \"PASSWORD DEL USUARIO\" ,";
                             addError(line, column, message);
-                            RESULT = null;
+                            RESULT = "";
                         :}
                      ;
 
@@ -174,7 +174,7 @@ userStructure::= USER COLON TEXT:user
                         if(currentUserBoolean){
                             String message = "Ya existia un usuario";
                             addError(message, "Semantico");
-                            RESULT = null;
+                            RESULT = "";
                         } else {
                             currentUserBoolean = true;
                             currentUser = user.toString().replace("\"", "");
@@ -188,7 +188,7 @@ passwordStructure::= PASSWORD COLON TEXT:password
                         if(currentPasswordBoolean){
                             String message = "Ya existe una password";
                             addError(message, "Semantico");
-                            RESULT = null;
+                            RESULT = "";
                         } else {
                             currentPasswordBoolean = true;
                             currentPassword = password.toString().replace("\"", "");
@@ -202,7 +202,7 @@ nameStructure::= NAME COLON TEXT:name
                     if(currentNameBoolean){
                         String message = "Ya existe un nombre";
                         addError(message, "Semantico");
-                        RESULT = null;
+                        RESULT = "";
                     } else {
                         currentNameBoolean = true;
                         currentName = name.toString().replace("\"", "");
@@ -216,7 +216,7 @@ institutionStructure::= INSTITUTION COLON TEXT:institution
                             if(currentInstitutionBoolean){
                                 String message = "Ya existe una institucion";
                                 addError(message, "Semantico");
-                                RESULT = null;
+                                RESULT = "";
                             } else {
                                 currentInstitutionBoolean = true;
                                 currentInstitution = institution.toString().replace("\"", "");
@@ -230,7 +230,7 @@ dateStructure::= DATE COLON DATECREATION:dateCreation
                     if(currentDateCreationBoolean){
                         String message = "Ya existia una fecha anterior";
                         addError(message, "Semantico");
-                        RESULT = null;
+                        RESULT = "";
                     } else {
                         currentDateCreationBoolean = true;
                         currentDateCreation = dateCreation.toString().replace("\"", "");
@@ -285,7 +285,7 @@ oldUserStructure::= OLDUSER COLON TEXT:olduser
                         if(currentOldUserBoolean){
                             String message = "Ya existia un usuario antiguo";
                             addError(message, "Semantico");
-                            RESULT = null;
+                            RESULT = "";
                         } else {
                             currentOldUserBoolean = true;
                             currentOldUser = olduser.toString().replace("\"", "");
@@ -299,7 +299,7 @@ newUserStructure::= NEWUSER COLON TEXT:newuser
                         if(currentUserBoolean){
                             String message = "Ya existia un usuario";
                             addError(message, "Semantico");
-                            RESULT = null;
+                            RESULT = "";
                         } else {
                             currentUserBoolean = true;
                             currentUser = newuser.toString().replace("\"", "");
@@ -313,7 +313,7 @@ newPasswordStructure::= NEWPASSWORD COLON TEXT:newpassword
                             if(currentPasswordBoolean){
                                 String message = "Ya existia una password";
                                 addError(message, "Semantico");
-                                RESULT = null;
+                                RESULT = "";
                             } else {
                                 currentPasswordBoolean = true;
                                 currentPassword = newpassword.toString().replace("\"", "");
@@ -327,7 +327,7 @@ dateEditStructure::= DATEEDIT COLON DATECREATION:dateCreation
                         if(currentDateCreationBoolean){
                             String message = "Ya existia anteriormente una fecha";
                             addError(message, "Semantico");
-                            RESULT = null;
+                            RESULT = "";
                         } else {
                             currentDateCreationBoolean = true;
                             currentDateCreation = dateCreation.toString().replace("\"", "");
@@ -351,7 +351,7 @@ deleteuser::= DELETEUSER GREATERT
                     int column = userright;
                     String message = "Error semantico el usuario es invalido para eliminar";
                     addError(line, column, message);
-                    RESULT = null;
+                    RESULT = "";
                 }
               :}
               ;
@@ -363,7 +363,7 @@ initDataUser::= KEYA USERDATA COLON BRACKETA KEYA
                     int column  = eright;
                     String message = "No se cumple con el orden de las llaves de apertura xson";
                     addError(line, column, message);
-                    RESULT = null;
+                    RESULT = "";
                 :}
                 ;
 
@@ -374,7 +374,7 @@ endKeyBracket::= KEYC BRACKETC KEYC
                     int column  = eright;
                     String message = "No se cumple con el orden de cierre de llaves en xson";
                     addError(line, column, message);
-                    RESULT = null;
+                    RESULT = "";
                 :}
                 ;
 
@@ -385,7 +385,7 @@ initRequest::= OPENREQ INREQUEST COLON
                     int column  = eright;
                     String message = "No se cumple con el orden para iniciar una solicitud de login";
                     addError(line, column, message);
-                    RESULT = null;
+                    RESULT = "";
                :}
                ;
 
@@ -396,7 +396,7 @@ endRequest::= LESST EDREQUEST ENDREQ
                     int column  = eright;
                     String message = "No se cumple con el orden para finalizar una solicitud de llaves en xson";
                     addError(line, column, message);
-                    RESULT = null;
+                    RESULT = "";
                :}
               ;
 
@@ -407,7 +407,7 @@ initxson::= OPENXS XSON VERSION EQUALS TEXT ENDXS
                 int column      = eright;
                 String message  = "No se cumple los parametros para iniciar el xson";
                 addError(line, column, message);
-                RESULT = null;
+                RESULT = "";
             :}
             ;
 
@@ -419,7 +419,7 @@ initMoreRequest::= OPENREQ INITREQUESTS GREATERT
                         int column      = eright;
                         String message  = "No se cumple los parametros para iniciar las solicitudes";
                         addError(line, column, message);
-                        RESULT = null;
+                        RESULT = "";
                      :}
                    ;
 
@@ -430,6 +430,6 @@ endMoreRequest::= OPENREQ ENDREQUESTS GREATERT
                         int column      = eright;
                         String message  = "No se cumple los parametros para finalizar las solicitudes";
                         addError(line, column, message);
-                        RESULT = null;
+                        RESULT = "";
                     :}
                   ;

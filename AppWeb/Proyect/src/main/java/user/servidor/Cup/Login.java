@@ -36,10 +36,10 @@ public class Login extends java_cup.runtime.lr_parser {
     unpackFromStrings(new String[] {
     "\000\022\000\002\002\004\000\002\002\004\000\002\004" +
     "\004\000\002\005\010\000\002\005\003\000\002\006\007" +
-    "\000\002\012\006\000\002\012\003\000\002\013\005\000" +
-    "\002\013\003\000\002\007\007\000\002\007\003\000\002" +
-    "\011\005\000\002\011\003\000\002\003\007\000\002\003" +
-    "\003\000\002\010\005\000\002\010\003" });
+    "\000\002\006\003\000\002\012\006\000\002\012\003\000" +
+    "\002\013\005\000\002\013\003\000\002\007\007\000\002" +
+    "\007\003\000\002\011\005\000\002\011\003\000\002\003" +
+    "\007\000\002\010\005\000\002\010\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -48,30 +48,30 @@ public class Login extends java_cup.runtime.lr_parser {
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
     "\000\060\000\006\003\006\004\007\001\002\000\004\002" +
-    "\062\001\002\000\006\003\016\024\021\001\002\000\006" +
-    "\003\ufffd\024\ufffd\001\002\000\004\005\010\001\002\000" +
+    "\062\001\002\000\006\003\016\023\021\001\002\000\006" +
+    "\003\ufffd\023\ufffd\001\002\000\004\005\010\001\002\000" +
     "\004\006\011\001\002\000\004\007\012\001\002\000\004" +
-    "\014\013\001\002\000\004\011\014\001\002\000\006\003" +
-    "\ufffe\024\ufffe\001\002\000\006\003\055\030\057\001\002" +
-    "\000\006\003\ufff2\017\ufff2\001\002\000\006\003\027\017" +
-    "\030\001\002\000\004\002\000\001\002\000\004\025\022" +
-    "\001\002\000\004\013\023\001\002\000\004\026\024\001" +
-    "\002\000\004\027\025\001\002\000\006\003\ufff3\017\ufff3" +
-    "\001\002\000\006\003\035\012\037\001\002\000\006\003" +
-    "\ufff6\012\ufff6\001\002\000\004\020\031\001\002\000\004" +
-    "\013\032\001\002\000\004\021\033\001\002\000\004\017" +
-    "\034\001\002\000\006\003\ufff7\012\ufff7\001\002\000\006" +
-    "\003\ufffa\016\ufffa\001\002\000\006\003\044\016\045\001" +
-    "\002\000\004\013\040\001\002\000\004\014\041\001\002" +
-    "\000\004\015\042\001\002\000\006\003\ufffb\016\ufffb\001" +
-    "\002\000\006\003\050\023\051\001\002\000\006\003\ufff8" +
-    "\023\ufff8\001\002\000\004\013\046\001\002\000\004\014" +
-    "\047\001\002\000\006\003\ufff9\023\ufff9\001\002\000\006" +
-    "\003\ufff4\030\ufff4\001\002\000\004\022\053\001\002\000" +
-    "\006\003\ufffc\030\ufffc\001\002\000\004\023\054\001\002" +
-    "\000\006\003\ufff5\030\ufff5\001\002\000\004\002\ufff0\001" +
-    "\002\000\004\002\uffff\001\002\000\004\031\060\001\002" +
-    "\000\004\032\061\001\002\000\004\002\ufff1\001\002\000" +
+    "\013\013\001\002\000\004\010\014\001\002\000\006\003" +
+    "\ufffe\023\ufffe\001\002\000\006\003\055\027\057\001\002" +
+    "\000\006\003\ufffb\027\ufffb\001\002\000\006\003\027\016" +
+    "\030\001\002\000\004\002\000\001\002\000\004\024\022" +
+    "\001\002\000\004\012\023\001\002\000\004\025\024\001" +
+    "\002\000\004\026\025\001\002\000\006\003\ufff2\016\ufff2" +
+    "\001\002\000\006\003\035\011\037\001\002\000\006\003" +
+    "\ufff5\011\ufff5\001\002\000\004\017\031\001\002\000\004" +
+    "\012\032\001\002\000\004\020\033\001\002\000\004\016" +
+    "\034\001\002\000\006\003\ufff6\011\ufff6\001\002\000\006" +
+    "\003\ufff9\015\ufff9\001\002\000\006\003\044\015\045\001" +
+    "\002\000\004\012\040\001\002\000\004\013\041\001\002" +
+    "\000\004\014\042\001\002\000\006\003\ufffa\015\ufffa\001" +
+    "\002\000\006\003\050\022\051\001\002\000\006\003\ufff7" +
+    "\022\ufff7\001\002\000\004\012\046\001\002\000\004\013" +
+    "\047\001\002\000\006\003\ufff8\022\ufff8\001\002\000\006" +
+    "\003\ufff3\027\ufff3\001\002\000\004\021\053\001\002\000" +
+    "\006\003\ufffc\027\ufffc\001\002\000\004\022\054\001\002" +
+    "\000\006\003\ufff4\027\ufff4\001\002\000\004\002\ufff0\001" +
+    "\002\000\004\002\uffff\001\002\000\004\030\060\001\002" +
+    "\000\004\031\061\001\002\000\004\002\ufff1\001\002\000" +
     "\004\002\001\001\002" });
 
   /** Access to parse-action table. */
@@ -246,7 +246,7 @@ class CUP$Login$actions {
                     int column      = eright;
                     String message  = "No se cumple los parametros para iniciar el xson";
                     addError(line, column, message);
-                    RESULT = null;
+                    RESULT = "";
               
               CUP$Login$result = parser.getSymbolFactory().newSymbol("initxson",3, ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), RESULT);
             }
@@ -272,7 +272,25 @@ class CUP$Login$actions {
           return CUP$Login$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // userStructure ::= USER COLON TEXT COMMA 
+          case 6: // login ::= error 
+            {
+              Object RESULT =null;
+		int eleft = ((java_cup.runtime.Symbol)CUP$Login$stack.peek()).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$Login$stack.peek()).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$Login$stack.peek()).value;
+		
+                             int line        = (eleft)+1;
+                             int column      = eright;
+                             String message  = "No se cumple los parametros para iniciar sesion";
+                             addError(line, column, message);
+                             RESULT = "";
+                       
+              CUP$Login$result = parser.getSymbolFactory().newSymbol("login",4, ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), RESULT);
+            }
+          return CUP$Login$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 7: // userStructure ::= USER COLON TEXT COMMA 
             {
               String RESULT =null;
 		int userleft = ((java_cup.runtime.Symbol)CUP$Login$stack.elementAt(CUP$Login$top-1)).left;
@@ -286,7 +304,7 @@ class CUP$Login$actions {
           return CUP$Login$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // userStructure ::= error 
+          case 8: // userStructure ::= error 
             {
               String RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$Login$stack.peek()).left;
@@ -297,14 +315,14 @@ class CUP$Login$actions {
                         int column     = eright;
                         String message = "No se cumple la estructura de usuario, se espera \"PASSWORD: \"NOMBRE DEL USUARIO\" ,";
                         addError(line, column, message);
-                        RESULT = null;
+                        RESULT = "";
                    
               CUP$Login$result = parser.getSymbolFactory().newSymbol("userStructure",8, ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), RESULT);
             }
           return CUP$Login$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // passwordStructure ::= PASSWORD COLON TEXT 
+          case 9: // passwordStructure ::= PASSWORD COLON TEXT 
             {
               String RESULT =null;
 		int passwordleft = ((java_cup.runtime.Symbol)CUP$Login$stack.peek()).left;
@@ -318,7 +336,7 @@ class CUP$Login$actions {
           return CUP$Login$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // passwordStructure ::= error 
+          case 10: // passwordStructure ::= error 
             {
               String RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$Login$stack.peek()).left;
@@ -329,14 +347,14 @@ class CUP$Login$actions {
                         int column      = eright;
                         String message = "No se cumple la estructura de usuario, se espera: \"PASSWORD: \"PASSWORD DEL USUARIO\"";
                         addError(line, column, message);
-                        RESULT = null;
+                        RESULT = "";
                      
               CUP$Login$result = parser.getSymbolFactory().newSymbol("passwordStructure",9, ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), RESULT);
             }
           return CUP$Login$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // initDataUser ::= KEYA USERDATA COLON BRACKETA KEYA 
+          case 11: // initDataUser ::= KEYA USERDATA COLON BRACKETA KEYA 
             {
               Object RESULT =null;
 
@@ -345,7 +363,7 @@ class CUP$Login$actions {
           return CUP$Login$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // initDataUser ::= error 
+          case 12: // initDataUser ::= error 
             {
               Object RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$Login$stack.peek()).left;
@@ -356,14 +374,14 @@ class CUP$Login$actions {
                     int column  = eright;
                     String message = "No se cumple con el orden de las llaves de apertura xson";
                     addError(line, column, message);
-                    RESULT = null;
+                    RESULT = "";
                 
               CUP$Login$result = parser.getSymbolFactory().newSymbol("initDataUser",5, ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), RESULT);
             }
           return CUP$Login$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // endKeyBracket ::= KEYC BRACKETC KEYC 
+          case 13: // endKeyBracket ::= KEYC BRACKETC KEYC 
             {
               Object RESULT =null;
 
@@ -372,7 +390,7 @@ class CUP$Login$actions {
           return CUP$Login$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // endKeyBracket ::= error 
+          case 14: // endKeyBracket ::= error 
             {
               Object RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$Login$stack.peek()).left;
@@ -383,36 +401,18 @@ class CUP$Login$actions {
                     int column  = eright;
                     String message = "No se cumple con el orden de cierre de llaves en xson";
                     addError(line, column, message);
-                    RESULT = null;
+                    RESULT = "";
                 
               CUP$Login$result = parser.getSymbolFactory().newSymbol("endKeyBracket",7, ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), RESULT);
             }
           return CUP$Login$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // initRequestLogin ::= OPENREQ INREQUEST COLON LOGINUSER GREATERT 
+          case 15: // initRequestLogin ::= OPENREQ INREQUEST COLON LOGINUSER GREATERT 
             {
               Object RESULT =null;
 
               CUP$Login$result = parser.getSymbolFactory().newSymbol("initRequestLogin",1, ((java_cup.runtime.Symbol)CUP$Login$stack.elementAt(CUP$Login$top-4)), ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), RESULT);
-            }
-          return CUP$Login$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 15: // initRequestLogin ::= error 
-            {
-              Object RESULT =null;
-		int eleft = ((java_cup.runtime.Symbol)CUP$Login$stack.peek()).left;
-		int eright = ((java_cup.runtime.Symbol)CUP$Login$stack.peek()).right;
-		Object e = (Object)((java_cup.runtime.Symbol) CUP$Login$stack.peek()).value;
-		
-                    int line    = (eleft)+1;
-                    int column  = eright;
-                    String message = "No se cumple con el orden para iniciar una solicitud de login";
-                    addError(line, column, message);
-                    RESULT = null;
-               
-              CUP$Login$result = parser.getSymbolFactory().newSymbol("initRequestLogin",1, ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), RESULT);
             }
           return CUP$Login$result;
 
@@ -437,7 +437,7 @@ class CUP$Login$actions {
                     int column  = eright;
                     String message = "No se cumple con el orden para finalizar una solicitud de llaves en xson";
                     addError(line, column, message);
-                    RESULT = null;
+                    RESULT = "";
                
               CUP$Login$result = parser.getSymbolFactory().newSymbol("endRequest",6, ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), ((java_cup.runtime.Symbol)CUP$Login$stack.peek()), RESULT);
             }

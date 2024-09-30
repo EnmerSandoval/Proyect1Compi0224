@@ -6,10 +6,13 @@
         <div class="collage navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="Trivias.jsp">Mis Trivias</a>
+                    <a class="nav-link text-white" href="/TriviasServlet">Mis Trivias</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="NewTrivia.jsp">Crear Trivia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="EditUser.jsp">Editar Usuario</a>
                 </li>
             </ul>
         </div>

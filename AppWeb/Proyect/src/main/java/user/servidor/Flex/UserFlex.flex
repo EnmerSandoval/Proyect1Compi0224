@@ -124,4 +124,4 @@ DATECREATION        = ([\"”“]([0-9]{4}-[0-9]{2}-[0-9]{2})[\"”“])
 {TEXT}                  {return new Symbol(UserParserSym.TEXT, yyline, yycolumn, yytext());}
 {WHITESPCS}             {/*ignore*/}
 
-[^]                  {/*ignore*/}
+[^]                     {errors.add(new ErrorL(yytext(), yyline, yycolumn, "Error Lexico", "No coincide este caracter"));}

@@ -14,6 +14,9 @@
 </head>
 <body>
     <jsp:include page="WEB-INF/pages/header/NavBarHome.jsp"/>
+    <div class="col-auto p-5 text-center">
+        <h1 class="display-1">Mis trivias</h1>
 
+    </div>
 </body>
 </html>

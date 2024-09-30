@@ -106,14 +106,14 @@ public class UserFlex implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\4\1\1\2\1\3\1\4\1\5\1\6\5\1"+
-    "\1\7\1\10\1\11\1\12\1\13\13\0\1\14\1\15"+
-    "\1\16\5\0\1\17\44\0\1\20\70\0\1\21\13\0"+
-    "\1\22\25\0\1\23\21\0\1\24\32\0\1\25\33\0"+
-    "\1\26\35\0\1\27\14\0\1\30\5\0\1\31\4\0"+
-    "\1\32\13\0\1\33\3\0\1\34\6\0\1\35\2\0"+
-    "\1\36\3\0\1\37\2\0\1\35\5\0\1\40\1\0"+
-    "\1\41";
+    "\1\0\1\1\1\2\2\1\1\3\1\4\1\5\1\6"+
+    "\1\7\5\1\1\10\1\11\1\12\1\13\1\14\13\0"+
+    "\1\15\1\16\1\17\5\0\1\20\44\0\1\21\70\0"+
+    "\1\22\13\0\1\23\25\0\1\24\21\0\1\25\32\0"+
+    "\1\26\33\0\1\27\35\0\1\30\14\0\1\31\5\0"+
+    "\1\32\4\0\1\33\13\0\1\34\3\0\1\35\6\0"+
+    "\1\36\2\0\1\37\3\0\1\40\2\0\1\36\5\0"+
+    "\1\41\1\0\1\42";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[336];
@@ -1089,170 +1089,175 @@ public class UserFlex implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { /*ignore*/
-            }
-          // fall through
-          case 34: break;
-          case 2:
-            { return new Symbol(UserParserSym.COMMA, yycolumn, yyline, yytext());
+            { errors.add(new ErrorL(yytext(), yyline, yycolumn, "Error Lexico", "No coincide este caracter"));
             }
           // fall through
           case 35: break;
-          case 3:
-            { return new Symbol(UserParserSym.COLON, yycolumn, yyline, yytext());
+          case 2:
+            { /*ignore*/
             }
           // fall through
           case 36: break;
-          case 4:
-            { return new Symbol(UserParserSym.LESST, yycolumn, yyline, yytext());
+          case 3:
+            { return new Symbol(UserParserSym.COMMA, yycolumn, yyline, yytext());
             }
           // fall through
           case 37: break;
-          case 5:
-            { return new Symbol(UserParserSym.EQUALS, yycolumn, yyline, yytext());
+          case 4:
+            { return new Symbol(UserParserSym.COLON, yycolumn, yyline, yytext());
             }
           // fall through
           case 38: break;
-          case 6:
-            { return new Symbol(UserParserSym.GREATERT, yycolumn, yyline, yytext());
+          case 5:
+            { return new Symbol(UserParserSym.LESST, yycolumn, yyline, yytext());
             }
           // fall through
           case 39: break;
-          case 7:
-            { return new Symbol(UserParserSym.BRACKETA, yycolumn, yyline, yytext());
+          case 6:
+            { return new Symbol(UserParserSym.EQUALS, yycolumn, yyline, yytext());
             }
           // fall through
           case 40: break;
-          case 8:
-            { return new Symbol(UserParserSym.BRACKETC, yycolumn, yyline, yytext());
+          case 7:
+            { return new Symbol(UserParserSym.GREATERT, yycolumn, yyline, yytext());
             }
           // fall through
           case 41: break;
-          case 9:
-            { return new Symbol(UserParserSym.KEYA, yycolumn, yyline, yytext());
+          case 8:
+            { return new Symbol(UserParserSym.BRACKETA, yycolumn, yyline, yytext());
             }
           // fall through
           case 42: break;
-          case 10:
-            { return new Symbol(UserParserSym.KEYC, yycolumn, yyline, yytext());
+          case 9:
+            { return new Symbol(UserParserSym.BRACKETC, yycolumn, yyline, yytext());
             }
           // fall through
           case 43: break;
-          case 11:
-            { return new Symbol(UserParserSym.ENDREQ, yycolumn, yyline, yytext());
+          case 10:
+            { return new Symbol(UserParserSym.KEYA, yycolumn, yyline, yytext());
             }
           // fall through
           case 44: break;
-          case 12:
-            { return new Symbol(UserParserSym.OPENREQ, yycolumn, yyline, yytext());
+          case 11:
+            { return new Symbol(UserParserSym.KEYC, yycolumn, yyline, yytext());
             }
           // fall through
           case 45: break;
-          case 13:
-            { return new Symbol(UserParserSym.OPENXS, yycolumn, yyline, yytext());
+          case 12:
+            { return new Symbol(UserParserSym.ENDREQ, yycolumn, yyline, yytext());
             }
           // fall through
           case 46: break;
-          case 14:
-            { return new Symbol(UserParserSym.ENDXS, yycolumn, yyline, yytext());
+          case 13:
+            { return new Symbol(UserParserSym.OPENREQ, yycolumn, yyline, yytext());
             }
           // fall through
           case 47: break;
-          case 15:
-            { return new Symbol(UserParserSym.TEXT, yyline, yycolumn, yytext());
+          case 14:
+            { return new Symbol(UserParserSym.OPENXS, yycolumn, yyline, yytext());
             }
           // fall through
           case 48: break;
-          case 16:
-            { return new Symbol(UserParserSym.XSON, yycolumn, yyline, yytext());
+          case 15:
+            { return new Symbol(UserParserSym.ENDXS, yycolumn, yyline, yytext());
             }
           // fall through
           case 49: break;
-          case 17:
-            { return new Symbol(UserParserSym.VERSION, yycolumn, yyline, yytext());
+          case 16:
+            { return new Symbol(UserParserSym.TEXT, yyline, yycolumn, yytext());
             }
           // fall through
           case 50: break;
-          case 18:
-            { return new Symbol(UserParserSym.NAME, yycolumn, yyline, yytext());
+          case 17:
+            { return new Symbol(UserParserSym.XSON, yycolumn, yyline, yytext());
             }
           // fall through
           case 51: break;
-          case 19:
-            { return new Symbol(UserParserSym.USER, yycolumn, yyline, yytext());
+          case 18:
+            { return new Symbol(UserParserSym.VERSION, yycolumn, yyline, yytext());
             }
           // fall through
           case 52: break;
-          case 20:
-            { return new Symbol(UserParserSym.PASSWORD, yycolumn, yyline, yytext());
+          case 19:
+            { return new Symbol(UserParserSym.NAME, yycolumn, yyline, yytext());
             }
           // fall through
           case 53: break;
-          case 21:
-            { return new Symbol(UserParserSym.DATECREATION, yycolumn, yyline, yytext());
+          case 20:
+            { return new Symbol(UserParserSym.USER, yycolumn, yyline, yytext());
             }
           // fall through
           case 54: break;
-          case 22:
-            { return new Symbol(UserParserSym.INSTITUTION, yycolumn, yyline, yytext());
+          case 21:
+            { return new Symbol(UserParserSym.PASSWORD, yycolumn, yyline, yytext());
             }
           // fall through
           case 55: break;
-          case 23:
-            { return new Symbol(UserParserSym.USERDATA, yycolumn, yyline, yytext());
+          case 22:
+            { return new Symbol(UserParserSym.DATECREATION, yycolumn, yyline, yytext());
             }
           // fall through
           case 56: break;
-          case 24:
-            { return new Symbol(UserParserSym.NEWUSER, yycolumn, yyline, yytext());
+          case 23:
+            { return new Symbol(UserParserSym.INSTITUTION, yycolumn, yyline, yytext());
             }
           // fall through
           case 57: break;
-          case 25:
-            { return new Symbol(UserParserSym.DATE, yycolumn, yyline, yytext());
+          case 24:
+            { return new Symbol(UserParserSym.USERDATA, yycolumn, yyline, yytext());
             }
           // fall through
           case 58: break;
-          case 26:
-            { return new Symbol(UserParserSym.NEWPASSWORD, yycolumn, yyline, yytext());
+          case 25:
+            { return new Symbol(UserParserSym.NEWUSER, yycolumn, yyline, yytext());
             }
           // fall through
           case 59: break;
-          case 27:
-            { return new Symbol(UserParserSym.OLDUSER, yycolumn, yyline, yytext());
+          case 26:
+            { return new Symbol(UserParserSym.DATE, yycolumn, yyline, yytext());
             }
           // fall through
           case 60: break;
-          case 28:
-            { return new Symbol(UserParserSym.DELETEUSER, yycolumn, yyline, yytext());
+          case 27:
+            { return new Symbol(UserParserSym.NEWPASSWORD, yycolumn, yyline, yytext());
             }
           // fall through
           case 61: break;
-          case 29:
-            { return new Symbol(UserParserSym.INREQUEST, yycolumn, yyline, yytext());
+          case 28:
+            { return new Symbol(UserParserSym.OLDUSER, yycolumn, yyline, yytext());
             }
           // fall through
           case 62: break;
-          case 30:
-            { return new Symbol(UserParserSym.EDITUSER, yycolumn, yyline, yytext());
+          case 29:
+            { return new Symbol(UserParserSym.DELETEUSER, yycolumn, yyline, yytext());
             }
           // fall through
           case 63: break;
-          case 31:
-            { return new Symbol(UserParserSym.DATEEDIT, yycolumn, yyline, yytext());
+          case 30:
+            { return new Symbol(UserParserSym.INREQUEST, yycolumn, yyline, yytext());
             }
           // fall through
           case 64: break;
-          case 32:
-            { return new Symbol(UserParserSym.EDREQUEST, yycolumn, yyline, yytext());
+          case 31:
+            { return new Symbol(UserParserSym.EDITUSER, yycolumn, yyline, yytext());
             }
           // fall through
           case 65: break;
-          case 33:
-            { return new Symbol(UserParserSym.ENDREQUESTS, yycolumn, yyline, yytext());
+          case 32:
+            { return new Symbol(UserParserSym.DATEEDIT, yycolumn, yyline, yytext());
             }
           // fall through
           case 66: break;
+          case 33:
+            { return new Symbol(UserParserSym.EDREQUEST, yycolumn, yyline, yytext());
+            }
+          // fall through
+          case 67: break;
+          case 34:
+            { return new Symbol(UserParserSym.ENDREQUESTS, yycolumn, yyline, yytext());
+            }
+          // fall through
+          case 68: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

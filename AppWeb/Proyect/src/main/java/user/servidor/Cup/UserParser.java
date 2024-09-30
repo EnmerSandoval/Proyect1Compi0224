@@ -553,7 +553,7 @@ class CUP$UserParser$actions {
                             int column     = eright;
                             String message = "No se cumple la estructura de usuario, se espera \"PASSWORD: \"PASSWORD DEL USUARIO\" ,";
                             addError(line, column, message);
-                            RESULT = null;
+                            RESULT = "";
                         
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("paramsUserStructure",28, ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
@@ -570,7 +570,7 @@ class CUP$UserParser$actions {
                         if(currentUserBoolean){
                             String message = "Ya existia un usuario";
                             addError(message, "Semantico");
-                            RESULT = null;
+                            RESULT = "";
                         } else {
                             currentUserBoolean = true;
                             currentUser = user.toString().replace("\"", "");
@@ -592,7 +592,7 @@ class CUP$UserParser$actions {
                         if(currentPasswordBoolean){
                             String message = "Ya existe una password";
                             addError(message, "Semantico");
-                            RESULT = null;
+                            RESULT = "";
                         } else {
                             currentPasswordBoolean = true;
                             currentPassword = password.toString().replace("\"", "");
@@ -614,7 +614,7 @@ class CUP$UserParser$actions {
                     if(currentNameBoolean){
                         String message = "Ya existe un nombre";
                         addError(message, "Semantico");
-                        RESULT = null;
+                        RESULT = "";
                     } else {
                         currentNameBoolean = true;
                         currentName = name.toString().replace("\"", "");
@@ -636,7 +636,7 @@ class CUP$UserParser$actions {
                             if(currentInstitutionBoolean){
                                 String message = "Ya existe una institucion";
                                 addError(message, "Semantico");
-                                RESULT = null;
+                                RESULT = "";
                             } else {
                                 currentInstitutionBoolean = true;
                                 currentInstitution = institution.toString().replace("\"", "");
@@ -658,7 +658,7 @@ class CUP$UserParser$actions {
                     if(currentDateCreationBoolean){
                         String message = "Ya existia una fecha anterior";
                         addError(message, "Semantico");
-                        RESULT = null;
+                        RESULT = "";
                     } else {
                         currentDateCreationBoolean = true;
                         currentDateCreation = dateCreation.toString().replace("\"", "");
@@ -784,7 +784,7 @@ class CUP$UserParser$actions {
                         if(currentOldUserBoolean){
                             String message = "Ya existia un usuario antiguo";
                             addError(message, "Semantico");
-                            RESULT = null;
+                            RESULT = "";
                         } else {
                             currentOldUserBoolean = true;
                             currentOldUser = olduser.toString().replace("\"", "");
@@ -806,7 +806,7 @@ class CUP$UserParser$actions {
                         if(currentUserBoolean){
                             String message = "Ya existia un usuario";
                             addError(message, "Semantico");
-                            RESULT = null;
+                            RESULT = "";
                         } else {
                             currentUserBoolean = true;
                             currentUser = newuser.toString().replace("\"", "");
@@ -828,7 +828,7 @@ class CUP$UserParser$actions {
                             if(currentPasswordBoolean){
                                 String message = "Ya existia una password";
                                 addError(message, "Semantico");
-                                RESULT = null;
+                                RESULT = "";
                             } else {
                                 currentPasswordBoolean = true;
                                 currentPassword = newpassword.toString().replace("\"", "");
@@ -850,7 +850,7 @@ class CUP$UserParser$actions {
                         if(currentDateCreationBoolean){
                             String message = "Ya existia anteriormente una fecha";
                             addError(message, "Semantico");
-                            RESULT = null;
+                            RESULT = "";
                         } else {
                             currentDateCreationBoolean = true;
                             currentDateCreation = dateCreation.toString().replace("\"", "");
@@ -878,7 +878,7 @@ class CUP$UserParser$actions {
                     int column = userright;
                     String message = "Error semantico el usuario es invalido para eliminar";
                     addError(line, column, message);
-                    RESULT = null;
+                    RESULT = "";
                 }
               
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("deleteuser",11, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-4)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
@@ -906,7 +906,7 @@ class CUP$UserParser$actions {
                     int column  = eright;
                     String message = "No se cumple con el orden de las llaves de apertura xson";
                     addError(line, column, message);
-                    RESULT = null;
+                    RESULT = "";
                 
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("initDataUser",15, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-1)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
@@ -933,7 +933,7 @@ class CUP$UserParser$actions {
                     int column  = eright;
                     String message = "No se cumple con el orden de cierre de llaves en xson";
                     addError(line, column, message);
-                    RESULT = null;
+                    RESULT = "";
                 
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("endKeyBracket",14, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-1)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
@@ -960,7 +960,7 @@ class CUP$UserParser$actions {
                     int column  = eright;
                     String message = "No se cumple con el orden para iniciar una solicitud de login";
                     addError(line, column, message);
-                    RESULT = null;
+                    RESULT = "";
                
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("initRequest",2, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-1)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
@@ -987,7 +987,7 @@ class CUP$UserParser$actions {
                     int column  = eright;
                     String message = "No se cumple con el orden para finalizar una solicitud de llaves en xson";
                     addError(line, column, message);
-                    RESULT = null;
+                    RESULT = "";
                
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("endRequest",4, ((java_cup.runtime.Symbol)CUP$UserParser$stack.elementAt(CUP$UserParser$top-1)), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
@@ -1014,7 +1014,7 @@ class CUP$UserParser$actions {
                 int column      = eright;
                 String message  = "No se cumple los parametros para iniciar el xson";
                 addError(line, column, message);
-                RESULT = null;
+                RESULT = "";
             
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("initxson",0, ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
@@ -1041,7 +1041,7 @@ class CUP$UserParser$actions {
                         int column      = eright;
                         String message  = "No se cumple los parametros para iniciar las solicitudes";
                         addError(line, column, message);
-                        RESULT = null;
+                        RESULT = "";
                      
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("initMoreRequest",6, ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
@@ -1068,7 +1068,7 @@ class CUP$UserParser$actions {
                         int column      = eright;
                         String message  = "No se cumple los parametros para finalizar las solicitudes";
                         addError(line, column, message);
-                        RESULT = null;
+                        RESULT = "";
                     
               CUP$UserParser$result = parser.getSymbolFactory().newSymbol("endMoreRequest",8, ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$UserParser$stack.peek()), RESULT);
             }
